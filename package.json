@@ -1,0 +1,33 @@
+{
+  "name": "@podium/context",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "files": [
+    "lib"
+  ],
+  "keywords": [],
+  "author": "",
+  "publishConfig": {
+    "registry": "http://npm.finntech.no/"
+  },
+  "dependencies": {
+    "@finn-no/express-user-token-middleware": "^1.0.1",
+    "@finn-no/login-client": "^3.0.2",
+    "bowser-cache": "^1.1.0",
+    "camelcase": "^4.1.0",
+    "cookie": "^0.3.1",
+    "cookie-parser": "^1.4.3",
+    "decamelize": "^1.2.0",
+    "ip-regex": "^2.1.0",
+    "joi": "^10.3.0",
+    "parseurl": "^1.3.1",
+    "qs": "^6.4.0"
+  },
+  "devDependencies": {
+    "ava": "^0.22.0"
+  }
+}
