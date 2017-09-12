@@ -1,6 +1,6 @@
 {
   "name": "@podium/context",
-  "version": "1.0.1-alpha.2",
+  "version": "1.0.1-alpha.3",
   "description": "@podium/context",
   "main": "./lib/index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "registry": "http://npm.finntech.no/"
   },
   "dependencies": {
-    "@finn-no/data-services": "^0.0.2",
+    "@finn-no/data-services": "^0.0.3",
     "@finn-no/express-user-token-middleware": "^1.0.1",
     "bowser-cache": "^1.1.0",
     "camelcase": "^4.1.0",
