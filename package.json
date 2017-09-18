@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@finn-no/data-services": "^0.0.3",
-    "@finn-no/express-user-token-middleware": "^1.0.1",
+    "@finn-no/express-user-token-middleware": "^1.0.3",
     "bowser-cache": "^1.1.0",
     "camelcase": "^4.1.0",
     "cookie": "^0.3.1",
