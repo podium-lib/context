@@ -1,6 +1,7 @@
 'use strict';
 
 const dataServicesConfig = require('@finn-no/data-services/config');
+const tokenConfig = require('@finn-no/express-user-token-middleware/config');
 
 const { str, url } = require('envalid');
 
@@ -20,5 +21,6 @@ module.exports = Object.assign(
             default: 'https://static.finncdn.no',
         }),
     },
+    tokenConfig,
     dataServicesConfig
 );
