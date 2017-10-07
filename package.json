@@ -4,7 +4,7 @@
   "description": "@podium/context",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "ava"
+    "test": "jest"
   },
   "files": [
     "config.js",
@@ -26,7 +26,10 @@
     "qs": "^6.4.0"
   },
   "devDependencies": {
-    "ava": "^0.22.0",
-    "mock-require": "^2.0.2"
+    "jest": "^21.2.1"
+  },
+  "jest": {
+    "clearMocks": true,
+    "testEnvironment": "node"
   }
 }
