@@ -22,5 +22,5 @@ module.exports = Object.assign(
         }),
     },
     tokenConfig,
-    dataServicesConfig
+    dataServicesConfig,
 );
