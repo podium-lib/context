@@ -7,6 +7,11 @@
     "config.js",
     "lib"
   ],
+  "scripts": {
+    "test": "jest",
+    "test:verbose": "jest --verbose",
+    "test:coverage": "jest --coverage"
+  },
   "keywords": [],
   "author": "",
   "publishConfig": {
@@ -25,6 +30,7 @@
   },
   "devDependencies": {
     "express": "^4.16.2",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "jest": "^21.2.1"
   }
 }

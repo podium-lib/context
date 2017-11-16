@@ -1,9 +1,30 @@
 'use strict';
 
-const Context = require('./context');
+const Context = require('../lib/context');
 
+/*
 const middleware = require('./middleware');
 const { getHeaders, getConfig } = require('./helpers/test-helpers');
+*/
+
+/**
+ * Constructor
+ */
+
+test('Context() - instantiate new context object - should create an object', () => {
+    const context = new Context();
+    expect(context).toBeInstanceOf(Context);
+});
+
+test('Context() - object tag - should be ContextResolver', () => {
+    const context = new Context();
+    expect(Object.prototype.toString.call(context)).toEqual(
+        '[object ContextResolver]'
+    );
+});
+
+/*
+
 
 test('should not throw if valid options', () => {
     expect(() => {
@@ -145,3 +166,4 @@ test('should pick up locale', async () => {
     const result = await context.processRequest(req);
     expect(result.locale).toBe('en-GB');
 });
+*/
