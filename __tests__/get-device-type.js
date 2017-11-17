@@ -1,6 +1,6 @@
 'use strict';
 
-const getDeviceType = require('../lib/get-device-type');
+const DeviceType = require('../lib/get-device-type');
 
 test('device type is not a real UA', async () => {
     const req = {
@@ -8,7 +8,8 @@ test('device type is not a real UA', async () => {
             'user-agent': 'some user agent',
         },
     };
-    const result = await getDeviceType(req);
+    const parser = new DeviceType();
+    const result = await parser.parse(req);
     expect(result).toBe('desktop');
 });
 

@@ -1,8 +1,9 @@
 'use strict';
 
-const getLocale = require('../lib/get-locale');
+const Locale = require('../lib/get-locale');
 
-test('get-locale - default - should return nb-NO', async () => {
-    const result = await getLocale();
-    expect(result).toBe('nb-NO');
+test('get-locale - default - should return en_GB', async () => {
+    const parser = new Locale();
+    const result = await parser.parse();
+    expect(result).toBe('en_GB');
 });

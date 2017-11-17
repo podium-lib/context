@@ -1,6 +1,6 @@
 'use strict';
 
-const getTraceId = require('../lib/get-trace-id');
+const TraceId = require('../lib/get-trace-id');
 
 test('get trace-id', async () => {
     const req = {
@@ -9,6 +9,7 @@ test('get trace-id', async () => {
         },
     };
 
-    const result = await getTraceId(req);
+    const parser = new TraceId();
+    const result = await parser.parse(req);
     expect(result).toBe('trace-id-ish');
 });
