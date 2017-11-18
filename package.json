@@ -20,6 +20,7 @@
   "dependencies": {
     "@finn-no/express-user-token-middleware": "^2.2.2",
     "bcp47-validate": "^1.0.0",
+    "boom": "^7.1.1",
     "bowser-cache": "^1.1.0",
     "camelcase": "^4.1.0",
     "decamelize": "^1.2.0",

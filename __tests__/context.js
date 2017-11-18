@@ -1,11 +1,7 @@
 'use strict';
 
 const Context = require('../lib/context');
-
-/*
-const middleware = require('./middleware');
-const { getHeaders, getConfig } = require('./helpers/test-helpers');
-*/
+const helpers = require('../lib/helpers/test-helpers');
 
 /**
  * Constructor
@@ -23,20 +19,27 @@ test('Context() - object tag - should be ContextResolver', () => {
     );
 });
 
-/*
+test('.deserialize() - request has podium header - should put headers into res.locals', () => {
+    const req = {
+        headers: {
+            'bar': 'foo',
+            'podium-foo': 'bar podium'
+        }
+    };
 
+    const res = {
+        locals: {}
+    };
 
-test('should not throw if valid options', () => {
-    expect(() => {
-        // eslint-disable-next-line no-new
-        new Context({});
-    }).not.toThrowError();
+    const middleware = Context.deserialize();
+    middleware(req, res, () => {});
+
+    expect(res.locals.podium.context.foo).toEqual('bar podium');
 });
 
-test('processRequest', async () => {
-    const context = new Context(getConfig());
-
-    const headers = getHeaders();
+test('processRequest', () => {
+    const headers = helpers.getHeaders();
+    const context = new Context();
 
     const req = {
         headers,
@@ -44,32 +47,32 @@ test('processRequest', async () => {
         url: '/some/path?x=1&a=2&b=3&c=4',
         cookies: { USERID: '123' },
     };
-    middleware(req, null, () => {});
-    const result = await context.processRequest(req);
 
-    expect(result).toEqual({
-        domain: 'localhost',
-        baseUrl: '',
-        cdnHost: 'https://static.finncdn.no',
-        resourceMountPath: '/podium-resource',
-        userAgent: headers['user-agent'],
-        query: {
-            x: '1',
-            a: '2',
-            b: '3',
-            c: '4',
-        },
-        deviceType: 'mobile',
-        locale: 'nb-NO',
-        traceId: 'trace-uuid',
-        debug: false,
-        requestedBy: 'podium-context-client',
-        visitorId: '123',
+    const res = {
+        locals: {}
+    };
+
+    const middleware = context.serialize();
+    middleware(req, res, () => {
+        expect(res.locals.podium.context).toEqual({
+            'podium-domain': 'localhost',
+//            'podium-baseUrl': '',
+//            'podium-cdnHost': 'https://static.finncdn.no',
+//            'podium-resourceMountPath': '/podium-resource',
+//            'podium-userAgent': headers['user-agent'],
+            'podium-device-type': 'mobile',
+            'podium-locale': 'nb-NO',
+            'podium-trace-id': 'trace-uuid',
+            'podium-debug': 'false',
+            'podium-requested-by': 'podium-context-client',
+            'podium-visitor-id': '123',
+            'podium-session-id': undefined,
+        });
     });
 });
 
 test('processRequest from minimal request', async () => {
-    const context = new Context(getConfig());
+    const context = new Context();
 
     const headers = {
         host: 'localhost:3030',
@@ -79,22 +82,30 @@ test('processRequest from minimal request', async () => {
         hostname: 'localhost',
         url: '/some/path',
     };
-    middleware(req, null, () => {});
-    const result = await context.processRequest(req);
 
-    expect(result).toEqual({
-        domain: 'localhost',
-        baseUrl: '',
-        cdnHost: 'https://static.finncdn.no',
-        resourceMountPath: '/podium-resource',
-        query: {},
-        deviceType: 'mobile',
-        locale: 'nb-NO',
-        debug: false,
-        requestedBy: 'podium-context-client',
+    const res = {
+        locals: {}
+    };
+
+    const middleware = context.serialize();
+    middleware(req, res, () => {
+        expect(res.locals.podium.context).toEqual({
+            'podium-domain': 'localhost',
+//            'podium-baseUrl': '',
+//            'podium-cdnHost': 'https://static.finncdn.no',
+//            'podium-resourceMountPath': '/podium-resource',
+//            'podium-userAgent': headers['user-agent'],
+            'podium-device-type': 'desktop',
+            'podium-locale': 'nb-NO',
+            'podium-trace-id': undefined,
+            'podium-debug': 'false',
+            'podium-requested-by': 'podium-context-client',
+            'podium-visitor-id': undefined,
+            'podium-session-id': undefined,
+        });
     });
 });
-
+/*
 test('processRequest with payload', async () => {
     const context = new Context(getConfig());
     const headers = getHeaders();
