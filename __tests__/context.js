@@ -1,7 +1,7 @@
 'use strict';
 
 const Context = require('../lib/context');
-const helpers = require('../lib/helpers/test-helpers');
+const helpers = require('../helpers/test-helpers');
 
 /**
  * Constructor
@@ -27,14 +27,12 @@ test('.deserialize() - request has podium header - should put headers into res.l
         }
     };
 
-    const res = {
-        locals: {}
-    };
+    const res = {};
 
     const middleware = Context.deserialize();
     middleware(req, res, () => {});
 
-    expect(res.locals.podium.context.foo).toEqual('bar podium');
+    expect(res.podium.context.foo).toEqual('bar podium');
 });
 
 test('processRequest', () => {
@@ -48,18 +46,15 @@ test('processRequest', () => {
         cookies: { USERID: '123' },
     };
 
-    const res = {
-        locals: {}
-    };
+    const res = {};
 
     const middleware = context.serialize();
     middleware(req, res, () => {
-        expect(res.locals.podium.context).toEqual({
+        expect(res.podium.context).toEqual({
             'podium-domain': 'localhost',
-//            'podium-baseUrl': '',
-//            'podium-cdnHost': 'https://static.finncdn.no',
-//            'podium-resourceMountPath': '/podium-resource',
-//            'podium-userAgent': headers['user-agent'],
+            'podium-base-url': '',
+            'podium-cdn-host': 'https://static.finncdn.no',
+            'podium-resource-mount-path': '/podium-resource',
             'podium-device-type': 'mobile',
             'podium-locale': 'nb-NO',
             'podium-trace-id': 'trace-uuid',
@@ -83,18 +78,15 @@ test('processRequest from minimal request', async () => {
         url: '/some/path',
     };
 
-    const res = {
-        locals: {}
-    };
+    const res = {};
 
     const middleware = context.serialize();
     middleware(req, res, () => {
-        expect(res.locals.podium.context).toEqual({
+        expect(res.podium.context).toEqual({
             'podium-domain': 'localhost',
-//            'podium-baseUrl': '',
-//            'podium-cdnHost': 'https://static.finncdn.no',
-//            'podium-resourceMountPath': '/podium-resource',
-//            'podium-userAgent': headers['user-agent'],
+            'podium-base-url': '',
+            'podium-cdn-host': 'https://static.finncdn.no',
+            'podium-resource-mount-path': '/podium-resource',
             'podium-device-type': 'desktop',
             'podium-locale': 'nb-NO',
             'podium-trace-id': undefined,

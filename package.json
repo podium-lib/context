@@ -2,7 +2,7 @@
   "name": "@podium/context",
   "version": "1.0.1-alpha.16",
   "description": "@podium/context",
-  "main": "./lib/index.js",
+  "main": "./lib/context.js",
   "files": [
     "config.js",
     "lib"
@@ -24,10 +24,7 @@
     "bowser-cache": "^1.1.0",
     "camelcase": "^4.1.0",
     "decamelize": "^1.2.0",
-    "ip-regex": "^2.1.0",
-    "joi": "^11.1.1",
-    "parseurl": "^1.3.1",
-    "qs": "^6.4.0"
+    "ip-regex": "^2.1.0"
   },
   "devDependencies": {
     "express": "^4.16.2",
