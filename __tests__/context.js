@@ -8,15 +8,22 @@ const helpers = require('../helpers/test-helpers');
  */
 
 test('Context() - instantiate new context object - should create an object', () => {
-    const context = new Context();
+    const context = new Context('foo');
     expect(context).toBeInstanceOf(Context);
 });
 
 test('Context() - object tag - should be ContextResolver', () => {
-    const context = new Context();
+    const context = new Context('foo');
     expect(Object.prototype.toString.call(context)).toEqual(
         '[object ContextResolver]'
     );
+});
+
+test('Context() - no value given to "requestedBy" argument - should throw', () => {
+    expect.hasAssertions();
+    expect(() => {
+        const context = new Context();
+    }).toThrowError('You must provide a value to "requestedBy".');
 });
 
 test('.deserialize() - request has podium header - should put headers into res.locals', () => {
@@ -37,7 +44,7 @@ test('.deserialize() - request has podium header - should put headers into res.l
 
 test('processRequest', () => {
     const headers = helpers.getHeaders();
-    const context = new Context();
+    const context = new Context('foo');
 
     const req = {
         headers,
@@ -56,14 +63,14 @@ test('processRequest', () => {
             'podium-device-type': 'mobile',
             'podium-locale': 'nb-NO',
             'podium-debug': 'false',
-            'podium-requested-by': 'podium-context-client',
+            'podium-requested-by': 'foo',
             'podium-visitor-id': '123',
         });
     });
 });
 
 test('processRequest from minimal request', async () => {
-    const context = new Context();
+    const context = new Context('foo');
 
     const headers = {
         host: 'localhost:3030',
@@ -84,7 +91,7 @@ test('processRequest from minimal request', async () => {
             'podium-device-type': 'desktop',
             'podium-locale': 'nb-NO',
             'podium-debug': 'false',
-            'podium-requested-by': 'podium-context-client',
+            'podium-requested-by': 'foo',
             'podium-visitor-id': undefined,
         });
     });
