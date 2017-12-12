@@ -52,16 +52,12 @@ test('processRequest', () => {
     middleware(req, res, () => {
         expect(res.podium.context).toEqual({
             'podium-domain': 'localhost',
-            'podium-base-url': '',
-            'podium-cdn-host': 'https://static.finncdn.no',
             'podium-resource-mount-path': '/podium-resource',
             'podium-device-type': 'mobile',
             'podium-locale': 'nb-NO',
-            'podium-trace-id': 'trace-uuid',
             'podium-debug': 'false',
             'podium-requested-by': 'podium-context-client',
             'podium-visitor-id': '123',
-            'podium-session-id': undefined,
         });
     });
 });
@@ -84,16 +80,12 @@ test('processRequest from minimal request', async () => {
     middleware(req, res, () => {
         expect(res.podium.context).toEqual({
             'podium-domain': 'localhost',
-            'podium-base-url': '',
-            'podium-cdn-host': 'https://static.finncdn.no',
             'podium-resource-mount-path': '/podium-resource',
             'podium-device-type': 'desktop',
             'podium-locale': 'nb-NO',
-            'podium-trace-id': undefined,
             'podium-debug': 'false',
             'podium-requested-by': 'podium-context-client',
             'podium-visitor-id': undefined,
-            'podium-session-id': undefined,
         });
     });
 });
