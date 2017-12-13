@@ -2,30 +2,149 @@
 
 const DeviceType = require('../lib/get-device-type');
 
-test('device type is not a real UA', async () => {
+/**
+ * From https://github.com/lancedikson/bowser/blob/master/src/useragents.js
+ */
+const UA_TABLET = 'Mozilla/5.0 (iPad; U; CPU OS 5_1_1 like Mac OS X; en-us) AppleWebKit/534.46.0 (KHTML, like Gecko) CriOS/19.0.1084.60 Mobile/9B206 Safari/7534.48.3';
+const UA_MOBILE = 'Mozilla/5.0 (Linux; Android 4.3; Galaxy Nexus Build/JWR66Y) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.99 Mobile Safari/537.36';
+const UA_DESKTOP = 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; Trident/7.0; MAARJS; rv:11.0) like Gecko';
+
+test('ContextDeviceTypeParser() - instantiate new object - should create an object', () => {
+    const parser = new DeviceType();
+    expect(parser).toBeInstanceOf(DeviceType);
+});
+
+test('ContextDeviceTypeParser() - object tag - should be ContextDeviceTypeParser', () => {
+    const parser = new DeviceType();
+    expect(Object.prototype.toString.call(parser)).toEqual(
+        '[object ContextDeviceTypeParser]'
+    );
+});
+
+test('ContextDeviceTypeParser.parse() - instantiated object - should have parse method', () => {
+    const parser = new DeviceType();
+    expect(parser.parse).toBeInstanceOf(Function);
+});
+
+test('ContextDeviceTypeParser.parse() - no "user-agent" on header - should return desktop', async () => {
+    const req = {};
+    const parser = new DeviceType();
+    const result = await parser.parse(req);
+    expect(result).toBe('desktop');
+});
+
+test('ContextDeviceTypeParser.parse() - "user-agent" is defined but null - should return desktop', async () => {
     const req = {
         headers: {
-            'user-agent': 'some user agent',
-        },
+            'user-agent': null
+        }
     };
     const parser = new DeviceType();
     const result = await parser.parse(req);
     expect(result).toBe('desktop');
 });
 
-/*
-test('should not run middlewares if already runned', async () => {
-    const deviceType = Symbol();
-    const query = Symbol();
+test('ContextDeviceTypeParser.parse() - "user-agent" is empty string - should return desktop', async () => {
     const req = {
         headers: {
-            'user-agent': 'some user agent',
-        },
-        deviceType,
-        query,
+            'user-agent': ''
+        }
     };
-    middleware(req, null, () => {});
-    expect(req.deviceType).toBe(deviceType);
-    expect(req.query).toBe(query);
+    const parser = new DeviceType();
+    const result = await parser.parse(req);
+    expect(result).toBe('desktop');
 });
-*/
+
+test('ContextDeviceTypeParser.parse() - "user-agent" is known desktop UA - should return desktop', async () => {
+    const req = {
+        headers: {
+            'user-agent': UA_DESKTOP
+        }
+    };
+    const parser = new DeviceType();
+    const result = await parser.parse(req);
+    expect(result).toBe('desktop');
+});
+
+test('ContextDeviceTypeParser.parse() - "user-agent" is known tablet UA - should return tablet', async () => {
+    const req = {
+        headers: {
+            'user-agent': UA_TABLET
+        }
+    };
+    const parser = new DeviceType();
+    const result = await parser.parse(req);
+    expect(result).toBe('tablet');
+});
+
+test('ContextDeviceTypeParser.parse() - "user-agent" is known mobile UA - should return mobile', async () => {
+    const req = {
+        headers: {
+            'user-agent': UA_MOBILE
+        }
+    };
+    const parser = new DeviceType();
+    const result = await parser.parse(req);
+    expect(result).toBe('mobile');
+});
+
+test('ContextDeviceTypeParser.parse() - parse a new UA - should not exist in cache pre parsing and should exist in cache post parsing', async () => {
+    const req = {
+        headers: {
+            'user-agent': UA_MOBILE
+        }
+    };
+    const parser = new DeviceType();
+    const beforeParse = parser.cache.get(UA_MOBILE.toLowerCase());
+    expect(beforeParse).toBeUndefined();
+
+    await parser.parse(req);
+
+    const afterParse = parser.cache.get(UA_MOBILE.toLowerCase());
+    expect(afterParse).toBe('mobile');
+});
+
+test('ContextDeviceTypeParser.statistics() - 3 items inserted in cache - should reflect the items in cache', async () => {
+    const parser = new DeviceType();
+    await parser.parse({
+        headers: {
+            'user-agent': UA_DESKTOP
+        }
+    });
+    await parser.parse({
+        headers: {
+            'user-agent': UA_TABLET
+        }
+    });
+    await parser.parse({
+        headers: {
+            'user-agent': UA_MOBILE
+        }
+    });
+
+    const result = parser.statistics();
+
+    expect(result.cacheItems).toBe(3);
+});
+
+test('ContextDeviceTypeParser() - amount of different UAs parsed is larger then set cacheSize - should not grow over cacheSize', async () => {
+    const parser = new DeviceType(2);
+    await parser.parse({
+        headers: {
+            'user-agent': UA_DESKTOP
+        }
+    });
+    await parser.parse({
+        headers: {
+            'user-agent': UA_TABLET
+        }
+    });
+    await parser.parse({
+        headers: {
+            'user-agent': UA_MOBILE
+        }
+    });
+
+    const result = parser.statistics();
+    expect(result.cacheItems).toBe(2);
+});
