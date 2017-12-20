@@ -116,6 +116,7 @@ test('Context.middleware() - process a "rich" request - should put parsed values
     middleware(req, res, () => {
         expect(res.podium.context).toEqual({
             'podium-mount-origin': 'http://localhost:3030',
+            'podium-mount-pathname': '/',
             'podium-resource-mount-path': '/podium-resource',
             'podium-device-type': 'mobile',
             'podium-locale': 'en-EN',
@@ -143,6 +144,7 @@ test('Context.middleware() - process a "minimal" request - should put parsed val
     middleware(req, res, () => {
         expect(res.podium.context).toEqual({
             'podium-mount-origin': 'http://localhost:3030',
+            'podium-mount-pathname': '/',
             'podium-resource-mount-path': '/podium-resource',
             'podium-device-type': 'desktop',
             'podium-locale': 'en-EN',
