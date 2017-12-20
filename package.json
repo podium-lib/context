@@ -24,7 +24,6 @@
     "bowser": "^1.8.1",
     "camelcase": "^4.1.0",
     "decamelize": "^1.2.0",
-    "ip-regex": "^2.1.0",
     "lru-cache": "^4.1.1"
   },
   "devDependencies": {
