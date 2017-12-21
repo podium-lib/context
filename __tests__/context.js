@@ -97,7 +97,7 @@ test('Context.middleware() - request has podium header - should put headers into
 });
 
 /**
- * .serialize()
+ * .middleware()
  */
 
 test('Context.middleware() - process a "rich" request - should put parsed values into res.podium.context', () => {
@@ -114,16 +114,15 @@ test('Context.middleware() - process a "rich" request - should put parsed values
 
     const middleware = context.middleware();
     middleware(req, res, () => {
-        expect(res.podium.context).toEqual({
-            'podium-mount-origin': 'http://localhost:3030',
-            'podium-mount-pathname': '/',
-            'podium-resource-mount-path': '/podium-resource',
-            'podium-device-type': 'mobile',
-            'podium-locale': 'en-EN',
-            'podium-debug': 'false',
-            'podium-requested-by': 'foo',
-            'podium-visitor-id': '123',
-        });
+        const ctx = res.podium.context;
+        expect(ctx['podium-mount-origin']).toEqual('http://localhost:3030');
+        expect(ctx['podium-mount-pathname']).toEqual('/');
+        expect(ctx['podium-device-type']).toEqual('mobile');
+        expect(ctx['podium-locale']).toEqual('en-EN');
+        expect(ctx['podium-debug']).toEqual('false');
+        expect(ctx['podium-requested-by']).toEqual('foo');
+        expect(ctx['podium-visitor-id']).toEqual('123');
+        expect(ctx['podium-public-pathname']).toBeInstanceOf(Function);
     });
 });
 
@@ -142,16 +141,15 @@ test('Context.middleware() - process a "minimal" request - should put parsed val
 
     const middleware = context.middleware();
     middleware(req, res, () => {
-        expect(res.podium.context).toEqual({
-            'podium-mount-origin': 'http://localhost:3030',
-            'podium-mount-pathname': '/',
-            'podium-resource-mount-path': '/podium-resource',
-            'podium-device-type': 'desktop',
-            'podium-locale': 'en-EN',
-            'podium-debug': 'false',
-            'podium-requested-by': 'foo',
-            'podium-visitor-id': undefined,
-        });
+        const ctx = res.podium.context;
+        expect(ctx['podium-mount-origin']).toEqual('http://localhost:3030');
+        expect(ctx['podium-mount-pathname']).toEqual('/');
+        expect(ctx['podium-device-type']).toEqual('desktop');
+        expect(ctx['podium-locale']).toEqual('en-EN');
+        expect(ctx['podium-debug']).toEqual('false');
+        expect(ctx['podium-requested-by']).toEqual('foo');
+        expect(ctx['podium-visitor-id']).toEqual(undefined);
+        expect(ctx['podium-public-pathname']).toBeInstanceOf(Function);
     });
 });
 
