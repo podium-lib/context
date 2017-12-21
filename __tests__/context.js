@@ -7,19 +7,19 @@ const helpers = require('../helpers/test-helpers');
  * Constructor
  */
 
-test('Context() - instantiate new context object - should create an object', () => {
+test('PodiumContext() - instantiate new context object - should create an object', () => {
     const context = new Context('foo');
     expect(context).toBeInstanceOf(Context);
 });
 
-test('Context() - object tag - should be ContextResolver', () => {
+test('PodiumContext() - object tag - should be PodiumContext', () => {
     const context = new Context('foo');
     expect(Object.prototype.toString.call(context)).toEqual(
-        '[object ContextResolver]'
+        '[object PodiumContext]'
     );
 });
 
-test('Context() - no value given to "requestedBy" argument - should throw', () => {
+test('PodiumContext() - no value given to "requestedBy" argument - should throw', () => {
     expect.hasAssertions();
     expect(() => {
         const context = new Context();
@@ -30,7 +30,7 @@ test('Context() - no value given to "requestedBy" argument - should throw', () =
  * .register()
  */
 
-test('Context.register() - no value given to "name" argument - should throw', () => {
+test('PodiumContext.register() - no value given to "name" argument - should throw', () => {
     expect.hasAssertions();
     const context = new Context('foo');
     expect(() => {
@@ -38,7 +38,7 @@ test('Context.register() - no value given to "name" argument - should throw', ()
     }).toThrowError('You must provide a value to "name".');
 });
 
-test('Context.register() - no value given to "parser" argument - should throw', () => {
+test('PodiumContext.register() - no value given to "parser" argument - should throw', () => {
     expect.hasAssertions();
     const context = new Context('foo');
     expect(() => {
@@ -46,7 +46,7 @@ test('Context.register() - no value given to "parser" argument - should throw', 
     }).toThrowError('You must provide a value to "parser".');
 });
 
-test('Context.register() - same "name" value given twice - should throw', () => {
+test('PodiumContext.register() - same "name" value given twice - should throw', () => {
     expect.hasAssertions();
     const context = new Context('foo');
     const dummy = {
@@ -58,7 +58,7 @@ test('Context.register() - same "name" value given twice - should throw', () => 
     }).toThrowError('Parser with the name "bar" has already been registered.');
 });
 
-test('Context.register() - object passed to "parser" argument has no parse key - should throw', () => {
+test('PodiumContext.register() - object passed to "parser" argument has no parse key - should throw', () => {
     expect.hasAssertions();
     const context = new Context('foo');
     expect(() => {
@@ -66,7 +66,7 @@ test('Context.register() - object passed to "parser" argument has no parse key -
     }).toThrowError('Parser with the name "bar" is missing a ".parse()" method.');
 });
 
-test('Context.register() - object passed to "parser" argument has no parse() method - should throw', () => {
+test('PodiumContext.register() - object passed to "parser" argument has no parse() method - should throw', () => {
     expect.hasAssertions();
     const context = new Context('foo');
     expect(() => {
@@ -80,7 +80,7 @@ test('Context.register() - object passed to "parser" argument has no parse() met
  * .deserialize()
  */
 
-test('Context.middleware() - request has podium header - should put headers into res.locals', () => {
+test('PodiumContext.middleware() - request has podium header - should put headers into res.locals', () => {
     const req = {
         headers: {
             'bar': 'foo',
@@ -100,7 +100,7 @@ test('Context.middleware() - request has podium header - should put headers into
  * .middleware()
  */
 
-test('Context.middleware() - process a "rich" request - should put parsed values into res.podium.context', () => {
+test('PodiumContext.middleware() - process a "rich" request - should put parsed values into res.podium.context', () => {
     const context = new Context('foo');
 
     const req = {
@@ -126,7 +126,7 @@ test('Context.middleware() - process a "rich" request - should put parsed values
     });
 });
 
-test('Context.middleware() - process a "minimal" request - should put parsed values into res.podium.context', () => {
+test('PodiumContext.middleware() - process a "minimal" request - should put parsed values into res.podium.context', () => {
     const context = new Context('foo');
 
     const req = {
@@ -154,7 +154,7 @@ test('Context.middleware() - process a "minimal" request - should put parsed val
 });
 
 
-test('Context.middleware() - a parser throws - should emit "next()" with Boom Error Object', () => {
+test('PodiumContext.middleware() - a parser throws - should emit "next()" with Boom Error Object', () => {
     expect.assertions(2);
 
     const context = new Context('foo');

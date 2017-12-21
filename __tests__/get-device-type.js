@@ -9,31 +9,31 @@ const UA_TABLET = 'Mozilla/5.0 (iPad; U; CPU OS 5_1_1 like Mac OS X; en-us) Appl
 const UA_MOBILE = 'Mozilla/5.0 (Linux; Android 4.3; Galaxy Nexus Build/JWR66Y) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.99 Mobile Safari/537.36';
 const UA_DESKTOP = 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; Trident/7.0; MAARJS; rv:11.0) like Gecko';
 
-test('ContextDeviceTypeParser() - instantiate new object - should create an object', () => {
+test('PodiumContextDeviceTypeParser() - instantiate new object - should create an object', () => {
     const parser = new DeviceType();
     expect(parser).toBeInstanceOf(DeviceType);
 });
 
-test('ContextDeviceTypeParser() - object tag - should be ContextDeviceTypeParser', () => {
+test('PodiumContextDeviceTypeParser() - object tag - should be PodiumContextDeviceTypeParser', () => {
     const parser = new DeviceType();
     expect(Object.prototype.toString.call(parser)).toEqual(
-        '[object ContextDeviceTypeParser]'
+        '[object PodiumContextDeviceTypeParser]'
     );
 });
 
-test('ContextDeviceTypeParser.parse() - instantiated object - should have parse method', () => {
+test('PodiumContextDeviceTypeParser.parse() - instantiated object - should have parse method', () => {
     const parser = new DeviceType();
     expect(parser.parse).toBeInstanceOf(Function);
 });
 
-test('ContextDeviceTypeParser.parse() - no "user-agent" on header - should return desktop', async () => {
+test('PodiumContextDeviceTypeParser.parse() - no "user-agent" on header - should return desktop', async () => {
     const req = {};
     const parser = new DeviceType();
     const result = await parser.parse(req);
     expect(result).toBe('desktop');
 });
 
-test('ContextDeviceTypeParser.parse() - "user-agent" is defined but null - should return desktop', async () => {
+test('PodiumContextDeviceTypeParser.parse() - "user-agent" is defined but null - should return desktop', async () => {
     const req = {
         headers: {
             'user-agent': null
@@ -44,7 +44,7 @@ test('ContextDeviceTypeParser.parse() - "user-agent" is defined but null - shoul
     expect(result).toBe('desktop');
 });
 
-test('ContextDeviceTypeParser.parse() - "user-agent" is empty string - should return desktop', async () => {
+test('PodiumContextDeviceTypeParser.parse() - "user-agent" is empty string - should return desktop', async () => {
     const req = {
         headers: {
             'user-agent': ''
@@ -55,7 +55,7 @@ test('ContextDeviceTypeParser.parse() - "user-agent" is empty string - should re
     expect(result).toBe('desktop');
 });
 
-test('ContextDeviceTypeParser.parse() - "user-agent" is known desktop UA - should return desktop', async () => {
+test('PodiumContextDeviceTypeParser.parse() - "user-agent" is known desktop UA - should return desktop', async () => {
     const req = {
         headers: {
             'user-agent': UA_DESKTOP
@@ -66,7 +66,7 @@ test('ContextDeviceTypeParser.parse() - "user-agent" is known desktop UA - shoul
     expect(result).toBe('desktop');
 });
 
-test('ContextDeviceTypeParser.parse() - "user-agent" is known tablet UA - should return tablet', async () => {
+test('PodiumContextDeviceTypeParser.parse() - "user-agent" is known tablet UA - should return tablet', async () => {
     const req = {
         headers: {
             'user-agent': UA_TABLET
@@ -77,7 +77,7 @@ test('ContextDeviceTypeParser.parse() - "user-agent" is known tablet UA - should
     expect(result).toBe('tablet');
 });
 
-test('ContextDeviceTypeParser.parse() - "user-agent" is known mobile UA - should return mobile', async () => {
+test('PodiumContextDeviceTypeParser.parse() - "user-agent" is known mobile UA - should return mobile', async () => {
     const req = {
         headers: {
             'user-agent': UA_MOBILE
@@ -88,7 +88,7 @@ test('ContextDeviceTypeParser.parse() - "user-agent" is known mobile UA - should
     expect(result).toBe('mobile');
 });
 
-test('ContextDeviceTypeParser.parse() - parse a new UA - should not exist in cache pre parsing and should exist in cache post parsing', async () => {
+test('PodiumContextDeviceTypeParser.parse() - parse a new UA - should not exist in cache pre parsing and should exist in cache post parsing', async () => {
     const req = {
         headers: {
             'user-agent': UA_MOBILE
@@ -104,7 +104,7 @@ test('ContextDeviceTypeParser.parse() - parse a new UA - should not exist in cac
     expect(afterParse).toBe('mobile');
 });
 
-test('ContextDeviceTypeParser.statistics() - 3 items inserted in cache - should reflect the items in cache', async () => {
+test('PodiumContextDeviceTypeParser.statistics() - 3 items inserted in cache - should reflect the items in cache', async () => {
     const parser = new DeviceType();
     await parser.parse({
         headers: {
@@ -127,7 +127,7 @@ test('ContextDeviceTypeParser.statistics() - 3 items inserted in cache - should 
     expect(result.cacheItems).toBe(3);
 });
 
-test('ContextDeviceTypeParser() - amount of different UAs parsed is larger then set cacheSize - should not grow over cacheSize', async () => {
+test('PodiumContextDeviceTypeParser() - amount of different UAs parsed is larger then set cacheSize - should not grow over cacheSize', async () => {
     const parser = new DeviceType(2);
     await parser.parse({
         headers: {
