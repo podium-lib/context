@@ -77,10 +77,55 @@ test('PodiumContext.register() - object passed to "parser" argument has no parse
 });
 
 /**
+ * .serialize()
+ */
+
+test('PodiumContext.serialize() - no arguments given - should return empty object', () => {
+    const result = Context.serialize();
+    expect(result).toEqual({});
+});
+
+test('PodiumContext.serialize() - headers and context is given - should copy context into headers', () => {
+    const context = {
+        'podium-foo': 'bar',
+        'podium-bar': 'foo',
+    };
+
+    const headers = {
+        'test': 'xyz',
+    };
+
+    const result = Context.serialize(headers, context);
+    expect(result).toEqual({
+        'podium-foo': 'bar',
+        'podium-bar': 'foo',
+        'test': 'xyz',
+    });
+});
+
+test('PodiumContext.serialize() - one key on the context is a function - should call the function and set value on headers', () => {
+    const context = {
+        'podium-foo': 'bar',
+        'podium-bar': name => `${name}-test`,
+    };
+
+    const headers = {
+        'test': 'xyz',
+    };
+
+    const result = Context.serialize(headers, context, 'foo');
+    expect(result).toEqual({
+        'podium-foo': 'bar',
+        'podium-bar': 'foo-test',
+        'test': 'xyz',
+    });
+});
+
+/**
  * .deserialize()
  */
 
-test('PodiumContext.middleware() - request has podium header - should put headers into res.locals', () => {
+test('PodiumContext.deserialize() - request has podium header - should put headers into res.locals', () => {
     const req = {
         headers: {
             'bar': 'foo',
