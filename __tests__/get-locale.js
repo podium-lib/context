@@ -10,7 +10,7 @@ test('PodiumContextLocaleParser() - instantiate new object - should create an ob
 test('PodiumContextLocaleParser() - object tag - should be PodiumContextLocaleParser', () => {
     const parser = new Locale();
     expect(Object.prototype.toString.call(parser)).toEqual(
-        '[object PodiumContextLocaleParser]'
+        '[object PodiumContextLocaleParser]',
     );
 });
 
@@ -31,8 +31,10 @@ test('PodiumContextLocaleParser() - legal value given to "locale" argument - .pa
 test('PodiumContextLocaleParser() - illegal value given to "locale" argument - should throw', () => {
     expect.hasAssertions();
     expect(() => {
-        const parser = new Locale({ locale: 'foo bar' });
-    }).toThrowError('Value provided to "locale" is not a valid locale: foo bar');
+        const parser = new Locale({ locale: 'foo bar' }); // eslint-disable-line no-unused-vars
+    }).toThrowError(
+        'Value provided to "locale" is not a valid locale: foo bar',
+    );
 });
 
 test('PodiumContextLocaleParser.parse() - instantiated object - should have parse method', () => {
@@ -42,8 +44,13 @@ test('PodiumContextLocaleParser.parse() - instantiated object - should have pars
 
 test('PodiumContextLocaleParser.parse() - value at "res.locals.locale" - .parse() should return given value', async () => {
     const parser = new Locale();
-    const result = await parser.parse({}, {locals: {
-        locale: 'nb-NO',
-    }});
+    const result = await parser.parse(
+        {},
+        {
+            locals: {
+                locale: 'nb-NO',
+            },
+        },
+    );
     expect(result).toEqual('nb-NO');
 });

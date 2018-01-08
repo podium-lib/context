@@ -11,7 +11,7 @@ test('PodiumContextMountPathnameParser() - instantiate new object - should creat
 test('PodiumContextMountPathnameParser() - object tag - should be PodiumContextMountPathnameParser', () => {
     const parser = new MountPathname();
     expect(Object.prototype.toString.call(parser)).toEqual(
-        '[object PodiumContextMountPathnameParser]'
+        '[object PodiumContextMountPathnameParser]',
     );
 });
 
@@ -70,9 +70,10 @@ test('PodiumContextMountPathnameParser.parse() - "req.originalUrl" does not end 
     expect(result).toBe('/bar/foo/');
 });
 
-
 test('PodiumContextMountPathnameParser.parse() - "mount" argument is a WHATWG URL object - should be accepted', async () => {
-    const parser = new MountPathname(new URL('https://www.finn.no:7000/foo/bar'));
+    const parser = new MountPathname(
+        new URL('https://www.finn.no:7000/foo/bar'),
+    );
 
     const req = {
         originalUrl: '/bar/foo',

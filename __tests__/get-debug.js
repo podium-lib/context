@@ -10,7 +10,7 @@ test('PodiumContextDebugParser() - instantiate new object - should create an obj
 test('PodiumContextDebugParser() - object tag - should be PodiumContextDebugParser', () => {
     const parser = new Debug();
     expect(Object.prototype.toString.call(parser)).toEqual(
-        '[object PodiumContextDebugParser]'
+        '[object PodiumContextDebugParser]',
     );
 });
 
@@ -31,7 +31,7 @@ test('PodiumContextDebugParser() - true value given to "enabled" argument - .par
 test('PodiumContextDebugParser() - non boolean value given to "enabled" argument - should throw', () => {
     expect.hasAssertions();
     expect(() => {
-        const parser = new Debug({ enabled: 'tadi tadum' });
+        const parser = new Debug({ enabled: 'tadi tadum' }); // eslint-disable-line no-unused-vars
     }).toThrowError('The value provided must be a boolean value.');
 });
 

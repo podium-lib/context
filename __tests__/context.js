@@ -15,14 +15,14 @@ test('PodiumContext() - instantiate new context object - should create an object
 test('PodiumContext() - object tag - should be PodiumContext', () => {
     const context = new Context('foo');
     expect(Object.prototype.toString.call(context)).toEqual(
-        '[object PodiumContext]'
+        '[object PodiumContext]',
     );
 });
 
 test('PodiumContext() - no value given to "name" argument - should throw', () => {
     expect.hasAssertions();
     expect(() => {
-        const context = new Context();
+        const context = new Context(); // eslint-disable-line no-unused-vars
     }).toThrowError('You must provide a value to "name".');
 });
 
@@ -50,7 +50,7 @@ test('PodiumContext.register() - same "name" value given twice - should throw', 
     expect.hasAssertions();
     const context = new Context('foo');
     const dummy = {
-        parse: () => {}
+        parse: () => {},
     };
     expect(() => {
         context.register('bar', dummy);
@@ -63,7 +63,9 @@ test('PodiumContext.register() - object passed to "parser" argument has no parse
     const context = new Context('foo');
     expect(() => {
         context.register('bar', {});
-    }).toThrowError('Parser with the name "bar" is missing a ".parse()" method.');
+    }).toThrowError(
+        'Parser with the name "bar" is missing a ".parse()" method.',
+    );
 });
 
 test('PodiumContext.register() - object passed to "parser" argument has no parse() method - should throw', () => {
@@ -71,9 +73,11 @@ test('PodiumContext.register() - object passed to "parser" argument has no parse
     const context = new Context('foo');
     expect(() => {
         context.register('bar', {
-            parse: 'foo'
+            parse: 'foo',
         });
-    }).toThrowError('Parse method at parser with the name "bar" is not a function.');
+    }).toThrowError(
+        'Parse method at parser with the name "bar" is not a function.',
+    );
 });
 
 /**
@@ -92,14 +96,14 @@ test('PodiumContext.serialize() - headers and context is given - should copy con
     };
 
     const headers = {
-        'test': 'xyz',
+        test: 'xyz',
     };
 
     const result = Context.serialize(headers, context);
     expect(result).toEqual({
         'podium-foo': 'bar',
         'podium-bar': 'foo',
-        'test': 'xyz',
+        test: 'xyz',
     });
 });
 
@@ -110,14 +114,14 @@ test('PodiumContext.serialize() - one key on the context is a function - should 
     };
 
     const headers = {
-        'test': 'xyz',
+        test: 'xyz',
     };
 
     const result = Context.serialize(headers, context, 'foo');
     expect(result).toEqual({
         'podium-foo': 'bar',
         'podium-bar': 'foo-test',
-        'test': 'xyz',
+        test: 'xyz',
     });
 });
 
@@ -128,9 +132,9 @@ test('PodiumContext.serialize() - one key on the context is a function - should 
 test('PodiumContext.deserialize() - request has podium header - should put headers into res.locals', () => {
     const req = {
         headers: {
-            'bar': 'foo',
-            'podium-foo': 'bar podium'
-        }
+            bar: 'foo',
+            'podium-foo': 'bar podium',
+        },
     };
 
     const res = {};
@@ -198,17 +202,15 @@ test('PodiumContext.middleware() - process a "minimal" request - should put pars
     });
 });
 
-
 test('PodiumContext.middleware() - a parser throws - should emit "next()" with Boom Error Object', () => {
     expect.assertions(2);
 
     const context = new Context('foo');
     context.register('fooBar', {
-        parse: () => {
-            return new Promise((resolve, reject) => {
+        parse: () =>
+            new Promise((resolve, reject) => {
                 reject(new Error('bogus'));
-            });
-        }
+            }),
     });
 
     const headers = {
@@ -223,8 +225,10 @@ test('PodiumContext.middleware() - a parser throws - should emit "next()" with B
     const res = {};
 
     const middleware = context.middleware();
-    middleware(req, res, (error) => {
-        expect(error.message).toEqual('Error during context parsing or serializing: bogus');
+    middleware(req, res, error => {
+        expect(error.message).toEqual(
+            'Error during context parsing or serializing: bogus',
+        );
         expect(error.isBoom).toBeTruthy();
     });
 });

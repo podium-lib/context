@@ -11,7 +11,7 @@ test('PodiumContextMountOriginParser() - instantiate new object - should create 
 test('PodiumContextMountOriginParser() - object tag - should be PodiumContextMountOriginParser', () => {
     const parser = new MountOrigin();
     expect(Object.prototype.toString.call(parser)).toEqual(
-        '[object PodiumContextMountOriginParser]'
+        '[object PodiumContextMountOriginParser]',
     );
 });
 
@@ -39,7 +39,7 @@ test('PodiumContextMountOriginParser.parse() - "mount" argument has "host" set -
     const req = {
         headers: {
             host: 'www.finn.no:8080',
-        }
+        },
     };
 
     const result = await parser.parse(req);
@@ -54,7 +54,7 @@ test('PodiumContextMountOriginParser.parse() - "mount" argument has "port" set -
     const req = {
         headers: {
             host: 'www.finn.no:8080',
-        }
+        },
     };
 
     const result = await parser.parse(req);
@@ -76,7 +76,7 @@ test('PodiumContextMountOriginParser.parse() - "req.headers.host" has port - sho
     const req = {
         headers: {
             host: 'www.finn.no:8080',
-        }
+        },
     };
 
     const result = await parser.parse(req);
@@ -89,7 +89,7 @@ test('PodiumContextMountOriginParser.parse() - "req.port" is 80 - should not set
     const req = {
         headers: {
             host: 'www.finn.no:80',
-        }
+        },
     };
 
     const result = await parser.parse(req);
@@ -102,7 +102,7 @@ test('PodiumContextMountOriginParser.parse() - "req.port" is 443 - should not se
     const req = {
         headers: {
             host: 'www.finn.no:443',
-        }
+        },
     };
 
     const result = await parser.parse(req);
@@ -117,7 +117,7 @@ test('PodiumContextMountOriginParser.parse() - "mount" argument has "port" set t
     const req = {
         headers: {
             host: 'www.finn.no:8080',
-        }
+        },
     };
 
     const result = await parser.parse(req);
@@ -132,7 +132,7 @@ test('PodiumContextMountOriginParser.parse() - "mount" argument has "port" set t
     const req = {
         headers: {
             host: 'www.finn.no:8080',
-        }
+        },
     };
 
     const result = await parser.parse(req);
@@ -145,7 +145,7 @@ test('PodiumContextMountOriginParser.parse() - "req.hostname" is an ip address -
     const req = {
         headers: {
             host: '192.0.2.1:8080',
-        }
+        },
     };
 
     const result = await parser.parse(req);
@@ -160,7 +160,7 @@ test('PodiumContextMountOriginParser.parse() - "mount" argument has "host" set t
     const req = {
         headers: {
             host: 'www.finn.no:8080',
-        }
+        },
     };
 
     const result = await parser.parse(req);
@@ -173,7 +173,7 @@ test('PodiumContextMountOriginParser.parse() - "mount" argument is a WHATWG URL 
     const req = {
         headers: {
             host: 'www.finn.no:8080',
-        }
+        },
     };
 
     const result = await parser.parse(req);

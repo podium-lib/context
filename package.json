@@ -8,6 +8,8 @@
     "lib"
   ],
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "test": "jest",
     "test:verbose": "jest --verbose",
     "test:coverage": "jest --coverage"
@@ -28,7 +30,10 @@
   },
   "devDependencies": {
     "express": "^4.16.2",
-    "supertest": "^3.0.0",
-    "jest": "^22.0.3"
+    "jest": "^22.0.3",
+    "eslint": "^4.14.0",
+    "eslint-config-finn": "^3.0.0",
+    "eslint-config-finn-prettier": "^3.0.1",
+    "prettier": "1.9.2"
   }
 }

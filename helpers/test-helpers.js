@@ -1,7 +1,7 @@
 'use strict';
 
-//const configSpec = require('../../config');
-//const configLoader = require('@finn-no/config-loader');
+// const configSpec = require('../../config');
+// const configLoader = require('@finn-no/config-loader');
 
 function getHeaders() {
     return {
@@ -20,7 +20,7 @@ function getHeaders() {
 }
 
 function getConfig(env = {}) {
-/*
+    /*
     return configLoader({
         paths: [],
         extraDefinitions: Object.assign({}, configSpec),
