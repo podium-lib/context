@@ -22,7 +22,7 @@ test('PodiumContextDebugParser() - no value given to "enabled" argument - .parse
 });
 
 test('PodiumContextDebugParser() - true value given to "enabled" argument - .parse() should return true as a String', async () => {
-    const parser = new Debug(true);
+    const parser = new Debug({ enabled: true });
     const result = await parser.parse();
     expect(result).toEqual('true');
     expect(typeof result).toEqual('string');
@@ -31,7 +31,7 @@ test('PodiumContextDebugParser() - true value given to "enabled" argument - .par
 test('PodiumContextDebugParser() - non boolean value given to "enabled" argument - should throw', () => {
     expect.hasAssertions();
     expect(() => {
-        const parser = new Debug('tadi tadum');
+        const parser = new Debug({ enabled: 'tadi tadum' });
     }).toThrowError('The value provided must be a boolean value.');
 });
 

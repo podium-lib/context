@@ -22,7 +22,7 @@ test('PodiumContextLocaleParser() - no value given to "locale" argument - .parse
 });
 
 test('PodiumContextLocaleParser() - legal value given to "locale" argument - .parse() should return given value as a String', async () => {
-    const parser = new Locale('nb-NO');
+    const parser = new Locale({ locale: 'nb-NO' });
     const result = await parser.parse();
     expect(result).toEqual('nb-NO');
     expect(typeof result).toEqual('string');
@@ -31,7 +31,7 @@ test('PodiumContextLocaleParser() - legal value given to "locale" argument - .pa
 test('PodiumContextLocaleParser() - illegal value given to "locale" argument - should throw', () => {
     expect.hasAssertions();
     expect(() => {
-        const parser = new Locale('foo bar');
+        const parser = new Locale({ locale: 'foo bar' });
     }).toThrowError('Value provided to "locale" is not a valid locale: foo bar');
 });
 

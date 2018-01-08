@@ -19,11 +19,11 @@ test('PodiumContext() - object tag - should be PodiumContext', () => {
     );
 });
 
-test('PodiumContext() - no value given to "requestedBy" argument - should throw', () => {
+test('PodiumContext() - no value given to "name" argument - should throw', () => {
     expect.hasAssertions();
     expect(() => {
         const context = new Context();
-    }).toThrowError('You must provide a value to "requestedBy".');
+    }).toThrowError('You must provide a value to "name".');
 });
 
 /**

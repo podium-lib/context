@@ -128,7 +128,7 @@ test('PodiumContextDeviceTypeParser.statistics() - 3 items inserted in cache - s
 });
 
 test('PodiumContextDeviceTypeParser() - amount of different UAs parsed is larger then set cacheSize - should not grow over cacheSize', async () => {
-    const parser = new DeviceType(2);
+    const parser = new DeviceType({ cacheSize: 2 });
     await parser.parse({
         headers: {
             'user-agent': UA_DESKTOP
