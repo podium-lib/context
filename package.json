@@ -1,6 +1,6 @@
 {
   "name": "@podium/context",
-  "version": "1.0.1",
+  "version": "2.0.0-beta.1",
   "description": "@podium/context",
   "main": "./lib/context.js",
   "files": [
