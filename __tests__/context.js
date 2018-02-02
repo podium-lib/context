@@ -28,7 +28,7 @@ test('PodiumContext() - instantiate new context object - should create an object
 test('PodiumContext() - object tag - should be PodiumContext', () => {
     const context = new Context('foo');
     expect(Object.prototype.toString.call(context)).toEqual(
-        '[object PodiumContext]',
+        '[object PodiumContext]'
     );
 });
 
@@ -77,7 +77,7 @@ test('PodiumContext.register() - object passed to "parser" argument has no parse
     expect(() => {
         context.register('bar', {});
     }).toThrowError(
-        'Parser with the name "bar" is missing a ".parse()" method.',
+        'Parser with the name "bar" is missing a ".parse()" method.'
     );
 });
 
@@ -89,7 +89,7 @@ test('PodiumContext.register() - object passed to "parser" argument has no parse
             parse: 'foo',
         });
     }).toThrowError(
-        'Parse method at parser with the name "bar" is not a function.',
+        'Parse method at parser with the name "bar" is not a function.'
     );
 });
 
@@ -240,7 +240,7 @@ test('PodiumContext.middleware() - a parser throws - should emit "next()" with B
     const middleware = context.middleware();
     middleware(req, res, error => {
         expect(error.message).toEqual(
-            'Error during context parsing or serializing: bogus',
+            'Error during context parsing or serializing: bogus'
         );
         expect(error.isBoom).toBeTruthy();
     });

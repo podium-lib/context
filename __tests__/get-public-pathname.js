@@ -11,7 +11,7 @@ test('PodiumContextPublicPathnameParser() - instantiate new object - should crea
 test('PodiumContextPublicPathnameParser() - object tag - should be PodiumContextPublicPathnameParser', () => {
     const parser = new PublicPathname();
     expect(Object.prototype.toString.call(parser)).toEqual(
-        '[object PodiumContextPublicPathnameParser]',
+        '[object PodiumContextPublicPathnameParser]'
     );
 });
 
@@ -132,7 +132,7 @@ test('PodiumContextPublicPathnameParser.parse() - "name" on resolver method has 
 
 test('PodiumContextPublicPathnameParser.parse() - "mount" argument is a WHATWG URL object - should be accepted', async () => {
     const parser = new PublicPathname(
-        new URL('https://www.finn.no:7000/foo/bar'),
+        new URL('https://www.finn.no:7000/foo/bar')
     );
 
     const req = {

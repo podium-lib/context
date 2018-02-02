@@ -10,7 +10,7 @@ test('PodiumContextLocaleParser() - instantiate new object - should create an ob
 test('PodiumContextLocaleParser() - object tag - should be PodiumContextLocaleParser', () => {
     const parser = new Locale();
     expect(Object.prototype.toString.call(parser)).toEqual(
-        '[object PodiumContextLocaleParser]',
+        '[object PodiumContextLocaleParser]'
     );
 });
 
@@ -33,7 +33,7 @@ test('PodiumContextLocaleParser() - illegal value given to "locale" argument - s
     expect(() => {
         const parser = new Locale({ locale: 'foo bar' }); // eslint-disable-line no-unused-vars
     }).toThrowError(
-        'Value provided to "locale" is not a valid locale: foo bar',
+        'Value provided to "locale" is not a valid locale: foo bar'
     );
 });
 
@@ -50,7 +50,7 @@ test('PodiumContextLocaleParser.parse() - value at "res.locals.locale" - .parse(
             locals: {
                 locale: 'nb-NO',
             },
-        },
+        }
     );
     expect(result).toEqual('nb-NO');
 });

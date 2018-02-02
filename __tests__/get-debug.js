@@ -10,7 +10,7 @@ test('PodiumContextDebugParser() - instantiate new object - should create an obj
 test('PodiumContextDebugParser() - object tag - should be PodiumContextDebugParser', () => {
     const parser = new Debug();
     expect(Object.prototype.toString.call(parser)).toEqual(
-        '[object PodiumContextDebugParser]',
+        '[object PodiumContextDebugParser]'
     );
 });
 
