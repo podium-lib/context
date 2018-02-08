@@ -142,7 +142,7 @@ test('PodiumContext.serialize() - one key on the context is a function - should 
  * .deserialize()
  */
 
-test('PodiumContext.deserialize() - request has podium header - should put headers into res.locals', () => {
+test('PodiumContext.deserialize() - request has podium header - should put headers into res.locals.podium', done => {
     const req = {
         headers: {
             bar: 'foo',
@@ -153,16 +153,17 @@ test('PodiumContext.deserialize() - request has podium header - should put heade
     const res = {};
 
     const middleware = Context.deserialize();
-    middleware(req, res, () => {});
-
-    expect(res.podium.context.foo).toEqual('bar podium');
+    middleware(req, res, () => {
+        expect(res.locals.podium.context.foo).toEqual('bar podium');
+        done();
+    });
 });
 
 /**
  * .middleware()
  */
 
-test('PodiumContext.middleware() - process a "rich" request - should put parsed values into res.podium.context', () => {
+test('PodiumContext.middleware() - process a "rich" request - should put parsed values into res.locals.podium', done => {
     const context = new Context('foo');
 
     const req = {
@@ -176,7 +177,7 @@ test('PodiumContext.middleware() - process a "rich" request - should put parsed 
 
     const middleware = context.middleware();
     middleware(req, res, () => {
-        const ctx = res.podium.context;
+        const ctx = res.locals.podium.context;
         expect(ctx['podium-mount-origin']).toEqual('http://localhost:3030');
         expect(ctx['podium-mount-pathname']).toEqual('/');
         expect(ctx['podium-device-type']).toEqual('mobile');
@@ -185,10 +186,11 @@ test('PodiumContext.middleware() - process a "rich" request - should put parsed 
         expect(ctx['podium-requested-by']).toEqual('foo');
         expect(ctx['podium-visitor-id']).toEqual('123');
         expect(ctx['podium-public-pathname']).toBeInstanceOf(Function);
+        done();
     });
 });
 
-test('PodiumContext.middleware() - process a "minimal" request - should put parsed values into res.podium.context', () => {
+test('PodiumContext.middleware() - process a "minimal" request - should put parsed values into res.locals.podium', done => {
     const context = new Context('foo');
 
     const req = {
@@ -203,7 +205,7 @@ test('PodiumContext.middleware() - process a "minimal" request - should put pars
 
     const middleware = context.middleware();
     middleware(req, res, () => {
-        const ctx = res.podium.context;
+        const ctx = res.locals.podium.context;
         expect(ctx['podium-mount-origin']).toEqual('http://localhost:3030');
         expect(ctx['podium-mount-pathname']).toEqual('/');
         expect(ctx['podium-device-type']).toEqual('desktop');
@@ -212,10 +214,11 @@ test('PodiumContext.middleware() - process a "minimal" request - should put pars
         expect(ctx['podium-requested-by']).toEqual('foo');
         expect(ctx['podium-visitor-id']).toEqual(undefined);
         expect(ctx['podium-public-pathname']).toBeInstanceOf(Function);
+        done();
     });
 });
 
-test('PodiumContext.middleware() - a parser throws - should emit "next()" with Boom Error Object', () => {
+test('PodiumContext.middleware() - a parser throws - should emit "next()" with Boom Error Object', done => {
     expect.assertions(2);
 
     const context = new Context('foo');
@@ -243,5 +246,6 @@ test('PodiumContext.middleware() - a parser throws - should emit "next()" with B
             'Error during context parsing or serializing: bogus'
         );
         expect(error.isBoom).toBeTruthy();
+        done();
     });
 });

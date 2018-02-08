@@ -53,11 +53,11 @@ const app = express();
 
 // Attache context de-serialize middelware which will
 // transform the context into a usable object.
-// The context will be stored at: `res.podium.context`
+// The context will be stored at: `res.locals.podium.context`
 app.use(Context.deserialize());
 
 app.get('/', (req, res) => {
-    res.status(200).json(res.podium.context);
+    res.status(200).json(res.locals.podium.context);
 });
 
 app.listen(8080);
@@ -99,15 +99,15 @@ the context.
 The middleware is an Express middleware which is set on the Express instanse in the Layout
 server and run all registered parsers on each request.
 
-The middleware store the result of each parser as an object on the `res.podium.context`.
+The middleware store the result of each parser as an object on the `res.locals.podium.context`.
 This object is "http header like" and can be copied as headers on a http request to a
 Podlet.
 
 ### Serializing / deserializing
 
 These are `static` methods used to append and extract the "http header like" object
-from `res.podium.context` into a http request to Podlet and then back into `res.podium.context`
-in the Podlet server.
+from `res.locals.podium.context` into a http request to Podlet and then back into
+`res.locals.podium.context` in the Podlet server.
 
 
 ## Constructor
@@ -170,7 +170,7 @@ context.register('myStuff', new Parser('someConfig'));
 app.use(context.middleware());
 
 app.get('/', (req, res) => {
-    // res.podium.context will now hold the following object:
+    // res.locals.podium.context will now hold the following object:
     // {
     //     'podium-debug': 'false',
     //     'podium-locale': 'no-NO'
@@ -184,12 +184,12 @@ app.listen(8080);
 ### .middleware()
 
 Express middelware to execute all Parsers in paralell and append the result of each parser
-to `res.podium.context`.
+to `res.locals.podium.context`.
 
 This will execute all built in parsers and all externally registered, through the `.register()`
 method, parsers.
 
-The object stored at `res.podium.context` is "http header-ish" and must be run through the
+The object stored at `res.locals.podium.context` is "http header-ish" and must be run through the
 static `.serialize()` method to be applied to a http header object.
 
 
@@ -199,24 +199,24 @@ The Context constructor have the following static API:
 
 ### .serialize(headers, context, podletName)
 
-Takes a "http header-ish" Object produced by `.middleware()`, and stored at `res.podium.context`,
+Takes a "http header-ish" Object produced by `.middleware()`, and stored at `res.locals.podium.context`,
 and serializes it into a http header Object which can be applied to a http request to a Podlet.
 
-The Object stored at `res.podium.context` is "http header-ish" because the value of each key
+The Object stored at `res.locals.podium.context` is "http header-ish" because the value of each key
 can be either a `String` or a `Function`. If a key holds a `Function` the serializer will call
 the function with the `podletName` argument.
 
 The method takes the following arguments:
 
  * headers - `Object` - An existing http header Object or empty Object the contect should be meged into. Required.
- * context - `Object` - The Object produced by `.middleware()`, stored at `res.podium.context`. Required.
+ * context - `Object` - The Object produced by `.middleware()`, stored at `res.locals.podium.context`. Required.
  * podletName - `String` - The name of the podlet the context should be applied too. Optional.
 
 Example in Layout server:
 
 ```js
 app.get('/', (req, res) => {
-    const headers = Context.serialize({}, res.podium.context, 'somePodlet');
+    const headers = Context.serialize({}, res.locals.podium.context, 'somePodlet');
     request({
         headers: headers,
         method: 'GET',
@@ -228,7 +228,7 @@ app.get('/', (req, res) => {
 ### .deserialize()
 
 Express middelware which will parse http headers on an inbound request in a Podlet server and
-turn context headers into a context object stored at `res.podium.context`.
+turn context headers into a context object stored at `res.locals.podium.context`.
 
 Example in Podlet server:
 
@@ -236,7 +236,7 @@ Example in Podlet server:
 app.use(Context.deserialize());
 
 app.get('/', (req, res) => {
-    res.status(200).json(res.podium.context);
+    res.status(200).json(res.locals.podium.context);
 });
 ```
 
@@ -446,8 +446,8 @@ URLs we can easely compose full URLs by using, ex the [URL module in node.js](ht
 
 Example:
 
-In a podlet, the origin of a layout server will be found on `res.locals.podium.mountOrigin`
-and the pathname to the layout will be found on `res.locals.podium.mountPathname`.
+In a podlet, the origin of a layout server will be found on `res.locals.podium.context.mountOrigin`
+and the pathname to the layout will be found on `res.locals.podium.context.mountPathname`.
 
 To get the full URL of a layout in a podlet, we can combine these two by
 using the [URL module in node.js](https://nodejs.org/api/url.html#url_class_url)
@@ -455,8 +455,8 @@ like this:
 
 ```js
 const { URL } = require('url');
-const origin = res.locals.podium.mountOrigin;
-const pathname = res.locals.podium.mountPathname;
+const origin = res.locals.podium.context.mountOrigin;
+const pathname = res.locals.podium.context.mountPathname;
 const url = new URL(pathname, origin);
 
 console.log(url.href)  // prints full URL
@@ -466,8 +466,8 @@ The same can be done to construct public URL to the proxy URL:
 
 ```js
 const { URL } = require('url');
-const origin = res.locals.podium.mountOrigin;
-const pathname = res.locals.podium.publicPathname;
+const origin = res.locals.podium.context.mountOrigin;
+const pathname = res.locals.podium.context.publicPathname;
 const url = new URL(pathname, origin);
 
 console.log(url.href)  // prints full to proxy endpoint
