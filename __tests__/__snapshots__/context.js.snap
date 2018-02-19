@@ -9,7 +9,7 @@ Object {
 
 exports[`PodiumContext.middleware() - timing success metric produced 1`] = `
 Object {
-  "description": "Time taken for failure to occur when running all context parsers",
-  "name": "context_run_parsers_failure",
+  "description": "Time taken to successfully run all context parsers",
+  "name": "context_run_parsers_success",
 }
 `;
