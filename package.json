@@ -25,6 +25,7 @@
     "registry": "http://npm.finntech.no/"
   },
   "dependencies": {
+    "@podium/metrics": "^2.0.0",
     "bcp47-validate": "^1.0.0",
     "boom": "^7.1.1",
     "bowser": "^1.9.2",

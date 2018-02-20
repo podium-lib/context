@@ -89,7 +89,7 @@ test('PodiumContext.register() - object passed to "parser" argument has no parse
             parse: 'foo',
         });
     }).toThrowError(
-        'Parse method at parser with the name "bar" is not a function.'
+        'Parse method for parser "bar" must be a function or async function.'
     );
 });
 
@@ -246,6 +246,71 @@ test('PodiumContext.middleware() - a parser throws - should emit "next()" with B
             'Error during context parsing or serializing: bogus'
         );
         expect(error.isBoom).toBeTruthy();
+        done();
+    });
+});
+
+test('PodiumContext.middleware() - timing success metric produced', done => {
+    const context = new Context('foo');
+
+    const req = {
+        headers: {
+            host: 'localhost:3030',
+        },
+        hostname: 'localhost',
+        url: '/some/path',
+    };
+
+    const res = {};
+
+    const metrics = [];
+    context.metrics.on('data', metric => {
+        metrics.push(metric);
+    });
+
+    const middleware = context.middleware();
+    middleware(req, res, () => {
+        expect(metrics).toHaveLength(1);
+        expect(metrics[0].time).not.toBeFalsy();
+        expect(metrics[0].timestamp).not.toBeFalsy();
+        const { name, description } = metrics[0];
+        expect({ name, description }).toMatchSnapshot();
+        done();
+    });
+});
+
+test('PodiumContext.middleware() - timing failure metric produced', done => {
+    const context = new Context('foo');
+
+    context.register('failingparser', {
+        async parse() {
+            throw new Error('intentional failure');
+        },
+    });
+
+    const req = {
+        headers: {
+            host: 'localhost:3030',
+        },
+        hostname: 'localhost',
+        url: '/some/path',
+    };
+
+    const res = {};
+
+    const metrics = [];
+    context.metrics.on('data', metric => {
+        metrics.push(metric);
+    });
+
+    const middleware = context.middleware();
+    middleware(req, res, () => {
+        expect(metrics).toHaveLength(1);
+        expect(metrics[0].time).not.toBeFalsy();
+        expect(metrics[0].timestamp).not.toBeFalsy();
+        expect(metrics[0].meta.stack).not.toBeFalsy();
+        const { name, description } = metrics[0];
+        expect({ name, description }).toMatchSnapshot();
         done();
     });
 });
