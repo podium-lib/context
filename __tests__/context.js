@@ -184,7 +184,6 @@ test('PodiumContext.middleware() - process a "rich" request - should put parsed 
         expect(ctx['podium-locale']).toEqual('en-EN');
         expect(ctx['podium-debug']).toEqual('false');
         expect(ctx['podium-requested-by']).toEqual('foo');
-        expect(ctx['podium-visitor-id']).toEqual('123');
         expect(ctx['podium-public-pathname']).toBeInstanceOf(Function);
         done();
     });
@@ -212,7 +211,6 @@ test('PodiumContext.middleware() - process a "minimal" request - should put pars
         expect(ctx['podium-locale']).toEqual('en-EN');
         expect(ctx['podium-debug']).toEqual('false');
         expect(ctx['podium-requested-by']).toEqual('foo');
-        expect(ctx['podium-visitor-id']).toEqual(undefined);
         expect(ctx['podium-public-pathname']).toBeInstanceOf(Function);
         done();
     });
