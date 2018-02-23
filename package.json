@@ -35,8 +35,8 @@
   },
   "devDependencies": {
     "express": "^4.16.2",
-    "jest": "^22.2.1",
-    "eslint": "^4.17.0",
+    "jest": "^22.4.2",
+    "eslint": "^4.18.1",
     "eslint-config-finn": "^3.0.0",
     "eslint-config-finn-prettier": "^3.0.1",
     "prettier": "1.10.2"
