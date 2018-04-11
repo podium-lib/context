@@ -1,7 +1,6 @@
 'use strict';
 
 const MountOrigin = require('../lib/get-mount-origin');
-const URL = require('url').URL;
 
 test('PodiumContextMountOriginParser() - instantiate new object - should create an object', () => {
     const parser = new MountOrigin();
@@ -15,10 +14,16 @@ test('PodiumContextMountOriginParser() - object tag - should be PodiumContextMou
     );
 });
 
-test('PodiumContextMountOriginParser.parse() - "mount" argument has "protocol" set - should override protocol on parse()', async () => {
-    const parser = new MountOrigin({
-        protocol: 'https:',
-    });
+test('PodiumContextMountOriginParser() - "mountOrigin" argument has a illegal value - should throw', () => {
+    expect.hasAssertions();
+    expect(() => {
+        const parser = new MountOrigin('x y');
+        parser.parse({});
+    }).toThrow();
+});
+
+test('PodiumContextMountOriginParser() - "mountOrigin" argument has a legal value - should override request detection in parse()', async () => {
+    const parser = new MountOrigin('https://foo.bar.com');
 
     const req = {
         headers: {
@@ -28,37 +33,7 @@ test('PodiumContextMountOriginParser.parse() - "mount" argument has "protocol" s
     };
 
     const result = await parser.parse(req);
-    expect(result).toBe('https://www.finn.no');
-});
-
-test('PodiumContextMountOriginParser.parse() - "mount" argument has "host" set - should override host on parse()', async () => {
-    const parser = new MountOrigin({
-        hostname: 'foo.bar.com',
-    });
-
-    const req = {
-        headers: {
-            host: 'www.finn.no:8080',
-        },
-    };
-
-    const result = await parser.parse(req);
-    expect(result).toBe('http://foo.bar.com:8080');
-});
-
-test('PodiumContextMountOriginParser.parse() - "mount" argument has "port" set - should override port on parse()', async () => {
-    const parser = new MountOrigin({
-        port: '7000',
-    });
-
-    const req = {
-        headers: {
-            host: 'www.finn.no:8080',
-        },
-    };
-
-    const result = await parser.parse(req);
-    expect(result).toBe('http://www.finn.no:7000');
+    expect(result).toBe('https://foo.bar.com');
 });
 
 test('PodiumContextMountOriginParser.parse() - "req.headers.host" is not set - should default to "localhost"', async () => {
@@ -109,10 +84,8 @@ test('PodiumContextMountOriginParser.parse() - "req.port" is 443 - should not se
     expect(result).toBe('http://www.finn.no');
 });
 
-test('PodiumContextMountOriginParser.parse() - "mount" argument has "port" set to 80 - should not set port on result', async () => {
-    const parser = new MountOrigin({
-        port: '80',
-    });
+test('PodiumContextMountOriginParser.parse() - "mountOrigin" argument has "port" set to 80 - should not set port on result', async () => {
+    const parser = new MountOrigin('https://foo.bar.com:80');
 
     const req = {
         headers: {
@@ -121,13 +94,11 @@ test('PodiumContextMountOriginParser.parse() - "mount" argument has "port" set t
     };
 
     const result = await parser.parse(req);
-    expect(result).toBe('http://www.finn.no');
+    expect(result).toBe('https://foo.bar.com');
 });
 
-test('PodiumContextMountOriginParser.parse() - "mount" argument has "port" set to 443 - should not set port on result', async () => {
-    const parser = new MountOrigin({
-        port: '443',
-    });
+test('PodiumContextMountOriginParser.parse() - "mountOrigin" argument has "port" set to 443 - should not set port on result', async () => {
+    const parser = new MountOrigin('https://foo.bar.com:443');
 
     const req = {
         headers: {
@@ -136,7 +107,7 @@ test('PodiumContextMountOriginParser.parse() - "mount" argument has "port" set t
     };
 
     const result = await parser.parse(req);
-    expect(result).toBe('http://www.finn.no');
+    expect(result).toBe('https://foo.bar.com');
 });
 
 test('PodiumContextMountOriginParser.parse() - "req.hostname" is an ip address - should use ip as address', async () => {
@@ -152,10 +123,8 @@ test('PodiumContextMountOriginParser.parse() - "req.hostname" is an ip address -
     expect(result).toBe('http://192.0.2.1:8080');
 });
 
-test('PodiumContextMountOriginParser.parse() - "mount" argument has "host" set to an ip address - should use ip as address', async () => {
-    const parser = new MountOrigin({
-        hostname: '192.0.2.1',
-    });
+test('PodiumContextMountOriginParser.parse() - "mountOrigin" argument has "host" set to an ip address - should use ip as address', async () => {
+    const parser = new MountOrigin('http://192.0.2.1');
 
     const req = {
         headers: {
@@ -164,18 +133,5 @@ test('PodiumContextMountOriginParser.parse() - "mount" argument has "host" set t
     };
 
     const result = await parser.parse(req);
-    expect(result).toBe('http://192.0.2.1:8080');
-});
-
-test('PodiumContextMountOriginParser.parse() - "mount" argument is a WHATWG URL object - should be accepted', async () => {
-    const parser = new MountOrigin(new URL('https://www.finn.no:7000/foo/bar'));
-
-    const req = {
-        headers: {
-            host: 'www.finn.no:8080',
-        },
-    };
-
-    const result = await parser.parse(req);
-    expect(result).toBe('https://www.finn.no:7000');
+    expect(result).toBe('http://192.0.2.1');
 });

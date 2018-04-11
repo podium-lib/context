@@ -1,7 +1,6 @@
 'use strict';
 
 const MountPathname = require('../lib/get-mount-pathname');
-const URL = require('url').URL;
 
 test('PodiumContextMountPathnameParser() - instantiate new object - should create an object', () => {
     const parser = new MountPathname();
@@ -16,9 +15,7 @@ test('PodiumContextMountPathnameParser() - object tag - should be PodiumContextM
 });
 
 test('PodiumContextMountPathnameParser.parse() - "mount" argument has "pathname" set - should override pathname on parse()', async () => {
-    const parser = new MountPathname({
-        pathname: '/foo/bar/',
-    });
+    const parser = new MountPathname('/foo/bar/');
 
     const req = {
         originalUrl: '/bar/foo/',
@@ -68,17 +65,4 @@ test('PodiumContextMountPathnameParser.parse() - "req.originalUrl" does not end 
 
     const result = await parser.parse(req);
     expect(result).toBe('/bar/foo/');
-});
-
-test('PodiumContextMountPathnameParser.parse() - "mount" argument is a WHATWG URL object - should be accepted', async () => {
-    const parser = new MountPathname(
-        new URL('https://www.finn.no:7000/foo/bar')
-    );
-
-    const req = {
-        originalUrl: '/bar/foo',
-    };
-
-    const result = await parser.parse(req);
-    expect(result).toBe('/foo/bar/');
 });

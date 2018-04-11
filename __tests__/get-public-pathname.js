@@ -1,7 +1,6 @@
 'use strict';
 
 const PublicPathname = require('../lib/get-public-pathname');
-const URL = require('url').URL;
 
 test('PodiumContextPublicPathnameParser() - instantiate new object - should create an object', () => {
     const parser = new PublicPathname();
@@ -27,9 +26,7 @@ test('PodiumContextPublicPathnameParser.parse() - should resolve with a function
 });
 
 test('PodiumContextPublicPathnameParser.parse() - "mount" argument has "pathname" set - should override pathname on parse()', async () => {
-    const parser = new PublicPathname({
-        pathname: '/foo/bar/',
-    });
+    const parser = new PublicPathname('/foo/bar/');
 
     const req = {
         originalUrl: '/bar/foo/',
@@ -128,19 +125,4 @@ test('PodiumContextPublicPathnameParser.parse() - "name" on resolver method has 
     const result = resolver();
 
     expect(result).toBe('/bar/foo/podium-resource/');
-});
-
-test('PodiumContextPublicPathnameParser.parse() - "mount" argument is a WHATWG URL object - should be accepted', async () => {
-    const parser = new PublicPathname(
-        new URL('https://www.finn.no:7000/foo/bar')
-    );
-
-    const req = {
-        originalUrl: '/bar/foo',
-    };
-
-    const resolver = await parser.parse(req);
-    const result = resolver('xyz');
-
-    expect(result).toBe('/foo/bar/podium-resource/xyz/');
 });

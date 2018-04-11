@@ -366,16 +366,15 @@ The value is a [WHATWG URL](https://url.spec.whatwg.org/) compatible origin
 
 #### arguments (optional)
 
-This parser takes an optional [WHATWG URL object](https://nodejs.org/api/url.html#url_class_url)
+This parser takes an optional [WHATWG URL](https://nodejs.org/api/url.html#url_class_url) origin String
 for overriding the mount origin.
 
 Example:
 
 ```js
-const { URL } = require('url');
 const Context = require('@podium/context');
 const context = new Context('myName', {
-    mountOrigin: new URL('https://example.org/')
+    mountOrigin: 'https://example.org/'
 });
 ```
 
@@ -394,16 +393,15 @@ The value is a [WHATWG URL](https://url.spec.whatwg.org/) compatible pathname
 
 #### arguments (optional)
 
-This parser takes an optional [WHATWG URL object](https://nodejs.org/api/url.html#url_class_url)
-for overriding the pathname.
+This parser takes an optional [WHATWG URL](https://nodejs.org/api/url.html#url_class_url)
+pathname String for overriding the pathname.
 
 Example:
 
 ```js
-const { URL } = require('url');
 const Context = require('@podium/context');
 const context = new Context('myName', {
-    mountPathname: new URL('https://example.org/my/path/name')
+    mountPathname: '/my/path/name'
 });
 ```
 
@@ -423,15 +421,14 @@ The value is a [WHATWG URL](https://url.spec.whatwg.org/) compatible pathname
 #### arguments (optional)
 
 This parser takes an optional [WHATWG URL object](https://nodejs.org/api/url.html#url_class_url)
-for overriding the pathname.
+pathname String for overriding the pathname.
 
 Example:
 
 ```js
-const { URL } = require('url');
 const Context = require('@podium/context');
 const context = new Context('myName', {
-    publicPathname: new URL('https://example.org/my/custom/proxy')
+    publicPathname: '/my/custom/proxy'
 });
 ```
 
