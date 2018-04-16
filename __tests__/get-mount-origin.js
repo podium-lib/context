@@ -36,6 +36,47 @@ test('PodiumContextMountOriginParser() - "mountOrigin" argument has a legal valu
     expect(result).toBe('https://foo.bar.com');
 });
 
+test('PodiumContextMountOriginParser() - "req.protocol" is "http:" - should set "http://"', async () => {
+    const parser = new MountOrigin();
+
+    const req = {
+        headers: {
+            host: 'www.finn.no',
+        },
+        protocol: 'http:',
+    };
+
+    const result = await parser.parse(req);
+    expect(result).toBe('http://www.finn.no');
+});
+
+test('PodiumContextMountOriginParser() - "req.protocol" is "https:" - should set "https://"', async () => {
+    const parser = new MountOrigin();
+
+    const req = {
+        headers: {
+            host: 'www.finn.no',
+        },
+        protocol: 'https:',
+    };
+
+    const result = await parser.parse(req);
+    expect(result).toBe('https://www.finn.no');
+});
+
+test('PodiumContextMountOriginParser() - "req.protocol" is "undefined" - should set "http://"', async () => {
+    const parser = new MountOrigin();
+
+    const req = {
+        headers: {
+            host: 'www.finn.no',
+        },
+    };
+
+    const result = await parser.parse(req);
+    expect(result).toBe('http://www.finn.no');
+});
+
 test('PodiumContextMountOriginParser.parse() - "req.headers.host" is not set - should default to "localhost"', async () => {
     const parser = new MountOrigin();
 
