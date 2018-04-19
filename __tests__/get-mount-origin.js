@@ -26,6 +26,7 @@ test('PodiumContextMountOriginParser() - "mountOrigin" argument has a legal valu
     const parser = new MountOrigin('https://foo.bar.com');
 
     const req = {
+        originalUrl: 'http://www.finn.no',
         headers: {
             host: 'www.finn.no',
         },
@@ -40,6 +41,7 @@ test('PodiumContextMountOriginParser() - "req.protocol" is "http:" - should set 
     const parser = new MountOrigin();
 
     const req = {
+        originalUrl: 'http://www.finn.no',
         headers: {
             host: 'www.finn.no',
         },
@@ -54,6 +56,7 @@ test('PodiumContextMountOriginParser() - "req.protocol" is "https:" - should set
     const parser = new MountOrigin();
 
     const req = {
+        originalUrl: 'https://www.finn.no',
         headers: {
             host: 'www.finn.no',
         },
@@ -77,19 +80,11 @@ test('PodiumContextMountOriginParser() - "req.protocol" is "undefined" - should 
     expect(result).toBe('http://www.finn.no');
 });
 
-test('PodiumContextMountOriginParser.parse() - "req.headers.host" is not set - should default to "localhost"', async () => {
-    const parser = new MountOrigin();
-
-    const req = {};
-
-    const result = await parser.parse(req);
-    expect(result).toBe('http://localhost');
-});
-
 test('PodiumContextMountOriginParser.parse() - "req.headers.host" has port - should set port', async () => {
     const parser = new MountOrigin();
 
     const req = {
+        originalUrl: 'http://www.finn.no:8080',
         headers: {
             host: 'www.finn.no:8080',
         },
@@ -103,6 +98,7 @@ test('PodiumContextMountOriginParser.parse() - "req.port" is 80 - should not set
     const parser = new MountOrigin();
 
     const req = {
+        originalUrl: 'http://www.finn.no:80',
         headers: {
             host: 'www.finn.no:80',
         },
@@ -116,19 +112,21 @@ test('PodiumContextMountOriginParser.parse() - "req.port" is 443 - should not se
     const parser = new MountOrigin();
 
     const req = {
+        originalUrl: 'https://www.finn.no:443',
         headers: {
             host: 'www.finn.no:443',
         },
     };
 
     const result = await parser.parse(req);
-    expect(result).toBe('http://www.finn.no');
+    expect(result).toBe('https://www.finn.no');
 });
 
 test('PodiumContextMountOriginParser.parse() - "mountOrigin" argument has "port" set to 80 - should not set port on result', async () => {
     const parser = new MountOrigin('https://foo.bar.com:80');
 
     const req = {
+        originalUrl: 'http://www.finn.no:8080',
         headers: {
             host: 'www.finn.no:8080',
         },
@@ -142,6 +140,7 @@ test('PodiumContextMountOriginParser.parse() - "mountOrigin" argument has "port"
     const parser = new MountOrigin('https://foo.bar.com:443');
 
     const req = {
+        originalUrl: 'http://www.finn.no:8080',
         headers: {
             host: 'www.finn.no:8080',
         },
@@ -168,6 +167,7 @@ test('PodiumContextMountOriginParser.parse() - "mountOrigin" argument has "host"
     const parser = new MountOrigin('http://192.0.2.1');
 
     const req = {
+        originalUrl: 'http://www.finn.no:8080',
         headers: {
             host: 'www.finn.no:8080',
         },
@@ -175,4 +175,19 @@ test('PodiumContextMountOriginParser.parse() - "mountOrigin" argument has "host"
 
     const result = await parser.parse(req);
     expect(result).toBe('http://192.0.2.1');
+});
+
+test('PodiumContextMountOriginParser.parse() - "req.protocol" is http, "X-Forwarded-Proto" is https (behind proxy scenario) - should not set protocol to https on result', async () => {
+    const parser = new MountOrigin();
+
+    const req = {
+        protocol: 'http',
+        headers: {
+            'x-forwarded-proto': 'https',
+            host: 'www.finn.no',
+        },
+    };
+
+    const result = await parser.parse(req);
+    expect(result).toBe('https://www.finn.no');
 });
