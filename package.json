@@ -25,7 +25,7 @@
     "registry": "http://npm.finntech.no/"
   },
   "dependencies": {
-    "@podium/metrics": "^2.0.0",
+    "@podium/metrics": "^3.0.1",
     "@podium/utils": "^2.0.0-beta.5",
     "bcp47-validate": "^1.0.0",
     "boom": "^7.2.0",
@@ -36,10 +36,10 @@
   },
   "devDependencies": {
     "express": "^4.16.3",
-    "jest": "^22.4.3",
+    "jest": "^23.0.1",
     "eslint": "^4.19.1",
     "eslint-config-finn": "^3.0.0",
     "eslint-config-finn-prettier": "^3.0.1",
-    "prettier": "1.12.1"
+    "prettier": "1.13.2"
   }
 }
