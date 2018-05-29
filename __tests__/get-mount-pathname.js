@@ -56,7 +56,7 @@ test('PodiumContextMountPathnameParser.parse() - "req.originalUrl" does not star
     expect(result).toBe('/bar/foo/');
 });
 
-test('PodiumContextMountPathnameParser.parse() - "req.originalUrl" does not end with a "/" - should append a "/"', async () => {
+test('PodiumContextMountPathnameParser.parse() - "req.originalUrl" does not end with a "/" - should not append a "/"', async () => {
     const parser = new MountPathname();
 
     const req = {
@@ -64,5 +64,16 @@ test('PodiumContextMountPathnameParser.parse() - "req.originalUrl" does not end 
     };
 
     const result = await parser.parse(req);
-    expect(result).toBe('/bar/foo/');
+    expect(result).toBe('/bar/foo');
+});
+
+test('PodiumContextMountPathnameParser.parse() - "req.originalUrl" ends with an extension - should not append a "/"', async () => {
+    const parser = new MountPathname();
+
+    const req = {
+        originalUrl: '/bar/foo.html',
+    };
+
+    const result = await parser.parse(req);
+    expect(result).toBe('/bar/foo.html');
 });
