@@ -1,0 +1,10 @@
+node_modules
+coverage
+package-lock.json
+*.log
+.gitignore
+.npmignore
+.editorconfig
+.eslintignore
+.eslintrc
+.travis.yml
