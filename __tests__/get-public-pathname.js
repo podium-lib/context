@@ -18,7 +18,7 @@ test('PodiumContextPublicPathnameParser.parse() - should resolve with a function
     const parser = new PublicPathname();
 
     const req = {
-        originalUrl: '/bar/foo/',
+        baseUrl: '/bar/foo/',
     };
 
     const resolver = await parser.parse(req);
@@ -29,7 +29,7 @@ test('PodiumContextPublicPathnameParser.parse() - "mount" argument has "pathname
     const parser = new PublicPathname('/foo/bar/');
 
     const req = {
-        originalUrl: '/bar/foo/',
+        baseUrl: '/bar/foo/',
     };
 
     const resolver = await parser.parse(req);
@@ -53,7 +53,7 @@ test('PodiumContextPublicPathnameParser.parse() - "req.originalUrl" is set - sho
     const parser = new PublicPathname();
 
     const req = {
-        originalUrl: '/bar/foo/',
+        baseUrl: '/bar/foo/',
     };
 
     const resolver = await parser.parse(req);
@@ -66,7 +66,7 @@ test('PodiumContextPublicPathnameParser.parse() - "req.originalUrl" does not sta
     const parser = new PublicPathname();
 
     const req = {
-        originalUrl: 'bar/foo/',
+        baseUrl: '/bar/foo/',
     };
 
     const resolver = await parser.parse(req);
@@ -79,7 +79,7 @@ test('PodiumContextPublicPathnameParser.parse() - "req.originalUrl" does not end
     const parser = new PublicPathname();
 
     const req = {
-        originalUrl: '/bar/foo',
+        baseUrl: '/bar/foo/',
     };
 
     const resolver = await parser.parse(req);
@@ -92,7 +92,7 @@ test('PodiumContextPublicPathnameParser.parse() - "name" on resolver method does
     const parser = new PublicPathname();
 
     const req = {
-        originalUrl: '/bar/foo/',
+        baseUrl: '/bar/foo/',
     };
 
     const resolver = await parser.parse(req);
@@ -105,7 +105,7 @@ test('PodiumContextPublicPathnameParser.parse() - "name" on resolver method does
     const parser = new PublicPathname();
 
     const req = {
-        originalUrl: '/bar/foo/',
+        baseUrl: '/bar/foo/',
     };
 
     const resolver = await parser.parse(req);
@@ -118,7 +118,7 @@ test('PodiumContextPublicPathnameParser.parse() - "name" on resolver method has 
     const parser = new PublicPathname();
 
     const req = {
-        originalUrl: '/bar/foo/',
+        baseUrl: '/bar/foo/',
     };
 
     const resolver = await parser.parse(req);
