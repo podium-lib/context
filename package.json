@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@podium/metrics": "3.0.1",
-    "@podium/utils": "2.0.0-beta.5",
+    "@podium/utils": "2.0.0",
     "bcp47-validate": "^1.0.0",
     "boom": "^7.2.0",
     "bowser": "^1.9.3",
@@ -40,6 +40,6 @@
     "eslint": "^4.19.1",
     "eslint-config-finn": "^3.0.0",
     "eslint-config-finn-prettier": "^3.0.1",
-    "prettier": "1.13.4"
+    "prettier": "1.13.5"
   }
 }
