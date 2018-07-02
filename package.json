@@ -29,17 +29,17 @@
     "@podium/utils": "2.0.0",
     "bcp47-validate": "^1.0.0",
     "boom": "^7.2.0",
-    "bowser": "^1.9.3",
+    "bowser": "^1.9.4",
     "decamelize": "^2.0.0",
     "lru-cache": "^4.1.2",
     "original-url": "^1.2.1"
   },
   "devDependencies": {
     "express": "^4.16.3",
-    "jest": "^23.1.0",
-    "eslint": "^4.19.1",
+    "jest": "^23.2.0",
+    "eslint": "^5.0.1",
     "eslint-config-finn": "^3.0.0",
     "eslint-config-finn-prettier": "^3.0.1",
-    "prettier": "1.13.5"
+    "prettier": "1.13.7"
   }
 }
