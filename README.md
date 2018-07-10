@@ -21,7 +21,7 @@ const Context = require('@podium/context');
 const app = express();
 
 // Set up a context with the name 'myLayout'
-const context = new Context('myLayout');
+const context = new Context({ name: 'myLayout' });
 
 // Attach context middleware to all incomming requests.
 // This will run all built in parsers on all requests.
@@ -116,28 +116,61 @@ Create a new Podium Context instance.
 
 ```js
 const Context = require('@podium/context');
-const context = new Context('myName');
+const context = new Context({ name: 'myName' });
 ```
 
 The constructor take the following arguments:
 
-### name (required)
+### options
+
+| option         | default   | type     | required |
+| -------------- | --------- | -------- | -------- |
+| name           | `null`    | `string` | `true`   |
+| debug          | `null`    | `object` | `false`  |
+| locale         | `null`    | `object` | `false`  |
+| deviceType     | `null`    | `object` | `false`  |
+| mountOrigin    | `null`    | `object` | `false`  |
+| mountPathname  | `null`    | `object` | `false`  |
+| publicPathname | `null`    | `object` | `false`  |
+
+#### name
 
 A name as a `String` to identify the instance. This should be a logic and human readable name
 related to the Layout this instance is appended too. This name is passed on to the Podlet
-servers as part of the Requested By context.
+servers as part of the [Requested By](https://github.schibsted.io/Podium/context#requested-by) context.
+The name value must be in camelCase.
 
-### options (optional)
+Example
 
-An Object containing misc configuration for each default parser. The following values can be
-provided:
+```js
+const context = new Context({
+    name: 'myLayout';
+});
+```
 
- * debug - `Object` - Config object passed on to the debug parser. See parsers doc.
- * locale - `Object` - Config object passed on to the locale parser. See parsers doc.
- * deviceType - `Object` - Config object passed on to the device type parser. See parsers doc.
- * mountOrigin - `Object` - Config object passed on to the mount origin parser. See parsers doc.
- * mountPathname - `Object` - Config object passed on to the mount pathname parser. See parsers doc.
- * publicPathname - `Object` - Config object passed on to the public pathname parser. See parsers doc.
+#### debug
+
+Config object passed on to the debug parser. See [parsers doc](https://github.schibsted.io/Podium/context#debug).
+
+#### locale
+
+Config object passed on to the locale parser. See [parsers doc](https://github.schibsted.io/Podium/context#locale).
+
+#### deviceType
+
+Config object passed on to the device type parser. See [parsers doc](https://github.schibsted.io/Podium/context#device-type).
+
+#### mountOrigin
+
+Config object passed on to the mount origin parser. See [parsers doc](https://github.schibsted.io/Podium/context#mount-origin).
+
+#### mountPathname
+
+Config object passed on to the mount pathname parser. See [parsers doc](https://github.schibsted.io/Podium/context#mount-pathname).
+
+#### publicPathname
+
+Config object passed on to the public pathname parser. See [parsers doc](https://github.schibsted.io/Podium/context#public-pathname).
 
 
 ## API
