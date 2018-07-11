@@ -123,15 +123,15 @@ The constructor take the following arguments:
 
 ### options
 
-| option         | default   | type     | required | details           |
-| -------------- | --------- | -------- | -------- | ----------------- |
-| name           | `null`    | `string` | `true`   |                   |
-| debug          | `null`    | `object` | `false`  | [See parsers doc](https://github.schibsted.io/Podium/context#debug) |
-| locale         | `null`    | `object` | `false`  | [See parsers doc](https://github.schibsted.io/Podium/context#locale) |
-| deviceType     | `null`    | `object` | `false`  | [See parsers doc](https://github.schibsted.io/Podium/context#device-type) |
-| mountOrigin    | `null`    | `object` | `false`  | [See parsers doc](https://github.schibsted.io/Podium/context#mount-origin) |
-| mountPathname  | `null`    | `object` | `false`  | [See parsers doc](https://github.schibsted.io/Podium/context#mount-pathname) |
-| publicPathname | `null`    | `object` | `false`  | [See parsers doc](https://github.schibsted.io/Podium/context#public-pathname) |
+| option         | default   | type     | required | details              |
+| -------------- | --------- | -------- | -------- | -------------------- |
+| name           | `null`    | `string` | `true`   |                      |
+| debug          | `null`    | `object` | `false`  | [See parser options](https://github.schibsted.io/Podium/context#debug) |
+| locale         | `null`    | `object` | `false`  | [See parser options](https://github.schibsted.io/Podium/context#locale) |
+| deviceType     | `null`    | `object` | `false`  | [See parser options](https://github.schibsted.io/Podium/context#device-type) |
+| mountOrigin    | `null`    | `object` | `false`  | [See parser options](https://github.schibsted.io/Podium/context#mount-origin) |
+| mountPathname  | `null`    | `object` | `false`  | [See parser options](https://github.schibsted.io/Podium/context#mount-pathname) |
+| publicPathname | `null`    | `object` | `false`  | [See parser options](https://github.schibsted.io/Podium/context#public-pathname) |
 
 #### name
 
@@ -312,7 +312,9 @@ Example:
 
 ```js
 const Context = require('@podium/context');
-const context = new Context('myName');
+const context = new Context({
+    name: 'myName'
+});
 ```
 
 ### Debug
@@ -325,7 +327,9 @@ value is `false`.
 
 This parser takes an optional config object with the following properties:
 
- * enable - `Boolean` - Value to indicate if one are in debug mode or not.
+| option         | default   | type      | required | details                                  |
+| -------------- | --------- | --------- | -------- | ---------------------------------------- |
+| enable         | `false`   | `boolean` | `false`  | Indicate if one are in debug mode or not |
 
 This config object is passed on to the `debug` property on the config object
 on the constructor.
@@ -340,7 +344,9 @@ When executed by `.middleware()`, this parser will look for a locale at
 default locale will be used.
 
 ```js
-const context = new Context('myName');
+const context = new Context({
+    name: 'myName'
+});
 const app = express();
 
 app.use((req, res) => {
@@ -354,7 +360,9 @@ app.use(context.middleware());
 
 This parser takes an optional config object with the following properties:
 
- * locale - `String` - Default locale. A bcp47 compliant locale String.
+| option         | default   | type      | required | details                         |
+| -------------- | --------- | --------- | -------- | ------------------------------- |
+| locale         | `en-EN`   | `string`  | `false`  | A bcp47 compliant locale String |
 
 This config object is passed on to the `locale` property on the config object
 on the constructor.
@@ -383,7 +391,9 @@ an LRU cache for faster lookup.
 
 This parser takes an optional config object with the following properties:
 
- * cacheSize - `Number` - How many UA Strings to keep in LRU cache. Default: 10000
+| option         | default   | type      | required | details                                  |
+| -------------- | --------- | --------- | -------- | ---------------------------------------- |
+| cacheSize      | `10000`   | `Number`  | `false`  | How many UA Strings to keep in LRU cache |
 
 This config object is passed on to the `deviceType` property on the config
 object on the constructor.
@@ -407,7 +417,8 @@ Example:
 
 ```js
 const Context = require('@podium/context');
-const context = new Context('myName', {
+const context = new Context({
+    name: 'myName',
     mountOrigin: 'https://example.org/'
 });
 ```
