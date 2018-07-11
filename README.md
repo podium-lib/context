@@ -96,8 +96,8 @@ the context.
 
 ### Middleware
 
-The middleware is an Express middleware which is set on the Express instanse in the Layout
-server and run all registered parsers on each request.
+The middleware is an Connect compatible middleware which is set on the Express instanse
+in the Layout server and run all registered parsers on each request.
 
 The middleware store the result of each parser as an object on the `res.locals.podium.context`.
 This object is "http header like" and can be copied as headers on a http request to a
@@ -123,15 +123,15 @@ The constructor take the following arguments:
 
 ### options
 
-| option         | default   | type     | required |
-| -------------- | --------- | -------- | -------- |
-| name           | `null`    | `string` | `true`   |
-| debug          | `null`    | `object` | `false`  |
-| locale         | `null`    | `object` | `false`  |
-| deviceType     | `null`    | `object` | `false`  |
-| mountOrigin    | `null`    | `object` | `false`  |
-| mountPathname  | `null`    | `object` | `false`  |
-| publicPathname | `null`    | `object` | `false`  |
+| option         | default   | type     | required | details           |
+| -------------- | --------- | -------- | -------- | ----------------- |
+| name           | `null`    | `string` | `true`   |                   |
+| debug          | `null`    | `object` | `false`  | [See parsers doc](https://github.schibsted.io/Podium/context#debug) |
+| locale         | `null`    | `object` | `false`  | [See parsers doc](https://github.schibsted.io/Podium/context#locale) |
+| deviceType     | `null`    | `object` | `false`  | [See parsers doc](https://github.schibsted.io/Podium/context#device-type) |
+| mountOrigin    | `null`    | `object` | `false`  | [See parsers doc](https://github.schibsted.io/Podium/context#mount-origin) |
+| mountPathname  | `null`    | `object` | `false`  | [See parsers doc](https://github.schibsted.io/Podium/context#mount-pathname) |
+| publicPathname | `null`    | `object` | `false`  | [See parsers doc](https://github.schibsted.io/Podium/context#public-pathname) |
 
 #### name
 
@@ -216,7 +216,7 @@ app.listen(8080);
 
 ### .middleware()
 
-Express middelware to execute all Parsers in paralell and append the result of each parser
+Connect compatible middelware to execute all Parsers in paralell and append the result of each parser
 to `res.locals.podium.context`.
 
 This will execute all built in parsers and all externally registered, through the `.register()`
@@ -235,7 +235,7 @@ The Context constructor have the following static API:
 Takes a "http header-ish" Object produced by `.middleware()`, and stored at `res.locals.podium.context`,
 and serializes it into a http header Object which can be applied to a http request to a Podlet.
 
-The Object stored at `res.locals.podium.context` is "http header-ish" because the value of each key
+The object stored at `res.locals.podium.context` is "http header-ish" because the value of each key
 can be either a `String` or a `Function`. If a key holds a `Function` the serializer will call
 the function with the `podletName` argument.
 
@@ -260,8 +260,8 @@ app.get('/', (req, res) => {
 
 ### .deserialize()
 
-Express middelware which will parse http headers on an inbound request in a Podlet server and
-turn context headers into a context object stored at `res.locals.podium.context`.
+Connect compatible middelware which will parse http headers on an inbound request in a Podlet
+server and turn context headers into a context object stored at `res.locals.podium.context`.
 
 Example in Podlet server:
 
@@ -279,14 +279,15 @@ app.get('/', (req, res) => {
 This module comes with a set of default parsers which will be applied when `.middleware()` is
 run.
 
-Each of these parsers can be configured through the constructor by passing a config object to
-the matching config parameter on the constructor (see constructor options).
+Each of these parsers can be configured through the constructor by passing a options object to
+the matching options parameter on the constructor options object (see constructor options).
 
-Example of passing a config to the built in `debug` parser:
+Example of passing options to the built in `debug` parser:
 
 ```js
 const Context = require('@podium/context');
-const context = new Context('myName', {
+const context = new Context({
+    name: 'myName',
     debug: {
         enabled: true
     }
