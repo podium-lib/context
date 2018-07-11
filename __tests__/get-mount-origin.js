@@ -17,13 +17,13 @@ test('PodiumContextMountOriginParser() - object tag - should be PodiumContextMou
 test('PodiumContextMountOriginParser() - "mountOrigin" argument has a illegal value - should throw', () => {
     expect.hasAssertions();
     expect(() => {
-        const parser = new MountOrigin('x y');
+        const parser = new MountOrigin({ origin: 'x y' });
         parser.parse({});
     }).toThrow();
 });
 
 test('PodiumContextMountOriginParser() - "mountOrigin" argument has a legal value - should override request detection in parse()', async () => {
-    const parser = new MountOrigin('https://foo.bar.com');
+    const parser = new MountOrigin({ origin: 'https://foo.bar.com' });
 
     const req = {
         originalUrl: 'http://www.finn.no',
@@ -123,7 +123,7 @@ test('PodiumContextMountOriginParser.parse() - "req.port" is 443 - should not se
 });
 
 test('PodiumContextMountOriginParser.parse() - "mountOrigin" argument has "port" set to 80 - should not set port on result', async () => {
-    const parser = new MountOrigin('https://foo.bar.com:80');
+    const parser = new MountOrigin({ origin: 'https://foo.bar.com:80' });
 
     const req = {
         originalUrl: 'http://www.finn.no:8080',
@@ -137,7 +137,7 @@ test('PodiumContextMountOriginParser.parse() - "mountOrigin" argument has "port"
 });
 
 test('PodiumContextMountOriginParser.parse() - "mountOrigin" argument has "port" set to 443 - should not set port on result', async () => {
-    const parser = new MountOrigin('https://foo.bar.com:443');
+    const parser = new MountOrigin({ origin: 'https://foo.bar.com:443' });
 
     const req = {
         originalUrl: 'http://www.finn.no:8080',
@@ -164,7 +164,7 @@ test('PodiumContextMountOriginParser.parse() - "req.hostname" is an ip address -
 });
 
 test('PodiumContextMountOriginParser.parse() - "mountOrigin" argument has "host" set to an ip address - should use ip as address', async () => {
-    const parser = new MountOrigin('http://192.0.2.1');
+    const parser = new MountOrigin({ origin: 'http://192.0.2.1' });
 
     const req = {
         originalUrl: 'http://www.finn.no:8080',
