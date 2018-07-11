@@ -14,66 +14,14 @@ test('PodiumContextMountPathnameParser() - object tag - should be PodiumContextM
     );
 });
 
-test('PodiumContextMountPathnameParser.parse() - "mount" argument has "pathname" set - should override pathname on parse()', async () => {
-    const parser = new MountPathname('/foo/bar/');
-
-    const req = {
-        originalUrl: '/bar/foo/',
-    };
-
-    const result = await parser.parse(req);
-    expect(result).toBe('/foo/bar/');
-});
-
-test('PodiumContextMountPathnameParser.parse() - "req.originalUrl" is not set - should default to "/"', async () => {
+test('PodiumContextMountPathnameParser.parse() - no options set - should resolve with "/"', async () => {
     const parser = new MountPathname();
-
-    const req = {};
-
-    const result = await parser.parse(req);
+    const result = await parser.parse();
     expect(result).toBe('/');
 });
 
-test('PodiumContextMountPathnameParser.parse() - "req.originalUrl" is set - should resolve with set value', async () => {
-    const parser = new MountPathname();
-
-    const req = {
-        originalUrl: '/bar/foo/',
-    };
-
-    const result = await parser.parse(req);
-    expect(result).toBe('/bar/foo/');
-});
-
-test('PodiumContextMountPathnameParser.parse() - "req.originalUrl" does not start with a "/" - should prepend a "/"', async () => {
-    const parser = new MountPathname();
-
-    const req = {
-        originalUrl: 'bar/foo/',
-    };
-
-    const result = await parser.parse(req);
-    expect(result).toBe('/bar/foo/');
-});
-
-test('PodiumContextMountPathnameParser.parse() - "req.originalUrl" does not end with a "/" - should not append a "/"', async () => {
-    const parser = new MountPathname();
-
-    const req = {
-        originalUrl: '/bar/foo',
-    };
-
-    const result = await parser.parse(req);
-    expect(result).toBe('/bar/foo');
-});
-
-test('PodiumContextMountPathnameParser.parse() - "req.originalUrl" ends with an extension - should not append a "/"', async () => {
-    const parser = new MountPathname();
-
-    const req = {
-        originalUrl: '/bar/foo.html',
-    };
-
-    const result = await parser.parse(req);
-    expect(result).toBe('/bar/foo.html');
+test('PodiumContextMountPathnameParser.parse() - options object with "pathname" property set - should resolve with value of set property', async () => {
+    const parser = new MountPathname({ pathname: '/foo/bar/' });
+    const result = await parser.parse();
+    expect(result).toBe('/foo/bar/');
 });
