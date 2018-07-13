@@ -37,6 +37,7 @@
     "original-url": "^1.2.1"
   },
   "devDependencies": {
+    "benchmark": "^2.1.4",
     "express": "^4.16.3",
     "jest": "^23.3.0",
     "eslint": "^5.1.0",
