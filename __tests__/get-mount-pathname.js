@@ -14,14 +14,14 @@ test('PodiumContextMountPathnameParser() - object tag - should be PodiumContextM
     );
 });
 
-test('PodiumContextMountPathnameParser.parse() - no options set - should resolve with "/"', async () => {
+test('PodiumContextMountPathnameParser.parse() - no options set - should resolve with "/"', () => {
     const parser = new MountPathname();
-    const result = await parser.parse();
+    const result = parser.parse();
     expect(result).toBe('/');
 });
 
-test('PodiumContextMountPathnameParser.parse() - options object with "pathname" property set - should resolve with value of set property', async () => {
+test('PodiumContextMountPathnameParser.parse() - options object with "pathname" property set - should resolve with value of set property', () => {
     const parser = new MountPathname({ pathname: '/foo/bar/' });
-    const result = await parser.parse();
+    const result = parser.parse();
     expect(result).toBe('/foo/bar/');
 });

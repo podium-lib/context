@@ -26,8 +26,8 @@ test('PodiumContextRequestedByParser.parse() - instantiated object - should have
     expect(parser.parse).toBeInstanceOf(Function);
 });
 
-test('PodiumContextRequestedByParser.parse() - call parse() - should return registered name', async () => {
+test('PodiumContextRequestedByParser.parse() - call parse() - should return registered name', () => {
     const parser = new RequestedBy({ name: 'foo' });
-    const result = await parser.parse();
+    const result = parser.parse();
     expect(result).toEqual('foo');
 });
