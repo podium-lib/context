@@ -16,113 +16,105 @@ test('PodiumContextPublicPathnameParser() - object tag - should be PodiumContext
 
 test('PodiumContextPublicPathnameParser.parse() - should resolve with a function', async () => {
     const parser = new PublicPathname();
-
-    const req = {
-        baseUrl: '/bar/foo/',
-    };
-
-    const resolver = await parser.parse(req);
+    const resolver = await parser.parse();
     expect(resolver).toBeInstanceOf(Function);
 });
 
-test('PodiumContextPublicPathnameParser.parse() - "mount" argument has "pathname" set - should override pathname on parse()', async () => {
-    const parser = new PublicPathname('/foo/bar/');
+test('PodiumContextPublicPathnameParser.parse() - "pathname" is set - should set pathname on parse()', async () => {
+    const parser = new PublicPathname({ pathname: '/foo/bar/' });
 
-    const req = {
-        baseUrl: '/bar/foo/',
-    };
-
-    const resolver = await parser.parse(req);
+    const resolver = await parser.parse();
     const result = resolver('xyz');
 
     expect(result).toBe('/foo/bar/podium-resource/xyz/');
 });
 
-test('PodiumContextPublicPathnameParser.parse() - "req.originalUrl" is not set - should not set a pathname before the proxy pathname', async () => {
+test('PodiumContextPublicPathnameParser.parse() - "pathname" is not set - should not set a pathname on parse()', async () => {
     const parser = new PublicPathname();
 
-    const req = {};
-
-    const resolver = await parser.parse(req);
+    const resolver = await parser.parse();
     const result = resolver('xyz');
 
     expect(result).toBe('/podium-resource/xyz/');
 });
 
-test('PodiumContextPublicPathnameParser.parse() - "req.originalUrl" is set - should resolve with set value', async () => {
-    const parser = new PublicPathname();
+test('PodiumContextPublicPathnameParser.parse() - "pathname" does not start with a "/" - should prepend a "/"', async () => {
+    const parser = new PublicPathname({ pathname: 'foo/bar/' });
 
-    const req = {
-        baseUrl: '/bar/foo/',
-    };
-
-    const resolver = await parser.parse(req);
+    const resolver = await parser.parse();
     const result = resolver('xyz');
 
-    expect(result).toBe('/bar/foo/podium-resource/xyz/');
+    expect(result).toBe('/foo/bar/podium-resource/xyz/');
 });
 
-test('PodiumContextPublicPathnameParser.parse() - "req.originalUrl" does not start with a "/" - should prepend a "/"', async () => {
-    const parser = new PublicPathname();
+test('PodiumContextPublicPathnameParser.parse() - "pathname" does not end with a "/" - should append a "/"', async () => {
+    const parser = new PublicPathname({ pathname: '/foo/bar' });
 
-    const req = {
-        baseUrl: '/bar/foo/',
-    };
-
-    const resolver = await parser.parse(req);
+    const resolver = await parser.parse();
     const result = resolver('xyz');
 
-    expect(result).toBe('/bar/foo/podium-resource/xyz/');
+    expect(result).toBe('/foo/bar/podium-resource/xyz/');
 });
 
-test('PodiumContextPublicPathnameParser.parse() - "req.originalUrl" does not end with a "/" - should append a "/"', async () => {
-    const parser = new PublicPathname();
+test('PodiumContextPublicPathnameParser.parse() - "prefix" is set - should override default on parse()', async () => {
+    const parser = new PublicPathname({
+        pathname: '/foo/bar/',
+        prefix: 'proxy',
+    });
 
-    const req = {
-        baseUrl: '/bar/foo/',
-    };
-
-    const resolver = await parser.parse(req);
+    const resolver = await parser.parse();
     const result = resolver('xyz');
 
-    expect(result).toBe('/bar/foo/podium-resource/xyz/');
+    expect(result).toBe('/foo/bar/proxy/xyz/');
+});
+
+test('PodiumContextPublicPathnameParser.parse() - "prefix" does start with a / - should remove /', async () => {
+    const parser = new PublicPathname({
+        pathname: '/foo/bar/',
+        prefix: '/proxy',
+    });
+
+    const resolver = await parser.parse();
+    const result = resolver('xyz');
+
+    expect(result).toBe('/foo/bar/proxy/xyz/');
+});
+
+test('PodiumContextPublicPathnameParser.parse() - "prefix" does end with a / - should remove /', async () => {
+    const parser = new PublicPathname({
+        pathname: '/foo/bar/',
+        prefix: 'proxy/',
+    });
+
+    const resolver = await parser.parse();
+    const result = resolver('xyz');
+
+    expect(result).toBe('/foo/bar/proxy/xyz/');
 });
 
 test('PodiumContextPublicPathnameParser.parse() - "name" on resolver method does not start with a "/" - should prepend a "/"', async () => {
     const parser = new PublicPathname();
 
-    const req = {
-        baseUrl: '/bar/foo/',
-    };
-
-    const resolver = await parser.parse(req);
+    const resolver = await parser.parse();
     const result = resolver('xyz/');
 
-    expect(result).toBe('/bar/foo/podium-resource/xyz/');
+    expect(result).toBe('/podium-resource/xyz/');
 });
 
 test('PodiumContextPublicPathnameParser.parse() - "name" on resolver method does not end with a "/" - should append a "/"', async () => {
     const parser = new PublicPathname();
 
-    const req = {
-        baseUrl: '/bar/foo/',
-    };
-
-    const resolver = await parser.parse(req);
+    const resolver = await parser.parse();
     const result = resolver('/xyz');
 
-    expect(result).toBe('/bar/foo/podium-resource/xyz/');
+    expect(result).toBe('/podium-resource/xyz/');
 });
 
 test('PodiumContextPublicPathnameParser.parse() - "name" on resolver method has no value - should append a "/"', async () => {
     const parser = new PublicPathname();
 
-    const req = {
-        baseUrl: '/bar/foo/',
-    };
-
-    const resolver = await parser.parse(req);
+    const resolver = await parser.parse();
     const result = resolver();
 
-    expect(result).toBe('/bar/foo/podium-resource/');
+    expect(result).toBe('/podium-resource/');
 });
