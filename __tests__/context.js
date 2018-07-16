@@ -32,11 +32,11 @@ test('PodiumContext() - object tag - should be PodiumContext', () => {
     );
 });
 
-test('PodiumContext() - no value given to "options.name" - should throw', () => {
+test('PodiumContext() - no value given to "name" - should throw', () => {
     expect.hasAssertions();
     expect(() => {
         const context = new Context(); // eslint-disable-line no-unused-vars
-    }).toThrowError('The value for "options.name", undefined, is not valid');
+    }).toThrowError('The value for "name", undefined, is not valid');
 });
 
 /**
