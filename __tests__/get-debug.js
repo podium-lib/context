@@ -14,16 +14,16 @@ test('PodiumContextDebugParser() - object tag - should be PodiumContextDebugPars
     );
 });
 
-test('PodiumContextDebugParser() - no value given to "enabled" argument - .parse() should return false as a String', async () => {
+test('PodiumContextDebugParser() - no value given to "enabled" argument - .parse() should return false as a String', () => {
     const parser = new Debug();
-    const result = await parser.parse();
+    const result = parser.parse();
     expect(result).toEqual('false');
     expect(typeof result).toEqual('string');
 });
 
-test('PodiumContextDebugParser() - true value given to "enabled" argument - .parse() should return true as a String', async () => {
+test('PodiumContextDebugParser() - true value given to "enabled" argument - .parse() should return true as a String', () => {
     const parser = new Debug({ enabled: true });
-    const result = await parser.parse();
+    const result = parser.parse();
     expect(result).toEqual('true');
     expect(typeof result).toEqual('string');
 });
