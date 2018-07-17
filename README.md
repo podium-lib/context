@@ -32,7 +32,7 @@ app.use(context.middleware());
 // is serialized and appended as http headers to the
 // request to the Podlet server.
 app.get('/', (req, res) => {
-    const headers = Context.serialize({}, res.podium.context);
+    const headers = Context.serialize({}, res.locals.podium.context);
     request({
         headers: headers,
         method: 'GET',
@@ -126,18 +126,19 @@ The constructor take the following arguments:
 | option         | default   | type     | required | details              |
 | -------------- | --------- | -------- | -------- | -------------------- |
 | name           | `null`    | `string` | `true`   |                      |
-| debug          | `null`    | `object` | `false`  | [See parser options](https://github.schibsted.io/Podium/context#debug) |
-| locale         | `null`    | `object` | `false`  | [See parser options](https://github.schibsted.io/Podium/context#locale) |
-| deviceType     | `null`    | `object` | `false`  | [See parser options](https://github.schibsted.io/Podium/context#device-type) |
-| mountOrigin    | `null`    | `object` | `false`  | [See parser options](https://github.schibsted.io/Podium/context#mount-origin) |
-| mountPathname  | `null`    | `object` | `false`  | [See parser options](https://github.schibsted.io/Podium/context#mount-pathname) |
-| publicPathname | `null`    | `object` | `false`  | [See parser options](https://github.schibsted.io/Podium/context#public-pathname) |
+| debug          | `null`    | `object` | `false`  | [See parser options](#debug) |
+| locale         | `null`    | `object` | `false`  | [See parser options](#locale) |
+| deviceType     | `null`    | `object` | `false`  | [See parser options](#device-type) |
+| mountOrigin    | `null`    | `object` | `false`  | [See parser options](#mount-origin) |
+| mountPathname  | `null`    | `object` | `false`  | [See parser options](#mount-pathname) |
+| publicPathname | `null`    | `object` | `false`  | [See parser options](#public-pathname) |
 
 #### name
 
 A name as a `String` to identify the instance. This should be a logic and human readable name
 related to the Layout this instance is appended too. This name is passed on to the Podlet
-servers as part of the [Requested By](https://github.schibsted.io/Podium/context#requested-by) context.
+servers as part of the [Requested By](#requested-by) context.
+
 The name value must be in camelCase.
 
 Example
@@ -150,27 +151,27 @@ const context = new Context({
 
 #### debug
 
-Config object passed on to the debug parser. See [parsers doc](https://github.schibsted.io/Podium/context#debug).
+Config object passed on to the debug parser. See [parsers doc](#debug).
 
 #### locale
 
-Config object passed on to the locale parser. See [parsers doc](https://github.schibsted.io/Podium/context#locale).
+Config object passed on to the locale parser. See [parsers doc](#locale).
 
 #### deviceType
 
-Config object passed on to the device type parser. See [parsers doc](https://github.schibsted.io/Podium/context#device-type).
+Config object passed on to the device type parser. See [parsers doc](#device-type).
 
 #### mountOrigin
 
-Config object passed on to the mount origin parser. See [parsers doc](https://github.schibsted.io/Podium/context#mount-origin).
+Config object passed on to the mount origin parser. See [parsers doc](#mount-origin).
 
 #### mountPathname
 
-Config object passed on to the mount pathname parser. See [parsers doc](https://github.schibsted.io/Podium/context#mount-pathname).
+Config object passed on to the mount pathname parser. See [parsers doc](#mount-pathname).
 
 #### publicPathname
 
-Config object passed on to the public pathname parser. See [parsers doc](https://github.schibsted.io/Podium/context#public-pathname).
+Config object passed on to the public pathname parser. See [parsers doc](#public-pathname).
 
 
 ## API
@@ -184,10 +185,10 @@ Register a Parser which should be appended to the Context.
 
 The method takes the following arguments:
 
-| option         | default   | type     | required | details                                                                         |
-| -------------- | --------- | -------- | -------- | ------------------------------------------------------------------------------- |
-| name           | `null`    | `string` | `true`   | Unique name of the parser. Used as the key for the parsers value in the context |
-| parser         | `null`    | `object` | `true`   | The Parser to be registered                                                     |
+| option         | default   | type     | required | details                                                                          |
+| -------------- | --------- | -------- | -------- | -------------------------------------------------------------------------------- |
+| name           | `null`    | `string` | `true`   | Unique name of the parser. Used as the key for the parser's value in the context |
+| parser         | `null`    | `object` | `true`   | The Parser to be registered                                                      |
 
 Example:
 
@@ -239,11 +240,11 @@ the function with the `podletName` argument.
 
 The method takes the following arguments:
 
-| option         | default   | type     | required | details                                                                         |
-| -------------- | --------- | -------- | -------- | ------------------------------------------------------------------------------- |
-| headers        | `null`    | `object` | `true`   | An existing http header Object or empty Object the contect should be meged into |
-| context        | `null`    | `object` | `true`   | The object produced by `.middleware()`, stored at `res.locals.podium.context`   |
-| podletName     | `null`    | `string` | `false`  | The name of the podlet the context should be applied too                        |
+| option         | default   | type     | required | details                                                                          |
+| -------------- | --------- | -------- | -------- | -------------------------------------------------------------------------------- |
+| headers        | `null`    | `object` | `true`   | An existing http header Object or empty Object the context should be merged into |
+| context        | `null`    | `object` | `true`   | The object produced by `.middleware()`, stored at `res.locals.podium.context`    |
+| podletName     | `null`    | `string` | `false`  | The name of the podlet the context should be applied too                         |
 
 Example in Layout server:
 
