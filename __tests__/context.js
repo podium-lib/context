@@ -181,7 +181,7 @@ test('PodiumContext.middleware() - process a "rich" request - should put parsed 
         expect(ctx['podium-mount-origin']).toEqual('http://localhost:3030');
         expect(ctx['podium-mount-pathname']).toEqual('/');
         expect(ctx['podium-device-type']).toEqual('mobile');
-        expect(ctx['podium-locale']).toEqual('en-EN');
+        expect(ctx['podium-locale']).toEqual('en-US');
         expect(ctx['podium-debug']).toEqual('false');
         expect(ctx['podium-requested-by']).toEqual('foo');
         expect(ctx['podium-public-pathname']).toBeInstanceOf(Function);
@@ -208,7 +208,7 @@ test('PodiumContext.middleware() - process a "minimal" request - should put pars
         expect(ctx['podium-mount-origin']).toEqual('http://localhost:3030');
         expect(ctx['podium-mount-pathname']).toEqual('/');
         expect(ctx['podium-device-type']).toEqual('desktop');
-        expect(ctx['podium-locale']).toEqual('en-EN');
+        expect(ctx['podium-locale']).toEqual('en-US');
         expect(ctx['podium-debug']).toEqual('false');
         expect(ctx['podium-requested-by']).toEqual('foo');
         expect(ctx['podium-public-pathname']).toBeInstanceOf(Function);

@@ -14,10 +14,10 @@ test('PodiumContextLocaleParser() - object tag - should be PodiumContextLocalePa
     );
 });
 
-test('PodiumContextLocaleParser() - no value given to "locale" argument - .parse() should return "en-EN" as a String', () => {
+test('PodiumContextLocaleParser() - no value given to "locale" argument - .parse() should return "en-US" as a String', () => {
     const parser = new Locale();
     const result = parser.parse();
-    expect(result).toEqual('en-EN');
+    expect(result).toEqual('en-US');
     expect(typeof result).toEqual('string');
 });
 
