@@ -362,7 +362,7 @@ This parser takes an optional config object with the following properties:
 
 | option         | default   | type      | required | details                         |
 | -------------- | --------- | --------- | -------- | ------------------------------- |
-| locale         | `en-EN`   | `string`  | `false`  | A bcp47 compliant locale String |
+| locale         | `en-US`   | `string`  | `false`  | A bcp47 compliant locale String |
 
 This config object is passed on to the `locale` property on the config object
 on the constructor.
