@@ -20,7 +20,7 @@ test('PodiumContextDeviceTypeParser() - instantiate new object - should create a
 test('PodiumContextDeviceTypeParser() - object tag - should be PodiumContextDeviceTypeParser', () => {
     const parser = new DeviceType();
     expect(Object.prototype.toString.call(parser)).toEqual(
-        '[object PodiumContextDeviceTypeParser]'
+        '[object PodiumContextDeviceTypeParser]',
     );
 });
 
