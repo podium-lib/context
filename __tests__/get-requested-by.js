@@ -10,7 +10,7 @@ test('PodiumContextRequestedByParser() - instantiate new object - should create 
 test('PodiumContextRequestedByParser() - object tag - should be PodiumContextRequestedByParser', () => {
     const parser = new RequestedBy({ name: 'foo' });
     expect(Object.prototype.toString.call(parser)).toEqual(
-        '[object PodiumContextRequestedByParser]'
+        '[object PodiumContextRequestedByParser]',
     );
 });
 

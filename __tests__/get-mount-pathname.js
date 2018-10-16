@@ -10,7 +10,7 @@ test('PodiumContextMountPathnameParser() - instantiate new object - should creat
 test('PodiumContextMountPathnameParser() - object tag - should be PodiumContextMountPathnameParser', () => {
     const parser = new MountPathname();
     expect(Object.prototype.toString.call(parser)).toEqual(
-        '[object PodiumContextMountPathnameParser]'
+        '[object PodiumContextMountPathnameParser]',
     );
 });
 

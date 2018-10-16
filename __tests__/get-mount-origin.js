@@ -10,7 +10,7 @@ test('PodiumContextMountOriginParser() - instantiate new object - should create 
 test('PodiumContextMountOriginParser() - object tag - should be PodiumContextMountOriginParser', () => {
     const parser = new MountOrigin();
     expect(Object.prototype.toString.call(parser)).toEqual(
-        '[object PodiumContextMountOriginParser]'
+        '[object PodiumContextMountOriginParser]',
     );
 });
 
