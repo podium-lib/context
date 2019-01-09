@@ -11,9 +11,6 @@
             "files": "__tests__/**/*"
         }
     ],
-    "parserOptions": {
-        "ecmaVersion": 2018
-    },
     "plugins": ["prettier"],
     "root": true,
     "rules": {

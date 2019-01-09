@@ -1,5 +1,7 @@
 # Podium Context
 
+[![Build Status](https://travis-ci.org/podium-lib/context.svg?branch=master)](https://travis-ci.org/podium-lib/context)
+
 Module to generate, serialize and de-serialize a Podium Context.
 
 ## Installation
@@ -74,9 +76,9 @@ HTTP headers are once again parsed back into a key / value object with the key i
 
 There are three parts in this module:
 
-*   Parsers
-*   Middleware to run parsers
-*   Serializing / deserializing
+-   Parsers
+-   Middleware to run parsers
+-   Serializing / deserializing
 
 Each part works as follow:
 
@@ -370,12 +372,12 @@ UA detection and is **not** guaranteed to be accurate.
 
 The output value will be one of the following strings:
 
-*   `desktop`: The device requesting the podlet is probably a desktop computer
+-   `desktop`: The device requesting the podlet is probably a desktop computer
     or something with a large screen. This is the **default** if we're not able
     to determine anything more detailed.
-*   `tablet`: The device is probably a tablet of some sort, or a device with a
+-   `tablet`: The device is probably a tablet of some sort, or a device with a
     smaller screen than a desktop.
-*   `mobile`: The device is probably a phone of some sort, or a device with a
+-   `mobile`: The device is probably a phone of some sort, or a device with a
     smaller screen than a tablet.
 
 This module will internally cache its result and the matching UA string in an LRU cache for faster lookup.

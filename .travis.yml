@@ -1,45 +1,40 @@
 language: node_js
 
 node_js:
-  - "10"
-  - "8"
+    - '10'
+    - '8'
 
 script: npm run test:coverage && npm run lint
 
 jobs:
-  fast_finish: true
+    fast_finish: true
 
-  include:
+    include:
+        # Nightlies
+        - stage: Node.js pre-releases
+          node_js: '11'
+          if: type = cron
+          env: NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/nightly/
+        - node_js: '10'
+          if: type = cron
+          env: NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/nightly/
+        - node_js: '8'
+          if: type = cron
+          env: NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/nightly/
 
-    # Nightlies
-    - stage: Node.js pre-releases
-      node_js: '11'
-      if: type = cron
-      env: NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/nightly/
-    -
-      node_js: '10'
-      if: type = cron
-      env: NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/nightly/
-    -
-      node_js: '8'
-      if: type = cron
-      env: NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/nightly/
-
-    # Release Candidates
-    -
-      node_js: '10'
-      if: type = cron
-      env: NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/rc/
-    -
-      node_js: '8'
-      if: type = cron
-      env: NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/rc/
+        # Release Candidates
+        - node_js: '10'
+          if: type = cron
+          env: NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/rc/
+        - node_js: '8'
+          if: type = cron
+          env: NVM_NODEJS_ORG_MIRROR=https://nodejs.org/download/rc/
 
 cache:
-  node: true
+    node: true
 
 branches:
-   only:
-   - master
+    only:
+        - master
 
 dist: trusty
