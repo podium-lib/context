@@ -1,50 +1,47 @@
 {
-  "name": "@podium/context",
-  "version": "2.2.3",
-  "license": "SEE LICENSE IN LICENSE",
-  "description": "@podium/context",
-  "repository": {
-    "type": "git",
-    "url": "git@github.schibsted.io:Podium/context.git"
-  },
-  "main": "./lib/context.js",
-  "files": [
-    "config.js",
-    "lib"
-  ],
-  "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "test": "jest",
-    "test:verbose": "jest --verbose",
-    "test:coverage": "jest --coverage"
-  },
-  "keywords": [],
-  "author": "",
-  "publishConfig": {
-    "registry": "http://npm.finntech.no/"
-  },
-  "dependencies": {
-    "@metrics/client": "^2.1.1",
-    "@podium/schemas": "2.1.1",
-    "@podium/utils": "2.0.0",
-    "bcp47-validate": "^1.0.0",
-    "boom": "^7.2.0",
-    "bowser": "^1.9.4",
-    "decamelize": "^2.0.0",
-    "joi": "^13.4.0",
-    "lru-cache": "^4.1.2",
-    "original-url": "^1.2.1"
-  },
-  "devDependencies": {
-    "benchmark": "^2.1.4",
-    "express": "^4.16.3",
-    "jest": "^23.6.0",
-    "eslint": "^5.6.1",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^3.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-prettier": "^3.0.0",
-    "prettier": "^1.14.2"
-  }
+    "name": "@podium/context",
+    "version": "2.2.3",
+    "license": "SEE LICENSE IN LICENSE",
+    "description": "Module to generate the context which is passed on requests from a Layout server to a Podlet server",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:podium-lib/context.git"
+    },
+    "main": "./lib/context.js",
+    "files": [
+        "config.js",
+        "lib"
+    ],
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint --fix .",
+        "test": "jest",
+        "test:verbose": "jest --verbose",
+        "test:coverage": "jest --coverage"
+    },
+    "keywords": [],
+    "author": "",
+    "dependencies": {
+        "@metrics/client": "^2.1.1",
+        "@podium/schemas": "2.1.1",
+        "@podium/utils": "2.0.0",
+        "bcp47-validate": "^1.0.0",
+        "boom": "^7.2.0",
+        "bowser": "^1.9.4",
+        "decamelize": "^2.0.0",
+        "joi": "^13.4.0",
+        "lru-cache": "^4.1.2",
+        "original-url": "^1.2.1"
+    },
+    "devDependencies": {
+        "benchmark": "^2.1.4",
+        "express": "^4.16.3",
+        "jest": "^23.6.0",
+        "eslint": "^5.6.1",
+        "eslint-config-airbnb-base": "^13.1.0",
+        "eslint-config-prettier": "^3.1.0",
+        "eslint-plugin-import": "^2.14.0",
+        "eslint-plugin-prettier": "^3.0.0",
+        "prettier": "^1.14.2"
+    }
 }

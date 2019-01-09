@@ -31,10 +31,10 @@ The latest version of this document is always available in [releases][releases-u
 
 -   First argument, name, on the constructor is now moved to the options object of the constructor. See: #10
 
-[unreleased]: https://github.schibsted.io/Podium/context/compare/v2.2.3...HEAD
-[2.2.3]: https://github.schibsted.io/Podium/context/compare/v2.2.2...v2.2.3
-[2.2.2]: https://github.schibsted.io/Podium/context/compare/v2.2.1...v2.2.2
-[2.2.1]: https://github.schibsted.io/Podium/context/compare/v2.2.0...v2.2.1
-[2.2.0]: https://github.schibsted.io/Podium/context/compare/v2.1.0...v2.2.0
-[2.1.0]: https://github.schibsted.io/Podium/context/compare/v2.0.0...v2.1.0
-[releases-url]: https://github.schibsted.io/Podium/context/blob/master/CHANGELOG.md
+[unreleased]: https://github.com/podium-lib/context/compare/v2.2.3...HEAD
+[2.2.3]: https://github.com/podium-lib/context/compare/v2.2.2...v2.2.3
+[2.2.2]: https://github.com/podium-lib/context/compare/v2.2.1...v2.2.2
+[2.2.1]: https://github.com/podium-lib/context/compare/v2.2.0...v2.2.1
+[2.2.0]: https://github.com/podium-lib/context/compare/v2.1.0...v2.2.0
+[2.1.0]: https://github.com/podium-lib/context/compare/v2.0.0...v2.1.0
+[releases-url]: https://github.com/podium-lib/context/blob/master/CHANGELOG.md
