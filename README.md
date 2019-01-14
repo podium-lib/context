@@ -1,6 +1,6 @@
 # Podium Context
 
-[![Build Status](https://travis-ci.org/podium-lib/context.svg?branch=master)](https://travis-ci.org/podium-lib/context)
+[![Build Status](https://travis-ci.org/podium-lib/context.svg?branch=master)](https://travis-ci.org/podium-lib/context) [![Greenkeeper badge](https://badges.greenkeeper.io/podium-lib/context.svg)](https://greenkeeper.io/)
 
 Module to generate, serialize and de-serialize a Podium Context.
 
