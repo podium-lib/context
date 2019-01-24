@@ -22,7 +22,7 @@
     "keywords": [],
     "author": "",
     "dependencies": {
-        "@metrics/client": "^2.2.0",
+        "@metrics/client": "2.3.0",
         "@podium/schemas": "3.0.0-beta.1",
         "@podium/utils": "3.0.0-beta.1",
         "bcp47-validate": "^1.0.0",
