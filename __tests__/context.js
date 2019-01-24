@@ -269,7 +269,6 @@ test('PodiumContext.middleware() - timing success metric produced', done => {
     const middleware = context.middleware();
     middleware(req, res, () => {
         expect(metrics).toHaveLength(1);
-        expect(metrics[0].time).not.toBeFalsy();
         expect(metrics[0].timestamp).not.toBeFalsy();
         const { name, description } = metrics[0];
         expect({ name, description }).toMatchSnapshot();
@@ -304,7 +303,6 @@ test('PodiumContext.middleware() - timing failure metric produced', done => {
     const middleware = context.middleware();
     middleware(req, res, () => {
         expect(metrics).toHaveLength(1);
-        expect(metrics[0].time).not.toBeFalsy();
         expect(metrics[0].timestamp).not.toBeFalsy();
         expect(metrics[0].meta.stack).not.toBeFalsy();
         const { name, description } = metrics[0];
