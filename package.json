@@ -1,15 +1,24 @@
 {
     "name": "@podium/context",
-    "version": "2.2.3",
-    "license": "SEE LICENSE IN LICENSE",
+    "version": "3.0.0-beta.1",
     "description": "Module to generate the context which is passed on requests from a Layout server to a Podlet server",
+    "license": "MIT",
+    "keywords": [
+        "micro services",
+        "micro frontend",
+        "components",
+        "podium"
+    ],
     "repository": {
         "type": "git",
         "url": "git@github.com:podium-lib/context.git"
     },
+    "bugs": {
+        "url": "https://github.com/podium-lib/issues"
+    },
+    "homepage": "https://podium-lib.io/",
     "main": "./lib/context.js",
     "files": [
-        "config.js",
         "lib"
     ],
     "scripts": {
@@ -19,15 +28,14 @@
         "test:verbose": "jest --verbose",
         "test:coverage": "jest --coverage"
     },
-    "keywords": [],
     "author": "",
     "dependencies": {
         "@metrics/client": "2.3.0",
-        "@podium/schemas": "3.0.0-beta.1",
-        "@podium/utils": "3.0.0-beta.1",
+        "@podium/schemas": "3.0.0",
+        "@podium/utils": "3.0.0",
         "bcp47-validate": "^1.0.0",
         "boom": "^7.2.0",
-        "bowser": "^1.9.4",
+        "bowser": "^2.1.0",
         "decamelize": "^2.0.0",
         "joi": "^14.3.1",
         "lru-cache": "^5.1.1",
@@ -36,12 +44,12 @@
     "devDependencies": {
         "benchmark": "^2.1.4",
         "express": "^4.16.3",
-        "jest": "^23.6.0",
-        "eslint": "^5.12.0",
+        "jest": "^24.0.0",
+        "eslint": "^5.12.1",
         "eslint-config-airbnb-base": "^13.1.0",
-        "eslint-config-prettier": "^3.1.0",
-        "eslint-plugin-import": "^2.14.0",
+        "eslint-config-prettier": "^4.0.0",
+        "eslint-plugin-import": "^2.16.0",
         "eslint-plugin-prettier": "^3.0.1",
-        "prettier": "^1.14.2"
+        "prettier": "^1.16.1"
     }
 }
