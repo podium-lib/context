@@ -43,7 +43,6 @@
     },
     "devDependencies": {
         "benchmark": "^2.1.4",
-        "express": "^4.16.3",
         "jest": "^24.0.0",
         "eslint": "^5.12.1",
         "eslint-config-airbnb-base": "^13.1.0",
