@@ -1,6 +1,7 @@
 'use strict';
 
 const Context = require('../lib/context');
+const State = require('../lib/state');
 
 const HEADER_RICH = {
     host: 'localhost:3030',
@@ -160,66 +161,51 @@ test('PodiumContext.deserialize() - request has podium header - should put heade
 });
 
 /**
- * .middleware()
+ * .process()
  */
 
-test('PodiumContext.middleware() - process a "rich" request - should put parsed values into res.locals.podium', done => {
+test('PodiumContext.middleware() - process a "rich" request - should put parsed values into res.locals.podium', async () => {
     const context = new Context({ name: 'foo' });
-
-    const req = {
+    const state = new State({
         headers: HEADER_RICH,
         hostname: 'localhost',
         url: '/some/path?x=1&a=2&b=3&c=4',
         cookies: { USERID: '123' },
-    };
-
-    const res = {};
-
-    const middleware = context.middleware();
-    middleware(req, res, () => {
-        const ctx = res.locals.podium.context;
-        expect(ctx['podium-mount-origin']).toEqual('http://localhost:3030');
-        expect(ctx['podium-mount-pathname']).toEqual('/');
-        expect(ctx['podium-device-type']).toEqual('mobile');
-        expect(ctx['podium-locale']).toEqual('en-US');
-        expect(ctx['podium-debug']).toEqual('false');
-        expect(ctx['podium-requested-by']).toEqual('foo');
-        expect(ctx['podium-public-pathname']).toBeInstanceOf(Function);
-        done();
     });
+
+    const result = await context.process(state);
+    expect(result.context['podium-mount-origin']).toEqual('http://localhost:3030');
+    expect(result.context['podium-mount-pathname']).toEqual('/');
+    expect(result.context['podium-device-type']).toEqual('mobile');
+    expect(result.context['podium-locale']).toEqual('en-US');
+    expect(result.context['podium-debug']).toEqual('false');
+    expect(result.context['podium-requested-by']).toEqual('foo');
+    expect(result.context['podium-public-pathname']).toBeInstanceOf(Function);
 });
 
-test('PodiumContext.middleware() - process a "minimal" request - should put parsed values into res.locals.podium', done => {
+test('PodiumContext.middleware() - process a "minimal" request - should put parsed values into res.locals.podium', async () => {
     const context = new Context({ name: 'foo' });
-
-    const req = {
+    const state = new State({
         headers: {
             host: 'localhost:3030',
         },
         hostname: 'localhost',
         url: '/some/path',
-    };
-
-    const res = {};
-
-    const middleware = context.middleware();
-    middleware(req, res, () => {
-        const ctx = res.locals.podium.context;
-        expect(ctx['podium-mount-origin']).toEqual('http://localhost:3030');
-        expect(ctx['podium-mount-pathname']).toEqual('/');
-        expect(ctx['podium-device-type']).toEqual('desktop');
-        expect(ctx['podium-locale']).toEqual('en-US');
-        expect(ctx['podium-debug']).toEqual('false');
-        expect(ctx['podium-requested-by']).toEqual('foo');
-        expect(ctx['podium-public-pathname']).toBeInstanceOf(Function);
-        done();
     });
+
+    const result = await context.process(state);
+    expect(result.context['podium-mount-origin']).toEqual('http://localhost:3030');
+    expect(result.context['podium-mount-pathname']).toEqual('/');
+    expect(result.context['podium-device-type']).toEqual('desktop');
+    expect(result.context['podium-locale']).toEqual('en-US');
+    expect(result.context['podium-debug']).toEqual('false');
+    expect(result.context['podium-requested-by']).toEqual('foo');
+    expect(result.context['podium-public-pathname']).toBeInstanceOf(Function);
 });
 
-test('PodiumContext.middleware() - a parser throws - should emit "next()" with Boom Error Object', done => {
-    expect.assertions(2);
-
+test('PodiumContext.middleware() - a parser throws - should emit "next()" with Boom Error Object', async () => {
     const context = new Context({ name: 'foo' });
+
     context.register('fooBar', {
         parse: () =>
             new Promise((resolve, reject) => {
@@ -227,86 +213,42 @@ test('PodiumContext.middleware() - a parser throws - should emit "next()" with B
             }),
     });
 
-    const headers = {
-        host: 'localhost:3030',
-    };
-    const req = {
-        headers,
+    const state = new State({
+        headers: {
+            host: 'localhost:3030',
+        },
         hostname: 'localhost',
         url: '/some/path',
-    };
+    });
 
-    const res = {};
-
-    const middleware = context.middleware();
-    middleware(req, res, error => {
+    try {
+        await context.process(state);
+    } catch (error) {
         expect(error.message).toEqual(
-            'Error during context parsing or serializing: bogus',
+            'bogus',
         );
-        expect(error.isBoom).toBeTruthy();
-        done();
-    });
+    }
 });
 
-test('PodiumContext.middleware() - timing success metric produced', done => {
+test('PodiumContext.middleware() - timing success metric produced', async () => {
     const context = new Context({ name: 'foo' });
 
-    const req = {
+    const state = new State({
         headers: {
             host: 'localhost:3030',
         },
         hostname: 'localhost',
         url: '/some/path',
-    };
-
-    const res = {};
+    });
 
     const metrics = [];
     context.metrics.on('data', metric => {
         metrics.push(metric);
     });
 
-    const middleware = context.middleware();
-    middleware(req, res, () => {
-        expect(metrics).toHaveLength(1);
-        expect(metrics[0].timestamp).not.toBeFalsy();
-        const { name, description } = metrics[0];
-        expect({ name, description }).toMatchSnapshot();
-        done();
-    });
-});
+    await context.process(state);
 
-test('PodiumContext.middleware() - timing failure metric produced', done => {
-    const context = new Context({ name: 'foo' });
-
-    context.register('failingparser', {
-        async parse() {
-            throw new Error('intentional failure');
-        },
-    });
-
-    const req = {
-        headers: {
-            host: 'localhost:3030',
-        },
-        hostname: 'localhost',
-        url: '/some/path',
-    };
-
-    const res = {};
-
-    const metrics = [];
-    context.metrics.on('data', metric => {
-        metrics.push(metric);
-    });
-
-    const middleware = context.middleware();
-    middleware(req, res, () => {
-        expect(metrics).toHaveLength(1);
-        expect(metrics[0].timestamp).not.toBeFalsy();
-        expect(metrics[0].meta.stack).not.toBeFalsy();
-        const { name, description } = metrics[0];
-        expect({ name, description }).toMatchSnapshot();
-        done();
-    });
+    expect(metrics).toHaveLength(1);
+    expect(metrics[0].timestamp).not.toBeFalsy();
+    expect(metrics[0].name).toEqual('context_run_parsers');
 });
