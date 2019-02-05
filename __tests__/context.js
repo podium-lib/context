@@ -1,7 +1,7 @@
 'use strict';
 
+const { HttpIncoming } = require('@podium/utils');
 const Context = require('../lib/context');
-const State = require('../lib/state');
 
 const HEADER_RICH = {
     host: 'localhost:3030',
@@ -166,14 +166,14 @@ test('PodiumContext.deserialize() - request has podium header - should put heade
 
 test('PodiumContext.middleware() - process a "rich" request - should put parsed values into res.locals.podium', async () => {
     const context = new Context({ name: 'foo' });
-    const state = new State({
+    const incoming = new HttpIncoming({
         headers: HEADER_RICH,
         hostname: 'localhost',
         url: '/some/path?x=1&a=2&b=3&c=4',
         cookies: { USERID: '123' },
     });
 
-    const result = await context.process(state);
+    const result = await context.process(incoming);
     expect(result.context['podium-mount-origin']).toEqual('http://localhost:3030');
     expect(result.context['podium-mount-pathname']).toEqual('/');
     expect(result.context['podium-device-type']).toEqual('mobile');
@@ -185,7 +185,7 @@ test('PodiumContext.middleware() - process a "rich" request - should put parsed 
 
 test('PodiumContext.middleware() - process a "minimal" request - should put parsed values into res.locals.podium', async () => {
     const context = new Context({ name: 'foo' });
-    const state = new State({
+    const incoming = new HttpIncoming({
         headers: {
             host: 'localhost:3030',
         },
@@ -193,7 +193,7 @@ test('PodiumContext.middleware() - process a "minimal" request - should put pars
         url: '/some/path',
     });
 
-    const result = await context.process(state);
+    const result = await context.process(incoming);
     expect(result.context['podium-mount-origin']).toEqual('http://localhost:3030');
     expect(result.context['podium-mount-pathname']).toEqual('/');
     expect(result.context['podium-device-type']).toEqual('desktop');
@@ -213,7 +213,7 @@ test('PodiumContext.middleware() - a parser throws - should emit "next()" with B
             }),
     });
 
-    const state = new State({
+    const incoming = new HttpIncoming({
         headers: {
             host: 'localhost:3030',
         },
@@ -222,7 +222,7 @@ test('PodiumContext.middleware() - a parser throws - should emit "next()" with B
     });
 
     try {
-        await context.process(state);
+        await context.process(incoming);
     } catch (error) {
         expect(error.message).toEqual(
             'bogus',
@@ -233,7 +233,7 @@ test('PodiumContext.middleware() - a parser throws - should emit "next()" with B
 test('PodiumContext.middleware() - timing success metric produced', async () => {
     const context = new Context({ name: 'foo' });
 
-    const state = new State({
+    const incoming = new HttpIncoming({
         headers: {
             host: 'localhost:3030',
         },
@@ -246,7 +246,7 @@ test('PodiumContext.middleware() - timing success metric produced', async () => 
         metrics.push(metric);
     });
 
-    await context.process(state);
+    await context.process(incoming);
 
     expect(metrics).toHaveLength(1);
     expect(metrics[0].timestamp).not.toBeFalsy();

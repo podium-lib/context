@@ -1,7 +1,7 @@
 'use strict';
 
+const { HttpIncoming } = require('@podium/utils');
 const MountOrigin = require('../lib/get-mount-origin');
-const State = require('../lib/state');
 
 test('PodiumContextMountOriginParser() - instantiate new object - should create an object', () => {
     const parser = new MountOrigin();
@@ -34,8 +34,8 @@ test('PodiumContextMountOriginParser() - "mountOrigin" argument has a legal valu
         protocol: 'http:',
     };
 
-    const state = new State(req);
-    const result = parser.parse(state);
+    const incoming = new HttpIncoming(req);
+    const result = parser.parse(incoming);
 
     expect(result).toBe('https://foo.bar.com');
 });
@@ -51,8 +51,8 @@ test('PodiumContextMountOriginParser() - "req.protocol" is "http:" - should set 
         protocol: 'http:',
     };
 
-    const state = new State(req);
-    const result = parser.parse(state);
+    const incoming = new HttpIncoming(req);
+    const result = parser.parse(incoming);
 
     expect(result).toBe('http://www.finn.no');
 });
@@ -68,8 +68,8 @@ test('PodiumContextMountOriginParser() - "req.protocol" is "https:" - should set
         protocol: 'https:',
     };
 
-    const state = new State(req);
-    const result = parser.parse(state);
+    const incoming = new HttpIncoming(req);
+    const result = parser.parse(incoming);
 
     expect(result).toBe('https://www.finn.no');
 });
@@ -83,8 +83,8 @@ test('PodiumContextMountOriginParser() - "req.protocol" is "undefined" - should 
         },
     };
 
-    const state = new State(req);
-    const result = parser.parse(state);
+    const incoming = new HttpIncoming(req);
+    const result = parser.parse(incoming);
 
     expect(result).toBe('http://www.finn.no');
 });
@@ -99,8 +99,8 @@ test('PodiumContextMountOriginParser.parse() - "req.headers.host" has port - sho
         },
     };
 
-    const state = new State(req);
-    const result = parser.parse(state);
+    const incoming = new HttpIncoming(req);
+    const result = parser.parse(incoming);
 
     expect(result).toBe('http://www.finn.no:8080');
 });
@@ -115,8 +115,8 @@ test('PodiumContextMountOriginParser.parse() - "req.port" is 80 - should not set
         },
     };
 
-    const state = new State(req);
-    const result = parser.parse(state);
+    const incoming = new HttpIncoming(req);
+    const result = parser.parse(incoming);
 
     expect(result).toBe('http://www.finn.no');
 });
@@ -131,8 +131,8 @@ test('PodiumContextMountOriginParser.parse() - "req.port" is 443 - should not se
         },
     };
 
-    const state = new State(req);
-    const result = parser.parse(state);
+    const incoming = new HttpIncoming(req);
+    const result = parser.parse(incoming);
 
     expect(result).toBe('https://www.finn.no');
 });
@@ -147,8 +147,8 @@ test('PodiumContextMountOriginParser.parse() - "mountOrigin" argument has "port"
         },
     };
 
-    const state = new State(req);
-    const result = parser.parse(state);
+    const incoming = new HttpIncoming(req);
+    const result = parser.parse(incoming);
 
     expect(result).toBe('https://foo.bar.com');
 });
@@ -163,8 +163,8 @@ test('PodiumContextMountOriginParser.parse() - "mountOrigin" argument has "port"
         },
     };
 
-    const state = new State(req);
-    const result = parser.parse(state);
+    const incoming = new HttpIncoming(req);
+    const result = parser.parse(incoming);
 
     expect(result).toBe('https://foo.bar.com');
 });
@@ -178,8 +178,8 @@ test('PodiumContextMountOriginParser.parse() - "req.hostname" is an ip address -
         },
     };
 
-    const state = new State(req);
-    const result = parser.parse(state);
+    const incoming = new HttpIncoming(req);
+    const result = parser.parse(incoming);
 
     expect(result).toBe('http://192.0.2.1:8080');
 });
@@ -194,8 +194,8 @@ test('PodiumContextMountOriginParser.parse() - "mountOrigin" argument has "host"
         },
     };
 
-    const state = new State(req);
-    const result = parser.parse(state);
+    const incoming = new HttpIncoming(req);
+    const result = parser.parse(incoming);
 
     expect(result).toBe('http://192.0.2.1');
 });
@@ -211,8 +211,8 @@ test('PodiumContextMountOriginParser.parse() - "req.protocol" is http, "X-Forwar
         },
     };
 
-    const state = new State(req);
-    const result = parser.parse(state);
+    const incoming = new HttpIncoming(req);
+    const result = parser.parse(incoming);
 
     expect(result).toBe('https://www.finn.no');
 });
