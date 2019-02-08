@@ -30,9 +30,9 @@
     },
     "author": "",
     "dependencies": {
-        "@metrics/client": "2.3.0",
+        "@metrics/client": "2.3.1",
         "@podium/schemas": "3.0.0",
-        "@podium/utils": "3.1.0",
+        "@podium/utils": "3.1.1",
         "bcp47-validate": "^1.0.0",
         "bowser": "^2.1.0",
         "decamelize": "^2.0.0",
@@ -41,7 +41,7 @@
     },
     "devDependencies": {
         "benchmark": "^2.1.4",
-        "jest": "^24.0.0",
+        "jest": "^24.1.0",
         "eslint": "^5.12.1",
         "eslint-config-airbnb-base": "^13.1.0",
         "eslint-config-prettier": "^4.0.0",
