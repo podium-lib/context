@@ -8,8 +8,8 @@ server to a Podium Podlet server.
 [![Known Vulnerabilities](https://snyk.io/test/github/podium-lib/context/badge.svg)](https://snyk.io/test/github/podium-lib/context)
 
 This module is intended for internal use in Podium and is not a module an end
-user would use directly. An end user can though interact with this module
-through a higher level module such as the [@podium/layout] module.
+user would use directly. End users will typically interact with this module
+through higher level modules such as the [@podium/layout] module.
 
 ## Installation
 
@@ -19,7 +19,7 @@ $ npm install @podium/context
 
 ## Example
 
-Generate a context which can be passed on to a http request to Podlet:
+Generate a context which can be passed on to an http request to a Podlet:
 
 ```js
 const { HttpIncoming } = require('@podium/utils');
@@ -36,8 +36,8 @@ const server = http.createServer(async (req, res) => {
     // Run context parsers on the request
     const incom = await context.process(incoming);
 
-    // Serialize the context into a object that can be passed on
-    // to be passed on as http headers on a http request
+    // Serialize the context into an object that can be
+    // passed on as HTTP headers on each HTTP request
     const headers = Context.serialize({}, incom.context);
 
     [ ... snip ...]
@@ -67,10 +67,10 @@ Each part works as follow:
 
 ### Parsers
 
-A parser works on an inbound request to the Layout server. A parser is handed a
-[HttpIncoming] object on each request. Upon execution a parser builds a value
-which will be applied as part of the context which is appended to the requests
-to Podlet servers.
+Parsers operate on inbound requests to a layout server. Each parser is handed an
+[HttpIncoming] object for each request. Upon execution a parser builds a value
+which will be applied as part of the context and then appended to all requests
+made to podlet servers.
 
 This module comes with a set of built in parsers which will always be applied.
 
@@ -79,12 +79,12 @@ constructing the context.
 
 ### Processing
 
-There is a `.process()` method which takes a [HttpIncoming] object and runs it
-through all registered parsers in paralell.
+There is a `.process()` method which takes an [HttpIncoming] object and then
+runs it through all registered parsers in parallel.
 
-The result of each parser is stored as an object on `.context` on the passed in
-`HttpIncoming` object. The object stored on `.context` is "HTTP header like" and
-can be serialized into headers on an HTTP request to a Podlet.
+The result of each parser is stored in an object which is set on the `.context`
+property of the [HttpIncoming] object. This object is "HTTP header like" and can
+be serialized into headers on an HTTP request to a Podlet.
 
 ### Serializing / deserializing
 
@@ -184,7 +184,7 @@ const Context = require('@podium/context');
 const Parser = require('my-custom-parser');
 const http = require('http');
 
-// Set up a context and register the cusrom parser
+// Set up a context and register the custom parser
 const context = new Context({ name: 'myLayout' });
 context.register('myStuff', new Parser('someConfig'));
 
@@ -222,7 +222,7 @@ The Context constructor has the following static API:
 
 ### .serialize(headers, context, podletName)
 
-Takes an "HTTP header-ish" object produced by `.process()` (the
+Takes an "HTTP header like" object produced by `.process()` (the
 `HttpIncoming.context` object) and serializes it into an HTTP header object
 which can be applied to HTTP requests sent to podlets.
 
@@ -279,9 +279,8 @@ app.get('/', (req, res) => {
 This module comes with a set of default parsers which will be applied when
 `.process()` is run.
 
-Each of these parsers can be configured through with constructor option object
-by passing an options object to the matching options parameter for the parser in
-the constructor (see constructor options).
+Each of these parsers can be configured through the constructor's options object
+by passing an options object for the specific parser (see constructor options).
 
 Example of passing options to the built in `debug` parser:
 
