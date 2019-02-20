@@ -1,5 +1,6 @@
 'use strict';
 
+const { HttpIncoming } = require('@podium/utils');
 const Locale = require('../lib/get-locale');
 
 test('PodiumContextLocaleParser() - instantiate new object - should create an object', () => {
@@ -42,15 +43,22 @@ test('PodiumContextLocaleParser.parse() - instantiated object - should have pars
     expect(parser.parse).toBeInstanceOf(Function);
 });
 
-test('PodiumContextLocaleParser.parse() - value at "res.locals.locale" - .parse() should return given value', () => {
+test('PodiumContextLocaleParser.parse() - value at "HttpIncoming.params.locale" - .parse() should return given value', () => {
     const parser = new Locale();
-    const result = parser.parse(
+    const incoming = new HttpIncoming(
+        {
+            originalUrl: 'http://www.finn.no',
+            headers: {
+                host: 'www.finn.no',
+            },
+            protocol: 'http:',
+        },
         {},
         {
-            locals: {
-                locale: 'nb-NO',
-            },
+            locale: 'nb-NO',
         },
     );
+
+    const result = parser.parse(incoming);
     expect(result).toEqual('nb-NO');
 });

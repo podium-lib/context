@@ -1,10 +1,15 @@
 # Podium Context
 
+Module to generate the context which is passed on requests from a Podium Layout
+server to a Podium Podlet server.
+
 [![Build Status](https://travis-ci.org/podium-lib/context.svg?branch=master)](https://travis-ci.org/podium-lib/context)
 [![Greenkeeper badge](https://badges.greenkeeper.io/podium-lib/context.svg)](https://greenkeeper.io/)
 [![Known Vulnerabilities](https://snyk.io/test/github/podium-lib/context/badge.svg)](https://snyk.io/test/github/podium-lib/context)
 
-Module to generate, serialize and de-serialize a Podium Context.
+This module is intended for internal use in Podium and is not a module an end
+user would use directly. End users will typically interact with this module
+through higher level modules such as the [@podium/layout] module.
 
 ## Installation
 
@@ -14,67 +19,43 @@ $ npm install @podium/context
 
 ## Example
 
-Simple Layout server requesting content from a Podlet server:
+Generate a context which can be passed on to an http request to a Podlet:
 
 ```js
-const request = require('request');
-const express = require('express');
+const { HttpIncoming } = require('@podium/utils');
 const Context = require('@podium/context');
-
-const app = express();
+const http = require('http');
 
 // Set up a context with the name 'myLayout'
 const context = new Context({ name: 'myLayout' });
 
-// Attach context middleware to all incomming requests.
-// This will run all built in parsers on all requests.
-// The context will be stored at: `res.podium.context`
-app.use(context.middleware());
+const server = http.createServer(async (req, res) => {
+    // Create a HttpIncoming object
+    const incoming = new HttpIncoming(req, res);
 
-// A GET route requesting a Podlet server. The context
-// is serialized and appended as HTTP headers to the
-// request to the Podlet server.
-app.get('/', (req, res) => {
-    const headers = Context.serialize({}, res.locals.podium.context);
-    request({
-        headers: headers,
-        method: 'GET',
-        url: 'http://some.podlet.finn.no/',
-    }).pipe(res);
+    // Run context parsers on the request
+    const incom = await context.process(incoming);
+
+    // Serialize the context into an object that can be
+    // passed on as HTTP headers on each HTTP request
+    const headers = Context.serialize({}, incom.context);
+
+    [ ... snip ...]
 });
 
-app.listen(8080);
-```
-
-Simple Podlet server recieving requests from the Layout server:
-
-```js
-const express = require('express');
-const Context = require('@podium/context');
-
-const app = express();
-
-// Attach context de-serialize middleware which will
-// transform the context into a usable object.
-// The context will be stored at: `res.locals.podium.context`
-app.use(Context.deserialize());
-
-app.get('/', (req, res) => {
-    res.status(200).json(res.locals.podium.context);
-});
-
-app.listen(8080);
+server.listen(8080);
 ```
 
 ## Description
 
-The Podium Context is used to provide key information from a Layout server to a Podlet server.
-This is done by a defined set of HTTP headers which is applied to all requests from a Layout
-server to a Podlet server.
+The Podium Context is used to provide key information from a Layout server to a
+Podlet server. This is done by a defined set of HTTP headers which is applied to
+all requests from a Layout server to a Podlet server.
 
-This module handles generating wanted key information in the Layout server and seralizing
-it into HTTP headers which are passed on to requests to the Podlet servers where the
-HTTP headers are once again parsed back into a key / value object with the key information.
+This module handles generating wanted key information in the Layout server and
+seralizing it into HTTP headers which are passed on to requests to the Podlet
+servers where the HTTP headers are once again parsed back into a key / value
+object with the key information.
 
 There are three parts in this module:
 
@@ -86,30 +67,31 @@ Each part works as follow:
 
 ### Parsers
 
-A parser works on an inbound request to the Layout server. The parser has access to the
-HTTP `request` and `response` objects in a Layout server. Upon this a parser builds a
-value which will be applied as part of the context which is appended to requests
-to Podlet servers.
+Parsers operate on inbound requests to a layout server. Each parser is handed an
+[HttpIncoming] object for each request. Upon execution a parser builds a value
+which will be applied as part of the context and then appended to all requests
+made to podlet servers.
 
 This module comes with a set of built in parsers which will always be applied.
 
-It's also possible to write custom parsers and append them to the process of constructing
-the context.
+It's also possible to write custom parsers and append them to the process of
+constructing the context.
 
-### Middleware
+### Processing
 
-The middleware is a Connect compatible middleware which runs on all HTTP requests to
-the Layout server and runs all registered parsers.
+There is a `.process()` method which takes an [HttpIncoming] object and then
+runs it through all registered parsers in parallel.
 
-The middleware stores the result of each parser as an object on the response at `res.locals.podium.context`.
-This object is "HTTP header like" and can be serialized into headers on an HTTP request
-to a Podlet.
+The result of each parser is stored in an object which is set on the `.context`
+property of the [HttpIncoming] object. This object is "HTTP header like" and can
+be serialized into headers on an HTTP request to a Podlet.
 
 ### Serializing / deserializing
 
-These are `static` methods used to serialize and deserialize the "HTTP header like"
-object from `res.locals.podium.context` into HTTP headers on the HTTP request to a Podlet
-and then back into a object on `res.locals.podium.context` in the Podlet server.
+These are `static` methods used to serialize and deserialize the "HTTP header
+like" object from `HttpIncoming.context` into HTTP headers on the HTTP request
+to a Podlet and then back into a object on `HttpIncoming.context` in the Podlet
+server.
 
 ## Constructor
 
@@ -136,9 +118,10 @@ The constructor takes the following arguments:
 
 #### name
 
-A name as a `String` to identify the instance. This should be a logical and human readable name
-related to the Layout this instance is appended too. This name is passed on to the Podlet
-servers as part of the [Requested By](#requested-by) context.
+A name as a `String` to identify the instance. This should be a logical and
+human readable name related to the Layout this instance is appended too. This
+name is passed on to the Podlet servers as part of the
+[Requested By](#requested-by) context.
 
 The name value must be in camelCase.
 
@@ -160,19 +143,23 @@ Config object passed on to the locale parser. See the [parser docs](#locale).
 
 #### deviceType
 
-Config object passed on to the device type parser. See the [parser docs](#device-type).
+Config object passed on to the device type parser. See the
+[parser docs](#device-type).
 
 #### mountOrigin
 
-Config object passed on to the mount origin parser. See the [parser docs](#mount-origin).
+Config object passed on to the mount origin parser. See the
+[parser docs](#mount-origin).
 
 #### mountPathname
 
-Config object passed on to the mount pathname parser. See the [parser docs](#mount-pathname).
+Config object passed on to the mount pathname parser. See the
+[parser docs](#mount-pathname).
 
 #### publicPathname
 
-Config object passed on to the public pathname parser. See the [parser docs](#public-pathname).
+Config object passed on to the public pathname parser. See the
+[parser docs](#public-pathname).
 
 ## API
 
@@ -192,19 +179,19 @@ This method takes the following arguments:
 Example:
 
 ```js
-const express = require('express');
+const { HttpIncoming } = require('@podium/utils');
 const Context = require('@podium/context');
 const Parser = require('my-custom-parser');
+const http = require('http');
 
-const app = express();
-
-const context = new Context('myName');
+// Set up a context and register the custom parser
+const context = new Context({ name: 'myLayout' });
 context.register('myStuff', new Parser('someConfig'));
 
-app.use(context.middleware());
-
-app.get('/', (req, res) => {
-    // res.locals.podium.context will now hold the following object:
+const server = http.createServer(async (req, res) => {
+    const incoming = new HttpIncoming(req, res);
+    const incom = await context.process(incoming);
+    // incom.context will now hold the following object:
     // {
     //     'podium-debug': 'false',
     //     'podium-locale': 'no-NO'
@@ -212,16 +199,22 @@ app.get('/', (req, res) => {
     // }
 });
 
-app.listen(8080);
+server.listen(8080);
 ```
 
-### .middleware()
+### .process(HttpIncoming)
 
-Connect compatible middleware to execute all parsers in parallel and append the result of each parser
-to `res.locals.podium.context`.
+Metod for processing a incoming http request. It runs all parsers in parallel
+and append the result of each parser to `HttpIncoming.context`.
 
-This will execute all built in parsers as well as all externally registered (through the `.register()`
-method) parsers.
+This will execute all built in parsers as well as all externally registered
+(through the `.register()` method) parsers.
+
+Returns a Promise which will resolve with the passed in `HttpIncoming` object.
+
+#### HttpIncoming (required)
+
+An instance of a [HttpIncoming] class.
 
 ## Static API
 
@@ -229,12 +222,13 @@ The Context constructor has the following static API:
 
 ### .serialize(headers, context, podletName)
 
-Takes an "HTTP header-ish" object produced by `.middleware()` (the `res.locals.podium.context` object)
-and serializes it into an HTTP header object which can be applied to HTTP requests sent to podlets.
+Takes an "HTTP header like" object produced by `.process()` (the
+`HttpIncoming.context` object) and serializes it into an HTTP header object
+which can be applied to HTTP requests sent to podlets.
 
-The object stored at `res.locals.podium.context` is "HTTP header-ish" because the value of each key
-can be either a `String` or a `Function`. If a key holds a `Function` the serializer will call
-the function with the `podletName` argument.
+The object stored at `HttpIncoming.context` is "HTTP header-ish" because the
+value of each key can be either a `String` or a `Function`. If a key holds a
+`Function` the serializer will call the function with the `podletName` argument.
 
 The method takes the following arguments:
 
@@ -247,10 +241,13 @@ The method takes the following arguments:
 Example: layout sends context with a request to a podlet
 
 ```js
-app.get('/', (req, res) => {
+const server = http.createServer(async (req, res) => {
+    const incoming = new HttpIncoming(req, res);
+    const incom = await context.process(incoming);
+
     const headers = Context.serialize(
         {},
-        res.locals.podium.context,
+        incom.context,
         'somePodlet',
     );
     request({
@@ -263,7 +260,9 @@ app.get('/', (req, res) => {
 
 ### .deserialize()
 
-Connect compatible middleware which will parse HTTP headers on inbound requests and turn Podium context headers into a context object stored at `res.locals.podium.context`.
+Connect compatible middleware which will parse HTTP headers on inbound requests
+and turn Podium context headers into a context object stored at
+`res.locals.podium.context`.
 
 Example: podlet receives request from a layout server
 
@@ -277,10 +276,11 @@ app.get('/', (req, res) => {
 
 ## Internal parsers
 
-This module comes with a set of default parsers which will be applied when `.middleware()` is
-run.
+This module comes with a set of default parsers which will be applied when
+`.process()` is run.
 
-Each of these parsers can be configured through with constructor option object by passing an options object to the matching options parameter for the parser in the constructor (see constructor options).
+Each of these parsers can be configured through the constructor's options object
+by passing an options object for the specific parser (see constructor options).
 
 Example of passing options to the built in `debug` parser:
 
@@ -301,7 +301,8 @@ The following parsers are applied by default:
 Context header: `podium-requested-by`
 
 Each layout must have a given name to make it more easily human identifiable.
-This name value is then passed on from the layout to any podlets in the `podium-requested-by` context header which is generated by running this parser.
+This name value is then passed on from the layout to any podlets in the
+`podium-requested-by` context header which is generated by running this parser.
 
 #### arguments (required)
 
@@ -337,9 +338,10 @@ constructor.
 
 Context header: `podium-locale`
 
-Locale of the requesting browser. When executed by `.middleware()`, this
-parser will look for a locale at `res.locals.locale`. If found, this
-value will be used. If not found, the default locale will be used.
+Locale of the requesting browser. When executed by `.process()`, this
+parser will look for a locale property at `HttpIncoming.params.locale`.
+If found, this value will be used. If not found, the default locale will
+be used.
 
 ```js
 const context = new Context({
@@ -347,11 +349,14 @@ const context = new Context({
 });
 const app = express();
 
-app.use((req, res) => {
-    res.locals.locale = 'nb-NO';
-});
+app.get(await (req, res) => {
+    const incoming = new HttpIncoming(req, res, {
+        locale: 'nb-NO',
+    });
+    const incom = await context.process(incoming);
 
-app.use(context.middleware());
+    [ ... snip ...]
+});
 ```
 
 #### arguments (optional)
@@ -382,7 +387,8 @@ The output value will be one of the following strings:
 -   `mobile`: The device is probably a phone of some sort, or a device with a
     smaller screen than a tablet.
 
-This module will internally cache its result and the matching UA string in an LRU cache for faster lookup.
+This module will internally cache its result and the matching UA string in an
+LRU cache for faster lookup.
 
 #### arguments (optional)
 
@@ -399,11 +405,11 @@ object in the constructor.
 
 Context header: `podium-mount-origin`
 
-URL origin of the inbound request to the layout server. The parser will try to parse this value from inbound requests to the layout server. It is
-also possible to override the value using config.
+URL origin of the inbound request to the layout server. The parser will try to
+parse this value from inbound requests to the layout server. It is also possible
+to override the value using config.
 
-The value is a [WHATWG URL](https://url.spec.whatwg.org/) compatible origin
-[(illustrated overview)](https://nodejs.org/api/url.html#url_url_strings_and_url_objects).
+The value is a [WHATWG URL] compatible origin [(illustrated overview)](https://nodejs.org/api/url.html#url_url_strings_and_url_objects).
 
 #### arguments (optional)
 
@@ -431,8 +437,7 @@ Context header: `podium-mount-pathname`
 
 URL pathname specifying where a layout is mounted in an HTTP server.
 
-The value is a [WHATWG URL](https://url.spec.whatwg.org/) compatible pathname
-[(illustrated overview)](https://nodejs.org/api/url.html#url_url_strings_and_url_objects).
+The value is a [WHATWG URL] compatible pathname [(illustrated overview)](https://nodejs.org/api/url.html#url_url_strings_and_url_objects).
 
 #### arguments (optional)
 
@@ -458,15 +463,17 @@ const context = new Context({
 
 Context header: `podium-public-pathname`
 
-URL pathname indicating where a layout server has mounted a proxy to proxy public
-traffic to podlets.
+URL pathname indicating where a layout server has mounted a proxy to proxy
+public traffic to podlets.
 
-The full public pathname is built up joining `pathname` and `prefix` where `pathname` is the pathname to where the proxy is mounted into the HTTP server and `prefix` is a namespace isolating the proxy from other routes defined under the same pathname.
+The full public pathname is built up joining `pathname` and `prefix` where
+`pathname` is the pathname to where the proxy is mounted into the HTTP server
+and `prefix` is a namespace isolating the proxy from other routes defined under
+the same pathname.
 
 Often `pathname` will be the same value as mount pathname.
 
-The value is a [WHATWG URL](https://url.spec.whatwg.org/) compatible pathname
-[(illustrated overview)](https://nodejs.org/api/url.html#url_url_strings_and_url_objects).
+The value is a [WHATWG URL] compatible pathname [(illustrated overview)](https://nodejs.org/api/url.html#url_url_strings_and_url_objects).
 
 #### arguments (optional)
 
@@ -490,34 +497,30 @@ const context = new Context({
 });
 ```
 
-## A word on URL construction
+## License
 
-By adhering to the [WHATWG URL](https://url.spec.whatwg.org/) spec when constructing URLs we can easily compose full URLs by using the [URL module in node.js](https://nodejs.org/api/url.html#url_class_url).
+Copyright (c) 2019 FINN.no
 
-Example:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-In a podlet, the origin of a layout server can be found at `res.locals.podium.context.mountOrigin`
-and the pathname to the layout can be found at `res.locals.podium.context.mountPathname`.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-To get the full URL of where a podlet is used in a layout, we can combine these two by using the [URL module in node.js](https://nodejs.org/api/url.html#url_class_url)
-like so:
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
-```js
-const { URL } = require('url');
-const origin = res.locals.podium.context.mountOrigin;
-const pathname = res.locals.podium.context.mountPathname;
-const url = new URL(pathname, origin);
 
-console.log(url.href); // prints full URL
-```
 
-The same can be done to construct a public URL to the proxy URL:
-
-```js
-const { URL } = require('url');
-const origin = res.locals.podium.context.mountOrigin;
-const pathname = res.locals.podium.context.publicPathname;
-const url = new URL(pathname, origin);
-
-console.log(url.href); // prints full to proxy endpoint
-```
+[@podium/layout]: https://github.com/podium-lib/layout "@podium/layout"
+[HttpIncoming]: https://github.com/podium-lib/utils/blob/master/lib/http-incoming.js "HttpIncoming"
+[WHATWG URL]: https://url.spec.whatwg.org/ "WHATWG URL"
