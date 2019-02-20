@@ -6,8 +6,9 @@ Module to generate the context which is passed on requests from a Podium Layout 
 [![Greenkeeper badge](https://badges.greenkeeper.io/podium-lib/context.svg)](https://greenkeeper.io/)
 [![Known Vulnerabilities](https://snyk.io/test/github/podium-lib/context/badge.svg)](https://snyk.io/test/github/podium-lib/context)
 
-This module is intended for internall use in Podium and not a module an end user would
-use directly.
+This module is intended for internal use in Podium and is not a module an end user would
+use directly. An end user can though interact with this module through a higher level
+module such as the @podium/layout module.
 
 ## Installation
 
@@ -17,57 +18,31 @@ $ npm install @podium/context
 
 ## Example
 
-Simple server requesting content from a Podlet server:
+Generate a context which can be passed on to a http request to Podlet:
 
 ```js
-const request = require('request');
-const express = require('express');
+const { HttpIncoming } = require('@podium/utils');
 const Context = require('@podium/context');
-const utils = require('@podium/utils');
-
-const app = express();
+const http = require('http');
 
 // Set up a context with the name 'myLayout'
 const context = new Context({ name: 'myLayout' });
 
-app.get('/', async (req, res) => {
-
+const server = http.createServer(async (req, res) => {
     // Create a HttpIncomming object
-    const incoming = new utils.HttpIncoming(req, res, res.locals);
+    const incoming = new HttpIncoming(req, res);
 
     // Run context parsers on the request
     const incom = await context.process(incoming);
 
-    // Serialize the context to be passed on as http headers
-    const headers = Context.serialize({}, incom);
-    request({
-        headers: headers,
-        method: 'GET',
-        url: 'http://some.podlet.finn.no/',
-    }).pipe(res);
+    // Serialize the context into a object that can be passed on
+    // to be passed on as http headers on a http request
+    const headers = Context.serialize({}, incom.context);
+
+    [ ... snip ...]
 });
 
-app.listen(8080);
-```
-
-Simple Podlet server recieving requests from the Layout server:
-
-```js
-const express = require('express');
-const Context = require('@podium/context');
-
-const app = express();
-
-// Attach context de-serialize middleware which will
-// transform the context into a usable object.
-// The context will be stored at: `res.locals.podium.context`
-app.use(Context.deserialize());
-
-app.get('/', (req, res) => {
-    res.status(200).json(res.locals.podium.context);
-});
-
-app.listen(8080);
+server.listen(8080);
 ```
 
 ## Description
@@ -90,10 +65,10 @@ Each part works as follow:
 
 ### Parsers
 
-A parser works on an inbound request to the Layout server. The parser is handed a
-[HttpIncoming Object](https://github.com/podium-lib/utils/blob/master/lib/http-incoming.js)
-on each request. Upon this a parser builds a value which will be applied as part
-of the context which is appended to requests to Podlet servers.
+A parser works on an inbound request to the Layout server. A parser is handed a
+[HttpIncoming object](https://github.com/podium-lib/utils/blob/master/lib/http-incoming.js)
+on each request. Upon execution a parser builds a value which will be applied as
+part of the context which is appended to the requests to Podlet servers.
 
 This module comes with a set of built in parsers which will always be applied.
 
@@ -199,13 +174,14 @@ Example:
 const { HttpIncoming } = require('@podium/utils');
 const Context = require('@podium/context');
 const Parser = require('my-custom-parser');
-const app = require('express')();
+const http = require('http');
 
-const context = new Context('myName');
+// Set up a context and register the cusrom parser
+const context = new Context({ name: 'myLayout' });
 context.register('myStuff', new Parser('someConfig'));
 
-app.get('/', async (req, res) => {
-    const incoming = new HttpIncoming(req, res, res.locals);
+const server = http.createServer(async (req, res) => {
+    const incoming = new HttpIncoming(req, res);
     const incom = await context.process(incoming);
     // incom.context will now hold the following object:
     // {
@@ -215,7 +191,7 @@ app.get('/', async (req, res) => {
     // }
 });
 
-app.listen(8080);
+server.listen(8080);
 ```
 
 ### .process(HttpIncoming)
@@ -255,8 +231,8 @@ The method takes the following arguments:
 Example: layout sends context with a request to a podlet
 
 ```js
-app.get('/', async (req, res) => {
-    const incoming = new HttpIncoming(req, res, res.locals);
+const server = http.createServer(async (req, res) => {
+    const incoming = new HttpIncoming(req, res);
     const incom = await context.process(incoming);
 
     const headers = Context.serialize(
@@ -274,7 +250,8 @@ app.get('/', async (req, res) => {
 
 ### .deserialize()
 
-Connect compatible middleware which will parse HTTP headers on inbound requests and turn Podium context headers into a context object stored at `res.locals.podium.context`.
+Connect compatible middleware which will parse HTTP headers on inbound requests and turn Podium context
+headers into a context object stored at `res.locals.podium.context`.
 
 Example: podlet receives request from a layout server
 
@@ -291,7 +268,8 @@ app.get('/', (req, res) => {
 This module comes with a set of default parsers which will be applied when `.process()` is
 run.
 
-Each of these parsers can be configured through with constructor option object by passing an options object to the matching options parameter for the parser in the constructor (see constructor options).
+Each of these parsers can be configured through with constructor option object by passing an options object
+to the matching options parameter for the parser in the constructor (see constructor options).
 
 Example of passing options to the built in `debug` parser:
 
