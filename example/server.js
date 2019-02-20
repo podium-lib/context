@@ -1,8 +1,8 @@
 'use strict';
 
 const { HttpIncoming } = require('@podium/utils');
-const Context = require('../');
 const http = require('http');
+const Context = require('../');
 
 // Set up a context with the name 'myLayout'
 const context = new Context({ name: 'myLayout' });
@@ -24,5 +24,6 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(8080, 'localhost', () => {
+    // eslint-disable-next-line no-console
     console.log('Server running at: http://localhost:8080');
 });

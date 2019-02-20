@@ -174,7 +174,9 @@ test('PodiumContext.middleware() - process a "rich" request - should put parsed 
     });
 
     const result = await context.process(incoming);
-    expect(result.context['podium-mount-origin']).toEqual('http://localhost:3030');
+    expect(result.context['podium-mount-origin']).toEqual(
+        'http://localhost:3030',
+    );
     expect(result.context['podium-mount-pathname']).toEqual('/');
     expect(result.context['podium-device-type']).toEqual('mobile');
     expect(result.context['podium-locale']).toEqual('en-US');
@@ -194,7 +196,9 @@ test('PodiumContext.middleware() - process a "minimal" request - should put pars
     });
 
     const result = await context.process(incoming);
-    expect(result.context['podium-mount-origin']).toEqual('http://localhost:3030');
+    expect(result.context['podium-mount-origin']).toEqual(
+        'http://localhost:3030',
+    );
     expect(result.context['podium-mount-pathname']).toEqual('/');
     expect(result.context['podium-device-type']).toEqual('desktop');
     expect(result.context['podium-locale']).toEqual('en-US');
@@ -224,9 +228,7 @@ test('PodiumContext.middleware() - a parser throws - should emit "next()" with B
     try {
         await context.process(incoming);
     } catch (error) {
-        expect(error.message).toEqual(
-            'bogus',
-        );
+        expect(error.message).toEqual('bogus');
     }
 });
 

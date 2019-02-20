@@ -45,15 +45,19 @@ test('PodiumContextLocaleParser.parse() - instantiated object - should have pars
 
 test('PodiumContextLocaleParser.parse() - value at "HttpIncoming.params.locale" - .parse() should return given value', () => {
     const parser = new Locale();
-    const incoming = new HttpIncoming({
-        originalUrl: 'http://www.finn.no',
-        headers: {
-            host: 'www.finn.no',
+    const incoming = new HttpIncoming(
+        {
+            originalUrl: 'http://www.finn.no',
+            headers: {
+                host: 'www.finn.no',
+            },
+            protocol: 'http:',
         },
-        protocol: 'http:',
-    }, {}, {
-        locale: 'nb-NO',
-    });
+        {},
+        {
+            locale: 'nb-NO',
+        },
+    );
 
     const result = parser.parse(incoming);
     expect(result).toEqual('nb-NO');
