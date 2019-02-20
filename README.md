@@ -8,7 +8,7 @@ Module to generate the context which is passed on requests from a Podium Layout 
 
 This module is intended for internal use in Podium and is not a module an end user would
 use directly. An end user can though interact with this module through a higher level
-module such as the @podium/layout module.
+module such as the [@podium/layout](https://github.com/podium-lib/layout) module.
 
 ## Installation
 
@@ -29,7 +29,7 @@ const http = require('http');
 const context = new Context({ name: 'myLayout' });
 
 const server = http.createServer(async (req, res) => {
-    // Create a HttpIncomming object
+    // Create a HttpIncoming object
     const incoming = new HttpIncoming(req, res);
 
     // Run context parsers on the request
@@ -196,7 +196,7 @@ server.listen(8080);
 
 ### .process(HttpIncoming)
 
-Metod for processing a incomming http request. It runs all parsers in parallel and append the result of each parser to `HttpIncoming.context`.
+Metod for processing a incoming http request. It runs all parsers in parallel and append the result of each parser to `HttpIncoming.context`.
 
 This will execute all built in parsers as well as all externally registered (through the `.register()`
 method) parsers.

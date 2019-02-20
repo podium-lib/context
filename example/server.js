@@ -8,7 +8,7 @@ const Context = require('../');
 const context = new Context({ name: 'myLayout' });
 
 const server = http.createServer(async (req, res) => {
-    // Create a HttpIncomming object
+    // Create a HttpIncoming object
     const incoming = new HttpIncoming(req, res);
 
     // Run context parsers on the request
