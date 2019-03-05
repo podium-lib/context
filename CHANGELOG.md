@@ -36,7 +36,7 @@ The latest version of this document is always available in [releases][releases-u
 -   First argument, name, on the constructor is now moved to the options object of the constructor. See: #10
 
 [unreleased]: https://github.com/podium-lib/context/compare/v3.0.0...HEAD
-[2.2.3]: https://github.com/podium-lib/context/compare/v2.2.3...v3.0.0
+[3.0.0]: https://github.com/podium-lib/context/compare/v2.2.3...v3.0.0
 [2.2.3]: https://github.com/podium-lib/context/compare/v2.2.2...v2.2.3
 [2.2.2]: https://github.com/podium-lib/context/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/podium-lib/context/compare/v2.2.0...v2.2.1
