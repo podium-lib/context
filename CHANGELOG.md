@@ -6,6 +6,11 @@ The latest version of this document is always available in [releases][releases-u
 
 ## [unreleased]
 
+## [3.0.2] - 2019-03-10
+
+-   Updated @metrics/client to version 2.4.1 - [#13](https://github.com/podium-lib/context/pull/13)
+-   Updated other dependencies
+
 ## [3.0.1] - 2019-03-05
 
 -   Add error event listeners on all metric streams - [#10](https://github.com/podium-lib/context/pull/10)
@@ -39,7 +44,8 @@ The latest version of this document is always available in [releases][releases-u
 
 -   First argument, name, on the constructor is now moved to the options object of the constructor. See: #10
 
-[unreleased]: https://github.com/podium-lib/context/compare/v3.0.1...HEAD
+[unreleased]: https://github.com/podium-lib/context/compare/v3.0.2...HEAD
+[3.0.2]: https://github.com/podium-lib/context/compare/v3.0.1...v3.0.2
 [3.0.1]: https://github.com/podium-lib/context/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/podium-lib/context/compare/v2.2.3...v3.0.0
 [2.2.3]: https://github.com/podium-lib/context/compare/v2.2.2...v2.2.3
