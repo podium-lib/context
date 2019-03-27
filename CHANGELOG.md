@@ -6,7 +6,7 @@ The latest version of this document is always available in [releases][releases-u
 
 ## [unreleased]
 
-## [3.0.3] - 2019-03-10
+## [3.0.3] - 2019-03-27
 
 -   Updated @podium/utils to version 3.1.2 - [#14](https://github.com/podium-lib/context/pull/14)
 -   Updated other dependencies
