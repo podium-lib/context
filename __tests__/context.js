@@ -37,7 +37,7 @@ test('PodiumContext() - no value given to "name" - should throw', () => {
     expect.hasAssertions();
     expect(() => {
         const context = new Context(); // eslint-disable-line no-unused-vars
-    }).toThrowError('The value for "name", undefined, is not valid');
+    }).toThrowError('The value, "undefined", for the required argument "name" on the Context constructor is not defined or not valid.');
 });
 
 /**
