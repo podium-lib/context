@@ -31,7 +31,7 @@
     "author": "",
     "dependencies": {
         "@metrics/client": "2.4.1",
-        "@podium/schemas": "^4.0.0-next",
+        "@podium/schemas": "^4.0.0-next.2",
         "@podium/utils": "^4.0.0-next",
         "abslog": "^2.4.0",
         "bcp47-validate": "^1.0.0",
