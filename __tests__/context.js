@@ -37,7 +37,9 @@ test('PodiumContext() - no value given to "name" - should throw', () => {
     expect.hasAssertions();
     expect(() => {
         const context = new Context(); // eslint-disable-line no-unused-vars
-    }).toThrowError('The value, "undefined", for the required argument "name" on the Context constructor is not defined or not valid.');
+    }).toThrowError(
+        'The value, "undefined", for the required argument "name" on the Context constructor is not defined or not valid.',
+    );
 });
 
 /**
@@ -252,5 +254,6 @@ test('PodiumContext.middleware() - timing success metric produced', async () => 
 
     expect(metrics).toHaveLength(1);
     expect(metrics[0].timestamp).not.toBeFalsy();
-    expect(metrics[0].name).toEqual('context_run_parsers');
+    expect(metrics[0].type).toBe(5);
+    expect(metrics[0].name).toBe('podium_context_process');
 });
