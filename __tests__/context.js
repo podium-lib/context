@@ -256,4 +256,5 @@ test('PodiumContext.middleware() - timing success metric produced', async () => 
     expect(metrics[0].timestamp).not.toBeFalsy();
     expect(metrics[0].type).toBe(5);
     expect(metrics[0].name).toBe('podium_context_process');
+    expect(metrics[0].labels).toEqual([{ name: 'name', value: '' }]);
 });
