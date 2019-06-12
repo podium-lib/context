@@ -26,7 +26,7 @@ test('PodiumContextPublicPathnameParser.parse() - "pathname" is set - should set
     const resolver = parser.parse();
     const result = resolver('xyz');
 
-    expect(result).toBe('/foo/bar/podium-resource/xyz/');
+    expect(result).toBe('/foo/bar/podium-resource/xyz');
 });
 
 test('PodiumContextPublicPathnameParser.parse() - "pathname" is not set - should not set a pathname on parse()', () => {
@@ -35,7 +35,7 @@ test('PodiumContextPublicPathnameParser.parse() - "pathname" is not set - should
     const resolver = parser.parse();
     const result = resolver('xyz');
 
-    expect(result).toBe('/podium-resource/xyz/');
+    expect(result).toBe('/podium-resource/xyz');
 });
 
 test('PodiumContextPublicPathnameParser.parse() - "pathname" does not start with a "/" - should prepend a "/"', () => {
@@ -44,7 +44,7 @@ test('PodiumContextPublicPathnameParser.parse() - "pathname" does not start with
     const resolver = parser.parse();
     const result = resolver('xyz');
 
-    expect(result).toBe('/foo/bar/podium-resource/xyz/');
+    expect(result).toBe('foo/bar/podium-resource/xyz');
 });
 
 test('PodiumContextPublicPathnameParser.parse() - "pathname" does not end with a "/" - should append a "/"', () => {
@@ -53,7 +53,7 @@ test('PodiumContextPublicPathnameParser.parse() - "pathname" does not end with a
     const resolver = parser.parse();
     const result = resolver('xyz');
 
-    expect(result).toBe('/foo/bar/podium-resource/xyz/');
+    expect(result).toBe('/foo/bar/podium-resource/xyz');
 });
 
 test('PodiumContextPublicPathnameParser.parse() - "prefix" is set - should override default on parse()', () => {
@@ -65,7 +65,7 @@ test('PodiumContextPublicPathnameParser.parse() - "prefix" is set - should overr
     const resolver = parser.parse();
     const result = resolver('xyz');
 
-    expect(result).toBe('/foo/bar/proxy/xyz/');
+    expect(result).toBe('/foo/bar/proxy/xyz');
 });
 
 test('PodiumContextPublicPathnameParser.parse() - "prefix" does start with a / - should remove /', () => {
@@ -77,7 +77,7 @@ test('PodiumContextPublicPathnameParser.parse() - "prefix" does start with a / -
     const resolver = parser.parse();
     const result = resolver('xyz');
 
-    expect(result).toBe('/foo/bar/proxy/xyz/');
+    expect(result).toBe('/foo/bar/proxy/xyz');
 });
 
 test('PodiumContextPublicPathnameParser.parse() - "prefix" does end with a / - should remove /', () => {
@@ -89,7 +89,7 @@ test('PodiumContextPublicPathnameParser.parse() - "prefix" does end with a / - s
     const resolver = parser.parse();
     const result = resolver('xyz');
 
-    expect(result).toBe('/foo/bar/proxy/xyz/');
+    expect(result).toBe('/foo/bar/proxy/xyz');
 });
 
 test('PodiumContextPublicPathnameParser.parse() - "name" on resolver method does not start with a "/" - should prepend a "/"', () => {
@@ -98,7 +98,7 @@ test('PodiumContextPublicPathnameParser.parse() - "name" on resolver method does
     const resolver = parser.parse();
     const result = resolver('xyz/');
 
-    expect(result).toBe('/podium-resource/xyz/');
+    expect(result).toBe('/podium-resource/xyz');
 });
 
 test('PodiumContextPublicPathnameParser.parse() - "name" on resolver method does not end with a "/" - should append a "/"', () => {
@@ -107,7 +107,7 @@ test('PodiumContextPublicPathnameParser.parse() - "name" on resolver method does
     const resolver = parser.parse();
     const result = resolver('/xyz');
 
-    expect(result).toBe('/podium-resource/xyz/');
+    expect(result).toBe('/podium-resource/xyz');
 });
 
 test('PodiumContextPublicPathnameParser.parse() - "name" on resolver method has no value - should append a "/"', () => {
@@ -116,5 +116,5 @@ test('PodiumContextPublicPathnameParser.parse() - "name" on resolver method has 
     const resolver = parser.parse();
     const result = resolver();
 
-    expect(result).toBe('/podium-resource/');
+    expect(result).toBe('/podium-resource');
 });

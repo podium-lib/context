@@ -1,6 +1,6 @@
 {
     "name": "@podium/context",
-    "version": "3.0.3",
+    "version": "4.0.0-next.2",
     "description": "Module to generate the context which is passed on requests from a Podium Layout server to a Podium Podlet server",
     "license": "MIT",
     "keywords": [
@@ -31,13 +31,12 @@
     "author": "",
     "dependencies": {
         "@metrics/client": "2.4.1",
-        "@podium/schemas": "3.0.0",
-        "@podium/utils": "3.1.2",
+        "@podium/schemas": "4.0.0",
+        "@podium/utils": "4.0.0",
         "abslog": "^2.4.0",
         "bcp47-validate": "^1.0.0",
         "bowser": "^2.1.0",
         "decamelize": "^3.1.1",
-        "joi": "^14.3.1",
         "lru-cache": "^5.1.1"
     },
     "devDependencies": {
