@@ -36,15 +36,15 @@
         "abslog": "^2.4.0",
         "bcp47-validate": "^1.0.0",
         "bowser": "^2.1.0",
-        "decamelize": "^3.0.0",
+        "decamelize": "^3.1.1",
         "lru-cache": "^5.1.1"
     },
     "devDependencies": {
         "benchmark": "^2.1.4",
-        "jest": "^24.1.0",
-        "eslint": "^5.14.1",
+        "jest": "^24.5.0",
+        "eslint": "^5.15.3",
         "eslint-config-airbnb-base": "^13.1.0",
-        "eslint-config-prettier": "^4.0.0",
+        "eslint-config-prettier": "^4.1.0",
         "eslint-plugin-import": "^2.16.0",
         "eslint-plugin-prettier": "^3.0.1",
         "prettier": "^1.16.1"
