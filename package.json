@@ -32,21 +32,21 @@
     "dependencies": {
         "@metrics/client": "2.5.0",
         "@podium/schemas": "4.0.0",
-        "@podium/utils": "4.1.1",
+        "@podium/utils": "^4.1.2",
         "abslog": "^2.4.0",
         "bcp47-validate": "^1.0.0",
-        "bowser": "^2.5.3",
-        "decamelize": "^3.1.1",
+        "bowser": "^2.7.0",
+        "decamelize": "^3.2.0",
         "lru-cache": "^5.1.1"
     },
     "devDependencies": {
         "benchmark": "^2.1.4",
         "jest": "^24.9.0",
-        "eslint": "^6.0.0",
+        "eslint": "^6.6.0",
         "eslint-config-airbnb-base": "^14.0.0",
-        "eslint-config-prettier": "^6.0.0",
+        "eslint-config-prettier": "^6.5.0",
         "eslint-plugin-import": "^2.18.2",
-        "eslint-plugin-prettier": "^3.0.1",
-        "prettier": "^1.16.1"
+        "eslint-plugin-prettier": "^3.1.1",
+        "prettier": "^1.19.1"
     }
 }
