@@ -3,8 +3,8 @@
 Module to generate the context which is passed on requests from a Podium Layout
 server to a Podium Podlet server.
 
-[![Build Status](https://travis-ci.org/podium-lib/context.svg?branch=master)](https://travis-ci.org/podium-lib/context)
-[![Greenkeeper badge](https://badges.greenkeeper.io/podium-lib/context.svg)](https://greenkeeper.io/)
+[![Dependencies](https://img.shields.io/david/podium-lib/context.svg)](https://david-dm.org/podium-lib/context)
+![GitHub Actions status](https://github.com/podium-lib/context/workflows/Run%20Lint%20and%20Tests/badge.svg)
 [![Known Vulnerabilities](https://snyk.io/test/github/podium-lib/context/badge.svg)](https://snyk.io/test/github/podium-lib/context)
 
 This module is intended for internal use in Podium and is not a module an end
