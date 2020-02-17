@@ -244,6 +244,7 @@ test('PodiumContext.middleware() - timing success metric produced', async () => 
         hostname: 'localhost',
         url: '/some/path',
     });
+    incoming.name = 'mylayout';
 
     const metrics = [];
     context.metrics.on('data', metric => {
@@ -256,6 +257,6 @@ test('PodiumContext.middleware() - timing success metric produced', async () => 
     expect(metrics[0].timestamp).not.toBeFalsy();
     expect(metrics[0].type).toBe(5);
     expect(metrics[0].name).toBe('podium_context_process');
-    expect(metrics[0].labels).toEqual([{ name: 'name', value: '' }]);
+    expect(metrics[0].labels).toEqual([{ name: 'name', value: 'mylayout' }]);
     expect(metrics[0].meta).toEqual({ buckets: [0.001, 0.01, 0.1, 0.5, 1] });
 });
