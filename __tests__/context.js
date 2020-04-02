@@ -225,13 +225,7 @@ test('PodiumContext.middleware() - process a "minimal" request - should put pars
 
 test('PodiumContext.middleware() - context object getters not present when serializing', async () => {
     const context = new Context({ name: 'foo' });
-    const incoming = new HttpIncoming({
-        headers: {
-            host: 'localhost:3030',
-        },
-        hostname: 'localhost',
-        url: '/some/path',
-    });
+    const incoming = new HttpIncoming();
 
     const result = await context.process(incoming);
 
