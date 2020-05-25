@@ -126,7 +126,7 @@ test('PodiumContext.serialize() - headers and context is given - should copy con
 test('PodiumContext.serialize() - one key on the context is a function - should call the function and set value on headers', () => {
     const context = {
         'podium-foo': 'bar',
-        'podium-bar': name => `${name}-test`,
+        'podium-bar': (name) => `${name}-test`,
     };
 
     const headers = {
@@ -145,7 +145,7 @@ test('PodiumContext.serialize() - one key on the context is a function - should 
  * .deserialize()
  */
 
-test('PodiumContext.deserialize() - request has podium header - should put headers into res.locals.podium', done => {
+test('PodiumContext.deserialize() - request has podium header - should put headers into res.locals.podium', (done) => {
     const req = {
         headers: {
             bar: 'foo',
@@ -247,7 +247,7 @@ test('PodiumContext.middleware() - timing success metric produced', async () => 
     incoming.name = 'mylayout';
 
     const metrics = [];
-    context.metrics.on('data', metric => {
+    context.metrics.on('data', (metric) => {
         metrics.push(metric);
     });
 
