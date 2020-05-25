@@ -2,7 +2,7 @@
 
 const { HttpIncoming } = require('@podium/utils');
 const http = require('http');
-const Context = require('../');
+const Context = require('..');
 
 // Set up a context with the name 'myLayout'
 const context = new Context({ name: 'myLayout' });
