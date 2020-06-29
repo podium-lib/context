@@ -50,7 +50,7 @@
         "@semantic-release/github": "7.0.7",
         "@semantic-release/npm": "7.0.5",
         "@semantic-release/release-notes-generator": "9.0.1",
-        "semantic-release": "17.0.8",
+        "semantic-release": "17.1.1",
         "benchmark": "2.1.4",
         "jest": "25.2.4",
         "eslint": "7.3.1",
