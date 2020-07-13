@@ -1,3 +1,10 @@
+# [5.0.0-next.2](https://github.com/podium-lib/context/compare/v5.0.0-next.1...v5.0.0-next.2) (2020-07-13)
+
+
+### Bug Fixes
+
+* Update @podium/utils to 5.0.0-next.1 ([50d6648](https://github.com/podium-lib/context/commit/50d6648cfeb50b80ec4cdbb184b8795502534c67))
+
 # [5.0.0-next.1](https://github.com/podium-lib/context/compare/v4.1.6...v5.0.0-next.1) (2020-07-12)
 
 
