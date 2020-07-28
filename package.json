@@ -28,9 +28,7 @@
     "scripts": {
         "lint": "eslint .",
         "lint:fix": "eslint --fix .",
-        "test": "jest",
-        "test:verbose": "jest --verbose",
-        "test:coverage": "jest --coverage"
+        "test": "tap --no-esm --no-cov --no-ts --no-jsx tests/*.js"
     },
     "author": "",
     "dependencies": {
@@ -52,12 +50,12 @@
         "@semantic-release/release-notes-generator": "9.0.1",
         "semantic-release": "17.1.1",
         "benchmark": "2.1.4",
-        "jest": "25.2.4",
         "eslint": "7.3.1",
         "eslint-config-airbnb-base": "14.2.0",
         "eslint-config-prettier": "6.11.0",
         "eslint-plugin-import": "2.22.0",
         "eslint-plugin-prettier": "3.1.4",
-        "prettier": "2.0.5"
+        "prettier": "2.0.5",
+        "tap": "14.10.8"
     }
 }
