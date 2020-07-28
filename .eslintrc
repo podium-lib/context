@@ -3,14 +3,6 @@
         "node": true
     },
     "extends": ["airbnb-base", "prettier"],
-    "overrides": [
-        {
-            "env": {
-                "jest": true
-            },
-            "files": "__tests__/**/*"
-        }
-    ],
     "plugins": ["prettier"],
     "root": true,
     "rules": {
