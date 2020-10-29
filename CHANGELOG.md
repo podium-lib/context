@@ -1,3 +1,10 @@
+## [4.1.12](https://github.com/podium-lib/context/compare/v4.1.11...v4.1.12) (2020-10-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.1 ([bc74ebd](https://github.com/podium-lib/context/commit/bc74ebdb17b21b97f9edaf8ad32d154ce7e0f72b))
+
 ## [4.1.11](https://github.com/podium-lib/context/compare/v4.1.10...v4.1.11) (2020-10-12)
 
 
