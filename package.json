@@ -36,7 +36,7 @@
     "dependencies": {
         "@metrics/client": "2.5.0",
         "@podium/schemas": "4.1.6",
-        "@podium/utils": "4.4.8",
+        "@podium/utils": "4.4.9",
         "abslog": "^2.4.0",
         "bcp47-validate": "^1.0.0",
         "bowser": "^2.7.0",
