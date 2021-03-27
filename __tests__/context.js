@@ -185,6 +185,13 @@ test('PodiumContext.middleware() - process a "rich" request - should put parsed 
     expect(result.context['podium-debug']).toEqual('false');
     expect(result.context['podium-requested-by']).toEqual('foo');
     expect(result.context['podium-public-pathname']).toBeInstanceOf(Function);
+    expect(result.context.mountOrigin).toEqual('http://localhost:3030');
+    expect(result.context.mountPathname).toEqual('/');
+    expect(result.context.deviceType).toEqual('mobile');
+    expect(result.context.locale).toEqual('en-US');
+    expect(result.context.debug).toEqual('false');
+    expect(result.context.requestedBy).toEqual('foo');
+    expect(result.context.publicPathname).toBeInstanceOf(Function);
 });
 
 test('PodiumContext.middleware() - process a "minimal" request - should put parsed values into res.locals.podium', async () => {
@@ -207,6 +214,30 @@ test('PodiumContext.middleware() - process a "minimal" request - should put pars
     expect(result.context['podium-debug']).toEqual('false');
     expect(result.context['podium-requested-by']).toEqual('foo');
     expect(result.context['podium-public-pathname']).toBeInstanceOf(Function);
+    expect(result.context.mountOrigin).toEqual('http://localhost:3030');
+    expect(result.context.mountPathname).toEqual('/');
+    expect(result.context.deviceType).toEqual('desktop');
+    expect(result.context.locale).toEqual('en-US');
+    expect(result.context.debug).toEqual('false');
+    expect(result.context.requestedBy).toEqual('foo');
+    expect(result.context.publicPathname).toBeInstanceOf(Function);
+});
+
+test('PodiumContext.middleware() - context object getters not present when serializing', async () => {
+    const context = new Context({ name: 'foo' });
+    const incoming = new HttpIncoming();
+
+    const result = await context.process(incoming);
+
+    expect(Object.keys(result.context)).toEqual([
+        'podium-public-pathname',
+        'podium-mount-pathname',
+        'podium-mount-origin',
+        'podium-requested-by',
+        'podium-device-type',
+        'podium-locale',
+        'podium-debug',
+    ]);
 });
 
 test('PodiumContext.middleware() - a parser throws - should emit "next()" with Boom Error Object', async () => {
