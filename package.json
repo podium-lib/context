@@ -1,6 +1,6 @@
 {
     "name": "@podium/context",
-    "version": "4.1.39",
+    "version": "5.0.0-next.4",
     "description": "Module to generate the context which is passed on requests from a Podium Layout server to a Podium Podlet server",
     "license": "MIT",
     "keywords": [
@@ -28,15 +28,13 @@
     "scripts": {
         "lint": "eslint .",
         "lint:fix": "eslint --fix .",
-        "test": "jest",
-        "test:verbose": "jest --verbose",
-        "test:coverage": "jest --coverage"
+        "test": "tap --no-esm --no-cov --no-ts --no-jsx tests/*.js"
     },
     "author": "",
     "dependencies": {
         "@metrics/client": "2.5.0",
-        "@podium/schemas": "4.1.15",
-        "@podium/utils": "4.4.16",
+        "@podium/schemas": "5.0.0-next.1",
+        "@podium/utils": "5.0.0-next.2",
         "abslog": "^2.4.0",
         "bcp47-validate": "^1.0.0",
         "bowser": "^2.7.0",
@@ -51,13 +49,12 @@
         "@semantic-release/npm": "7.1.1",
         "@semantic-release/release-notes-generator": "9.0.2",
         "benchmark": "2.1.4",
-        "eslint": "7.25.0",
-        "eslint-config-airbnb-base": "14.2.1",
-        "eslint-config-prettier": "8.3.0",
-        "eslint-plugin-import": "2.22.1",
-        "eslint-plugin-prettier": "3.4.0",
-        "jest": "26.6.3",
-        "prettier": "2.2.1",
-        "semantic-release": "17.4.2"
+        "eslint": "7.3.1",
+        "eslint-config-airbnb-base": "14.2.0",
+        "eslint-config-prettier": "6.11.0",
+        "eslint-plugin-import": "2.22.0",
+        "eslint-plugin-prettier": "3.1.4",
+        "prettier": "2.0.5",
+        "tap": "14.10.8"
     }
 }
