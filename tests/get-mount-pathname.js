@@ -1,13 +1,11 @@
-'use strict';
-
-const tap = require('tap');
-const MountPathname = require('../lib/get-mount-pathname');
+import tap from 'tap';
+import MountPathname from '../lib/get-mount-pathname.js';
 
 tap.test(
     'PodiumContextMountPathnameParser() - instantiate new object - should create an object',
     (t) => {
         const parser = new MountPathname();
-        t.true(parser instanceof MountPathname);
+        t.ok(parser instanceof MountPathname);
         t.end();
     },
 );

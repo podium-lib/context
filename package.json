@@ -2,6 +2,7 @@
     "name": "@podium/context",
     "version": "5.0.0-next.3",
     "description": "Module to generate the context which is passed on requests from a Podium Layout server to a Podium Podlet server",
+    "type": "module",
     "license": "MIT",
     "keywords": [
         "micro services",
@@ -17,24 +18,31 @@
         "url": "https://github.com/podium-lib/issues"
     },
     "homepage": "https://podium-lib.io/",
-    "main": "./lib/context.js",
     "files": [
         "package.json",
         "CHANGELOG.md",
         "README.md",
         "LICENSE",
+        "dist",
         "lib"
     ],
+    "main": "./dist/context.js",
+    "exports": {
+        "require": "./dist/context.js",
+        "import": "./lib/context.js"
+    },
     "scripts": {
         "lint": "eslint .",
         "lint:fix": "eslint --fix .",
-        "test": "tap --no-esm --no-cov --no-ts --no-jsx tests/*.js"
+        "test": "tap --no-check-coverage",
+        "prepare": "npm run -s build",
+        "build": "rollup -c"
     },
     "author": "",
     "dependencies": {
         "@metrics/client": "2.5.0",
-        "@podium/schemas": "5.0.0-next.1",
-        "@podium/utils": "5.0.0-next.2",
+        "@podium/schemas": "5.0.0-next.4",
+        "@podium/utils": "5.0.0-next.6",
         "abslog": "^2.4.0",
         "bcp47-validate": "^1.0.0",
         "bowser": "^2.7.0",
@@ -48,6 +56,7 @@
         "@semantic-release/github": "7.2.1",
         "@semantic-release/npm": "7.1.1",
         "@semantic-release/release-notes-generator": "9.0.2",
+        "babel-eslint": "10.1.0",
         "benchmark": "2.1.4",
         "eslint": "7.3.1",
         "eslint-config-airbnb-base": "14.2.0",
@@ -55,6 +64,7 @@
         "eslint-plugin-import": "2.22.0",
         "eslint-plugin-prettier": "3.1.4",
         "prettier": "2.0.5",
-        "tap": "14.10.8"
+        "rollup": "2.46.0",
+        "tap": "15.0.5"
     }
 }

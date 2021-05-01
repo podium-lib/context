@@ -1,8 +1,15 @@
 export default {
     input: 'lib/context.js',
     external: [
-        'original-url',
-        'camelcase',
+        '@podium/schemas',
+        '@metrics/client',
+        'bcp47-validate',
+        '@podium/utils',
+        'decamelize',
+        'lru-cache',
+        'bowser',
+        'abslog',
+        'assert',
         'url',
     ],
     output: [

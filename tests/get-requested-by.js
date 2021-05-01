@@ -1,13 +1,12 @@
-'use strict';
+import tap from 'tap';
+import RequestedBy from '../lib/get-requested-by.js';
 
-const tap = require('tap');
-const RequestedBy = require('../lib/get-requested-by');
 
 tap.test(
     'PodiumContextRequestedByParser() - instantiate new object - should create an object',
     (t) => {
         const parser = new RequestedBy({ name: 'foo' });
-        t.true(parser instanceof RequestedBy);
+        t.ok(parser instanceof RequestedBy);
         t.end();
     },
 );
@@ -43,7 +42,7 @@ tap.test(
     'PodiumContextRequestedByParser.parse() - instantiated object - should have parse method',
     (t) => {
         const parser = new RequestedBy({ name: 'foo' });
-        t.true(parser.parse instanceof Function);
+        t.ok(parser.parse instanceof Function);
         t.end();
     },
 );
