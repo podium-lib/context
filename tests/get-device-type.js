@@ -1,8 +1,6 @@
-'use strict';
-
-const tap = require('tap');
-const { HttpIncoming } = require('@podium/utils');
-const DeviceType = require('../lib/get-device-type');
+import tap from 'tap';
+import { HttpIncoming } from '@podium/utils';
+import DeviceType from '../lib/get-device-type.js';
 
 //
 // From https://github.com/lancedikson/bowser/blob/master/src/useragents.js
@@ -27,7 +25,7 @@ tap.test(
     'PodiumContextDeviceTypeParser() - instantiate new object - should create an object',
     (t) => {
         const parser = new DeviceType();
-        t.true(parser instanceof DeviceType);
+        t.ok(parser instanceof DeviceType);
         t.end();
     },
 );

@@ -1,14 +1,12 @@
-'use strict';
-
-const tap = require('tap');
-const { HttpIncoming } = require('@podium/utils');
-const MountOrigin = require('../lib/get-mount-origin');
+import tap from 'tap';
+import { HttpIncoming } from '@podium/utils';
+import MountOrigin from '../lib/get-mount-origin.js';
 
 tap.test(
     'PodiumContextMountOriginParser() - instantiate new object - should create an object',
     (t) => {
         const parser = new MountOrigin();
-        t.true(parser instanceof MountOrigin);
+        t.ok(parser instanceof MountOrigin);
         t.end();
     },
 );

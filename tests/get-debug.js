@@ -1,13 +1,11 @@
-'use strict';
-
-const tap = require('tap');
-const Debug = require('../lib/get-debug');
+import tap from 'tap';
+import Debug from '../lib/get-debug.js';
 
 tap.test(
     'PodiumContextDebugParser() - instantiate new object - should create an object',
     (t) => {
         const parser = new Debug();
-        t.true(parser instanceof Debug);
+        t.ok(parser instanceof Debug);
         t.end();
     },
 );

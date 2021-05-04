@@ -1,14 +1,13 @@
-'use strict';
+import tap from 'tap';
+import { HttpIncoming } from '@podium/utils';
+import Locale from '../lib/get-locale.js';
 
-const tap = require('tap');
-const { HttpIncoming } = require('@podium/utils');
-const Locale = require('../lib/get-locale');
 
 tap.test(
     'PodiumContextLocaleParser() - instantiate new object - should create an object',
     (t) => {
         const parser = new Locale();
-        t.true(parser instanceof Locale);
+        t.ok(parser instanceof Locale);
         t.end();
     },
 );

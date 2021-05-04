@@ -1,13 +1,11 @@
-'use strict';
-
-const tap = require('tap');
-const PublicPathname = require('../lib/get-public-pathname');
+import tap from 'tap';
+import PublicPathname from '../lib/get-public-pathname.js';
 
 tap.test(
     'PodiumContextPublicPathnameParser() - instantiate new object - should create an object',
     (t) => {
         const parser = new PublicPathname();
-        t.true(parser instanceof PublicPathname);
+        t.ok(parser instanceof PublicPathname);
         t.end();
     },
 );
@@ -29,7 +27,7 @@ tap.test(
     (t) => {
         const parser = new PublicPathname();
         const resolver = parser.parse();
-        t.true(resolver instanceof Function);
+        t.ok(resolver instanceof Function);
         t.end();
     },
 );

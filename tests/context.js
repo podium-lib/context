@@ -1,8 +1,7 @@
-'use strict';
+import tap from 'tap';
+import { HttpIncoming } from '@podium/utils';
+import Context from '../lib/context.js';
 
-const tap = require('tap');
-const { HttpIncoming } = require('@podium/utils');
-const Context = require('../lib/context');
 
 const HEADER_RICH = {
     host: 'localhost:3030',
@@ -26,7 +25,7 @@ tap.test(
     'PodiumContext() - instantiate new context object - should create an object',
     (t) => {
         const context = new Context({ name: 'foo' });
-        t.true(context instanceof Context);
+        t.ok(context instanceof Context);
         t.end();
     },
 );
