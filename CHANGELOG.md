@@ -1,3 +1,16 @@
+# [5.0.0-next.5](https://github.com/podium-lib/context/compare/v5.0.0-next.4...v5.0.0-next.5) (2021-05-04)
+
+
+### Features
+
+* Convert to ESM ([b74155f](https://github.com/podium-lib/context/commit/b74155fda42dccb263bd62d1c9cd5610a357c13f))
+* Convert to ESM ([2f48d1a](https://github.com/podium-lib/context/commit/2f48d1a037d7c7c2680a0c8cd68f56d382fe2211))
+
+
+### BREAKING CHANGES
+
+* Convert from CommonJS to ESM
+
 # [5.0.0-next.4](https://github.com/podium-lib/context/compare/v5.0.0-next.3...v5.0.0-next.4) (2021-04-27)
 
 
