@@ -1,3 +1,10 @@
+## [4.1.51](https://github.com/podium-lib/context/compare/v4.1.50...v4.1.51) (2021-06-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @podium/utils to v4.4.22 ([5a7e887](https://github.com/podium-lib/context/commit/5a7e88760d55eb9cdecbffe824552b338d7ae6fc))
+
 ## [4.1.50](https://github.com/podium-lib/context/compare/v4.1.49...v4.1.50) (2021-06-07)
 
 
