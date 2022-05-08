@@ -32,7 +32,7 @@ tap.test(
                 const parser = new MountOrigin({ origin: 'x y' });
                 parser.parse({});
             },
-            /Invalid URL: x y/,
+            /Invalid URL/,
             'Should throw',
         );
         t.end();

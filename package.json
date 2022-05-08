@@ -26,17 +26,11 @@
         "dist",
         "lib"
     ],
-    "main": "./dist/context.js",
-    "exports": {
-        "require": "./dist/context.js",
-        "import": "./lib/context.js"
-    },
+    "main": "./lib/context.js",
     "scripts": {
         "lint": "eslint .",
         "lint:fix": "eslint --fix .",
-        "test": "tap --no-check-coverage",
-        "prepare": "npm run -s build",
-        "build": "rollup -c"
+        "test": "tap --no-check-coverage"
     },
     "author": "",
     "dependencies": {
@@ -46,24 +40,21 @@
         "abslog": "^2.4.0",
         "bcp47-validate": "^1.0.0",
         "bowser": "^2.7.0",
-        "decamelize": "^5.0.0",
-        "lru-cache": "^6.0.0"
+        "decamelize": "^6.0.0",
+        "lru-cache": "^7.9.0"
     },
     "devDependencies": {
         "@semantic-release/changelog": "6.0.1",
-        "@semantic-release/commit-analyzer": "9.0.2",
         "@semantic-release/git": "10.0.1",
-        "@semantic-release/github": "8.0.4",
-        "@semantic-release/npm": "9.0.1",
-        "@semantic-release/release-notes-generator": "10.0.3",
         "benchmark": "2.1.4",
-        "eslint": "7.32.0",
-        "eslint-config-airbnb-base": "14.2.1",
-        "eslint-config-prettier": "8.3.0",
-        "eslint-plugin-import": "2.24.1",
-        "eslint-plugin-prettier": "3.4.1",
-        "jest": "26.6.3",
-        "prettier": "2.2.1",
+        "eslint": "8.15.0",
+        "eslint-config-airbnb-base": "15.0.0",
+        "eslint-config-prettier": "8.5.0",
+        "eslint-plugin-import": "2.26.0",
+        "eslint-plugin-prettier": "4.0.0",
+        "@babel/eslint-parser": "7.17.0",
+        "tap": "16.2.0",
+        "prettier": "2.6.2",
         "semantic-release": "19.0.2"
     }
 }
