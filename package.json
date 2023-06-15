@@ -41,7 +41,7 @@
         "bcp47-validate": "^1.0.0",
         "bowser": "^2.7.0",
         "decamelize": "^5.0.0",
-        "lru-cache": "^6.0.0"
+        "lru-cache": "^10.0.0"
     },
     "devDependencies": {
         "@semantic-release/changelog": "6.0.3",
