@@ -1,3 +1,10 @@
+## [4.1.80](https://github.com/podium-lib/context/compare/v4.1.79...v4.1.80) (2023-11-16)
+
+
+### Bug Fixes
+
+* **deps:** update podium packages ([b307739](https://github.com/podium-lib/context/commit/b3077395444656ca541f51a5ac2eb4e7a432cee2))
+
 ## [4.1.79](https://github.com/podium-lib/context/compare/v4.1.78...v4.1.79) (2023-10-19)
 
 
