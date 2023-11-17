@@ -45,11 +45,11 @@
     },
     "devDependencies": {
         "@semantic-release/changelog": "6.0.3",
-        "@semantic-release/commit-analyzer": "9.0.2",
+        "@semantic-release/commit-analyzer": "11.1.0",
         "@semantic-release/git": "10.0.1",
-        "@semantic-release/github": "8.1.0",
-        "@semantic-release/npm": "9.0.2",
-        "@semantic-release/release-notes-generator": "10.0.3",
+        "@semantic-release/github": "9.2.3",
+        "@semantic-release/npm": "11.0.1",
+        "@semantic-release/release-notes-generator": "12.1.0",
         "benchmark": "2.1.4",
         "eslint": "7.32.0",
         "eslint-config-airbnb-base": "14.2.1",
@@ -58,6 +58,6 @@
         "eslint-plugin-prettier": "3.4.1",
         "jest": "26.6.3",
         "prettier": "2.2.1",
-        "semantic-release": "19.0.5"
+        "semantic-release": "22.0.8"
     }
 }
