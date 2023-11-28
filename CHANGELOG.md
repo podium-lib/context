@@ -1,3 +1,24 @@
+# [5.0.0](https://github.com/podium-lib/context/compare/v4.1.81...v5.0.0) (2023-11-28)
+
+
+### Bug Fixes
+
+* Update @podium/utils to 5.0.0-next.1 ([50d6648](https://github.com/podium-lib/context/commit/50d6648cfeb50b80ec4cdbb184b8795502534c67))
+* Use v5 versions of @podium/utils and @podium/schema ([79e4225](https://github.com/podium-lib/context/commit/79e4225f768c175976190dabc3e8f2e0aaf11a28))
+
+
+### Features
+
+* Convert to ESM ([b74155f](https://github.com/podium-lib/context/commit/b74155fda42dccb263bd62d1c9cd5610a357c13f))
+* Convert to ESM ([2f48d1a](https://github.com/podium-lib/context/commit/2f48d1a037d7c7c2680a0c8cd68f56d382fe2211))
+* Drop node 10.x support ([ee34ea1](https://github.com/podium-lib/context/commit/ee34ea12363fe4da61995f9e4c88bba4c11901ba))
+
+
+### BREAKING CHANGES
+
+* Convert from CommonJS to ESM
+* Only support node 12 and 14.
+
 # [5.0.0-next.7](https://github.com/podium-lib/context/compare/v5.0.0-next.6...v5.0.0-next.7) (2023-11-28)
 
 
