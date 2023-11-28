@@ -1,3 +1,16 @@
+# [5.0.0-next.7](https://github.com/podium-lib/context/compare/v5.0.0-next.6...v5.0.0-next.7) (2023-11-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @metrics/client to v2.5.1 ([6eb8556](https://github.com/podium-lib/context/commit/6eb8556999b456ce06513e6bfab0306b8bbe4ba7))
+* **deps:** update dependency @metrics/client to v2.5.2 ([df7c3c8](https://github.com/podium-lib/context/commit/df7c3c821a354da6e86b438a974de2f43b75c3c7))
+* **deps:** update dependency @podium/utils to v4.4.40 ([795569b](https://github.com/podium-lib/context/commit/795569be8de3f57e82d9f6a0812e7a95f893b4eb))
+* **deps:** update dependency @podium/utils to v4.4.41 ([0348040](https://github.com/podium-lib/context/commit/0348040bf883bce42d8c97b83638116e0e96b9d0))
+* **deps:** update dependency @podium/utils to v4.5.1 ([0c9fcbe](https://github.com/podium-lib/context/commit/0c9fcbeaed24634362fb00101a03401af127f4b3))
+* **deps:** update podium packages ([b307739](https://github.com/podium-lib/context/commit/b3077395444656ca541f51a5ac2eb4e7a432cee2))
+* **deps:** update podium packages ([4da89b4](https://github.com/podium-lib/context/commit/4da89b4ae40fd3af4f82738e5a7623bc3f4b1e7c))
+
 ## [4.1.81](https://github.com/podium-lib/context/compare/v4.1.80...v4.1.81) (2023-11-20)
 
 
