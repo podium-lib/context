@@ -22,9 +22,9 @@ $ npm install @podium/context
 Generate a context which can be passed on to an http request to a Podlet:
 
 ```js
-const { HttpIncoming } = require('@podium/utils');
-const Context = require('@podium/context');
-const http = require('http');
+import { HttpIncoming } from '@podium/utils';
+import Context from '@podium/context';
+import http from 'http';
 
 // Set up a context with the name 'myLayout'
 const context = new Context({ name: 'myLayout' });
@@ -98,7 +98,7 @@ server.
 Creates a new Podium context instance.
 
 ```js
-const Context = require('@podium/context');
+import Context from '@podium/context';
 const context = new Context({ name: 'myName' });
 ```
 
@@ -179,10 +179,10 @@ This method takes the following arguments:
 Example:
 
 ```js
-const { HttpIncoming } = require('@podium/utils');
-const Context = require('@podium/context');
-const Parser = require('my-custom-parser');
-const http = require('http');
+import { HttpIncoming } from '@podium/utils';
+import Context from '@podium/context';
+import Parser from 'my-custom-parser';
+import http from 'http';
 
 // Set up a context and register the custom parser
 const context = new Context({ name: 'myLayout' });
@@ -285,7 +285,7 @@ by passing an options object for the specific parser (see constructor options).
 Example of passing options to the built in `debug` parser:
 
 ```js
-const Context = require('@podium/context');
+import Context from '@podium/context';
 const context = new Context({
     name: 'myName',
     debug: {
@@ -311,7 +311,7 @@ The parser takes a string (required) as the first argument to the constructor.
 Example:
 
 ```js
-const Context = require('@podium/context');
+import Context from '@podium/context';
 const context = new Context({
     name: 'myName',
 });
@@ -422,7 +422,7 @@ This parser takes an optional config object with the following properties:
 Example:
 
 ```js
-const Context = require('@podium/context');
+import Context from '@podium/context';
 const context = new Context({
     name: 'myName',
     mountOrigin: {
@@ -450,7 +450,7 @@ This parser takes an optional config object with the following properties:
 Example:
 
 ```js
-const Context = require('@podium/context');
+import Context from '@podium/context';
 const context = new Context({
     name: 'myName',
     mountPathname: {
@@ -487,7 +487,7 @@ This parser takes an optional config object with the following properties:
 Example:
 
 ```js
-const Context = require('@podium/context');
+import Context from '@podium/context';
 const context = new Context({
     name: 'myName',
     publicPathname: {
