@@ -26,7 +26,7 @@ tap.test(
     (t) => {
         const parser = new DeviceType();
         t.ok(parser instanceof DeviceType);
-        t.equal
+        t.equal;
         t.end();
     },
 );
@@ -249,6 +249,24 @@ tap.test(
 
         const result = parser.statistics();
         t.equal(result.cacheItems, 2);
+        t.end();
+    },
+);
+
+tap.test(
+    'PodiumContextDeviceTypeParser.parse() - if x-podium-device-type is set, use that',
+    (t) => {
+        const parser = new DeviceType();
+        const incoming = new HttpIncoming({
+            originalUrl: 'http://www.finn.no',
+            headers: {
+                host: 'www.finn.no',
+                'x-podium-device-type': 'hybrid-ios',
+            },
+            protocol: 'http:',
+        });
+        const result = parser.parse(incoming);
+        t.equal(result, 'hybrid-ios');
         t.end();
     },
 );
