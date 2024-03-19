@@ -36,3 +36,22 @@ tap.test(
         t.end();
     },
 );
+
+tap.test(
+    'PodiumContextBaseFontSizeParser() - picks latter of multiple header values',
+    (t) => {
+        const parser = new BaseFontSizeParser();
+        const incoming = new HttpIncoming({
+            headers: {
+                host: 'localhost:3030',
+                'x-podium-base-font-size': '13rem',
+                'x-podium-base-font-size': '2rem',
+            },
+            hostname: 'localhost',
+            url: '/some/path',
+        });
+        t.ok(parser instanceof BaseFontSizeParser);
+        t.equal(parser.parse(incoming), '2rem');
+        t.end();
+    },
+);
