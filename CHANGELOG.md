@@ -1,3 +1,12 @@
+# [5.1.0-beta.1](https://github.com/podium-lib/context/compare/v5.0.3...v5.1.0-beta.1) (2024-03-20)
+
+
+### Features
+
+* add support for x-podium-base-font-size header ([6a0215c](https://github.com/podium-lib/context/commit/6a0215cce6df9bb87732ae38336206ee9614ab9a))
+* add x-podium-app-id context parser ([6390181](https://github.com/podium-lib/context/commit/63901810466b59a74cffade7d0a3f5674b2e2763))
+* pass on incoming x-podium-device-type as podium-device-type ([fe9cd46](https://github.com/podium-lib/context/commit/fe9cd46a2471cd9060b56c956bc40473ad5c818b))
+
 ## [5.0.3](https://github.com/podium-lib/context/compare/v5.0.2...v5.0.3) (2024-02-01)
 
 
