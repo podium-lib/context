@@ -26,7 +26,6 @@ tap.test(
     (t) => {
         const parser = new DeviceType();
         t.ok(parser instanceof DeviceType);
-        t.equal;
         t.end();
     },
 );

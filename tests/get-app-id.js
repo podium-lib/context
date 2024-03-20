@@ -47,6 +47,7 @@ tap.test(
             headers: {
                 host: 'localhost:3030',
                 'x-podium-app-id': 'fizz.buzz@4.3.2',
+                // eslint-disable-next-line no-dupe-keys
                 'x-podium-app-id': 'com.example.app@1.2.3',
             },
             hostname: 'localhost',

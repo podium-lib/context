@@ -45,6 +45,7 @@ tap.test(
             headers: {
                 host: 'localhost:3030',
                 'x-podium-base-font-size': '13rem',
+                // eslint-disable-next-line no-dupe-keys
                 'x-podium-base-font-size': '2rem',
             },
             hostname: 'localhost',
