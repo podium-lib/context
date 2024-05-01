@@ -59,6 +59,6 @@
         "@semantic-release/npm": "11.0.3",
         "@semantic-release/release-notes-generator": "12.1.0",
         "benchmark": "2.1.4",
-        "semantic-release": "23.0.6"
+        "semantic-release": "23.0.8"
     }
 }
