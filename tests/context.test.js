@@ -2,15 +2,12 @@ import tap from 'tap';
 import { HttpIncoming } from '@podium/utils';
 import Context from '../lib/context.js';
 
-
 const HEADER_RICH = {
     host: 'localhost:3030',
     'user-agent':
         'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Mobile Safari/537.36',
-    accept:
-        'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-    cookie:
-        '__flt_dev=token-string; finnSessionId=session-id-string; podium-bucket=%7B%7DM; USERID=123',
+    accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    cookie: '__flt_dev=token-string; finnSessionId=session-id-string; podium-bucket=%7B%7DM; USERID=123',
     'trace-id': 'trace-uuid',
     'accept-encoding': 'gzip, deflate, sdch, br',
     'accept-language':
@@ -59,6 +56,7 @@ tap.test(
         const context = new Context({ name: 'foo' });
         t.throws(
             () => {
+                // @ts-expect-error testing bad input
                 context.register();
             },
             /You must provide a value to "name"./,
@@ -75,6 +73,7 @@ tap.test(
         const context = new Context({ name: 'foo' });
         t.throws(
             () => {
+                // @ts-expect-error testing bad input
                 context.register('bar');
             },
             /You must provide a value to "parser"./,
@@ -88,7 +87,7 @@ tap.test('PodiumContext.register() - same "name" value given twice', (t) => {
     t.plan(1);
     const context = new Context({ name: 'foo' });
     const dummy = {
-        parse: () => {},
+        parse: () => 'dummy',
     };
     t.throws(
         () => {
@@ -108,6 +107,7 @@ tap.test(
         const context = new Context({ name: 'foo' });
         t.throws(
             () => {
+                // @ts-expect-error testing bad input
                 context.register('bar', {});
             },
             /Parser with the name "bar" is missing a ".parse/,
@@ -125,6 +125,7 @@ tap.test(
         t.throws(
             () => {
                 context.register('bar', {
+                    // @ts-expect-error testing bad input
                     parse: 'foo',
                 });
             },

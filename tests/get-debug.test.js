@@ -50,6 +50,7 @@ tap.test(
         t.plan(1);
         t.throws(
             () => {
+                // @ts-expect-error testing bad input
                 const parser = new Debug({ enabled: 'tadi tadum' }); // eslint-disable-line no-unused-vars
             },
             /The value provided must be a boolean value./,
