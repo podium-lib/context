@@ -1,7 +1,6 @@
 import tap from 'tap';
 import RequestedBy from '../lib/get-requested-by.js';
 
-
 tap.test(
     'PodiumContextRequestedByParser() - instantiate new object - should create an object',
     (t) => {
