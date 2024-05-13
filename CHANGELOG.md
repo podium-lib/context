@@ -1,3 +1,10 @@
+## [5.0.11](https://github.com/podium-lib/context/compare/v5.0.10...v5.0.11) (2024-05-13)
+
+
+### Bug Fixes
+
+* generate types before publishing ([752de7c](https://github.com/podium-lib/context/commit/752de7cfe573804e7dc2500607e236d687fbf447))
+
 ## [5.0.10](https://github.com/podium-lib/context/compare/v5.0.9...v5.0.10) (2024-05-13)
 
 
