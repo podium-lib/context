@@ -1,3 +1,10 @@
+## [5.0.21](https://github.com/podium-lib/context/compare/v5.0.20...v5.0.21) (2024-07-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency lru-cache to v10.4.1 ([82579e7](https://github.com/podium-lib/context/commit/82579e7f9b6d5320ee9f03d8fcc8cbd3b502026c))
+
 ## [5.0.20](https://github.com/podium-lib/context/compare/v5.0.19...v5.0.20) (2024-07-08)
 
 
