@@ -44,7 +44,7 @@
         "bcp47-validate": "^1.0.0",
         "bowser": "^2.7.0",
         "decamelize": "^6.0.0",
-        "lru-cache": "10.4.1"
+        "lru-cache": "10.4.2"
     },
     "devDependencies": {
         "@babel/eslint-parser": "7.24.7",
