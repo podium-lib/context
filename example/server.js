@@ -24,6 +24,5 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(8080, 'localhost', () => {
-    // eslint-disable-next-line no-console
     console.log('Server running at: http://localhost:8080');
 });

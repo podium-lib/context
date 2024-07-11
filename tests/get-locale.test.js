@@ -2,7 +2,6 @@ import tap from 'tap';
 import { HttpIncoming } from '@podium/utils';
 import Locale from '../lib/get-locale.js';
 
-
 tap.test(
     'PodiumContextLocaleParser() - instantiate new object - should create an object',
     (t) => {
