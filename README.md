@@ -245,11 +245,7 @@ const server = http.createServer(async (req, res) => {
     const incoming = new HttpIncoming(req, res);
     const incom = await context.process(incoming);
 
-    const headers = Context.serialize(
-        {},
-        incom.context,
-        'somePodlet',
-    );
+    const headers = Context.serialize({}, incom.context, 'somePodlet');
     request({
         headers: headers,
         method: 'GET',
@@ -519,8 +515,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-
-
-[@podium/layout]: https://github.com/podium-lib/layout "@podium/layout"
-[HttpIncoming]: https://github.com/podium-lib/utils/blob/master/lib/http-incoming.js "HttpIncoming"
-[WHATWG URL]: https://url.spec.whatwg.org/ "WHATWG URL"
+[@podium/layout]: https://github.com/podium-lib/layout '@podium/layout'
+[HttpIncoming]: https://github.com/podium-lib/utils/blob/main/lib/http-incoming.js 'HttpIncoming'
+[WHATWG URL]: https://url.spec.whatwg.org/ 'WHATWG URL'

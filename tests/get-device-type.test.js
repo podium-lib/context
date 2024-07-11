@@ -3,7 +3,7 @@ import { HttpIncoming } from '@podium/utils';
 import DeviceType from '../lib/get-device-type.js';
 
 //
-// From https://github.com/lancedikson/bowser/blob/master/src/useragents.js
+// From https://github.com/lancedikson/bowser/blob/main/src/useragents.js
 //
 
 const UA_TABLET =
