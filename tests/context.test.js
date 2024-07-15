@@ -4,6 +4,9 @@ import Context from '../lib/context.js';
 
 const HEADER_RICH = {
     host: 'localhost:3030',
+    'x-podium-app-id': 'io.podium-lib.app@1.2.3',
+    'x-podium-base-font-size': '1rem',
+    'x-podium-device-type': 'mobile',
     'user-agent':
         'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Mobile Safari/537.36',
     accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -236,6 +239,8 @@ tap.test(
         t.equal(result.context['podium-mount-origin'], 'http://localhost:3030');
         t.equal(result.context['podium-mount-pathname'], '/');
         t.equal(result.context['podium-device-type'], 'mobile');
+        t.equal(result.context['podium-app-id'], 'io.podium-lib.app@1.2.3');
+        t.equal(result.context['podium-base-font-size'], '1rem');
         t.equal(result.context['podium-locale'], 'en-US');
         t.equal(result.context['podium-debug'], 'false');
         t.equal(result.context['podium-requested-by'], 'foo');
