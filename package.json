@@ -1,6 +1,6 @@
 {
   "name": "@podium/context",
-  "version": "5.0.26",
+  "version": "5.0.27",
   "description": "Module to generate the context which is passed on requests from a Podium Layout server to a Podium Podlet server",
   "type": "module",
   "license": "MIT",
