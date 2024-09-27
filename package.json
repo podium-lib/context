@@ -32,10 +32,10 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "test": "run-s test:*",
-    "test:unit": "tap --disable-coverage --allow-empty-coverage",
-    "test:types": "tsc --project tsconfig.test.json",
-    "types": "tsc --declaration --emitDeclarationOnly"
+    "test": "tap --disable-coverage --allow-empty-coverage",
+    "types": "run-s types:tsc types:test",
+    "types:tsc": "tsc",
+    "types:test": "tsc --project tsconfig.test.json"
   },
   "author": "",
   "dependencies": {
@@ -50,18 +50,12 @@
   },
   "devDependencies": {
     "@podium/eslint-config": "1.0.0",
+    "@podium/typescript-config": "1.0.0",
     "@semantic-release/changelog": "6.0.3",
-    "@semantic-release/commit-analyzer": "11.1.0",
     "@semantic-release/git": "10.0.1",
-    "@semantic-release/github": "9.2.6",
-    "@semantic-release/npm": "11.0.3",
-    "@semantic-release/release-notes-generator": "12.1.0",
     "@types/readable-stream": "4.0.15",
     "eslint": "9.9.1",
-    "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-prettier": "5.2.1",
-    "globals": "15.9.0",
-    "npm-run-all2": "5.0.2",
+    "npm-run-all2": "6.2.3",
     "prettier": "3.3.3",
     "semantic-release": "23.1.1",
     "tap": "18.8.0",
