@@ -148,6 +148,24 @@ tap.test(
 );
 
 tap.test(
+    'PodiumContextDeviceTypeParser.parse() - "x-podium-device-type" should override "user-agent"',
+    (t) => {
+        const parser = new DeviceType();
+        const incoming = new HttpIncoming(
+            Object.assign(REQ, {
+                headers: {
+                    'x-podium-device-type': 'hybrid-ios',
+                    'user-agent': UA_DESKTOP,
+                },
+            }),
+        );
+        const result = parser.parse(incoming);
+        t.equal(result, 'hybrid-ios');
+        t.end();
+    },
+);
+
+tap.test(
     'PodiumContextDeviceTypeParser.parse() - parse a new UA - should not exist in cache pre parsing and should exist in cache post parsing',
     (t) => {
         const parser = new DeviceType();
