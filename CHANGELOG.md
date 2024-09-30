@@ -1,3 +1,10 @@
+# [5.1.0](https://github.com/podium-lib/context/compare/v5.0.29...v5.1.0) (2024-09-30)
+
+
+### Features
+
+* add context parsers for hybrid headers ([#260](https://github.com/podium-lib/context/issues/260)) ([73a7581](https://github.com/podium-lib/context/commit/73a7581f0bdf54451d80cc4dadf6f61e3920bf6a))
+
 ## [5.0.29](https://github.com/podium-lib/context/compare/v5.0.28...v5.0.29) (2024-09-23)
 
 
