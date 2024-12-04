@@ -3,7 +3,6 @@
 Module to generate the context which is passed on requests from a Podium Layout
 server to a Podium Podlet server.
 
-[![Dependencies](https://img.shields.io/david/podium-lib/context.svg)](https://david-dm.org/podium-lib/context)
 ![GitHub Actions status](https://github.com/podium-lib/context/workflows/Run%20Lint%20and%20Tests/badge.svg)
 
 This module is intended for internal use in Podium and is not a module an end
