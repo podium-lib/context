@@ -5,7 +5,6 @@ server to a Podium Podlet server.
 
 [![Dependencies](https://img.shields.io/david/podium-lib/context.svg)](https://david-dm.org/podium-lib/context)
 ![GitHub Actions status](https://github.com/podium-lib/context/workflows/Run%20Lint%20and%20Tests/badge.svg)
-[![Known Vulnerabilities](https://snyk.io/test/github/podium-lib/context/badge.svg)](https://snyk.io/test/github/podium-lib/context)
 
 This module is intended for internal use in Podium and is not a module an end
 user would use directly. End users will typically interact with this module
