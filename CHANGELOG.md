@@ -1,3 +1,10 @@
+## [5.1.5](https://github.com/podium-lib/context/compare/v5.1.4...v5.1.5) (2025-06-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @metrics/client to v2.5.5 ([#296](https://github.com/podium-lib/context/issues/296)) ([b2db9d8](https://github.com/podium-lib/context/commit/b2db9d85b02bbd649dbd973da4b84b7cdbacfc2c))
+
 ## [5.1.4](https://github.com/podium-lib/context/compare/v5.1.3...v5.1.4) (2025-06-24)
 
 
