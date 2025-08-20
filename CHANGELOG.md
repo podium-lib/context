@@ -1,3 +1,10 @@
+## [5.1.6](https://github.com/podium-lib/context/compare/v5.1.5...v5.1.6) (2025-08-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency decamelize to v6.0.1 ([#303](https://github.com/podium-lib/context/issues/303)) ([5660e7d](https://github.com/podium-lib/context/commit/5660e7da4166c674a6d30a8208a5eeae2735b328))
+
 ## [5.1.5](https://github.com/podium-lib/context/compare/v5.1.4...v5.1.5) (2025-06-27)
 
 
