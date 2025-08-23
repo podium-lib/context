@@ -1,3 +1,10 @@
+## [5.1.7](https://github.com/podium-lib/context/compare/v5.1.6...v5.1.7) (2025-08-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bowser to v2.12.1 ([#301](https://github.com/podium-lib/context/issues/301)) ([cbdbbed](https://github.com/podium-lib/context/commit/cbdbbede42d63742c9bb814a669189910d2b6c41))
+
 ## [5.1.6](https://github.com/podium-lib/context/compare/v5.1.5...v5.1.6) (2025-08-20)
 
 
