@@ -1,3 +1,10 @@
+## [5.1.8](https://github.com/podium-lib/context/compare/v5.1.7...v5.1.8) (2025-12-12)
+
+
+### Bug Fixes
+
+* update dependencies ([f55f934](https://github.com/podium-lib/context/commit/f55f9349ffc0264594b28674bc58b3d78b8ebffe))
+
 ## [5.1.7](https://github.com/podium-lib/context/compare/v5.1.6...v5.1.7) (2025-08-23)
 
 
