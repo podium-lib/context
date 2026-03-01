@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@podium/eslint-config": "1.0.21",
-    "@podium/semantic-release-config": "3.0.2",
+    "@podium/semantic-release-config": "3.0.4",
     "@podium/typescript-config": "1.0.0",
     "@types/readable-stream": "4.0.23",
     "eslint": "9.39.2",
