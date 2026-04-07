@@ -1,3 +1,10 @@
+## [5.1.10](https://github.com/podium-lib/context/compare/v5.1.9...v5.1.10) (2026-04-07)
+
+
+### Bug Fixes
+
+* update podium dependencies ([1aeceff](https://github.com/podium-lib/context/commit/1aeceff5456c5f365f55f4a7dbca81b2c74189bb))
+
 ## [5.1.9](https://github.com/podium-lib/context/compare/v5.1.8...v5.1.9) (2026-02-15)
 
 
