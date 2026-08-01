@@ -52,7 +52,7 @@
     "@podium/eslint-config": "2.0.9",
     "@podium/semantic-release-config": "3.0.5",
     "@podium/typescript-config": "1.0.1",
-    "@types/readable-stream": "4.0.23",
+    "@types/readable-stream": "4.0.24",
     "eslint": "9.39.4",
     "npm-run-all2": "8.0.4",
     "prettier": "3.9.4",
