@@ -45,7 +45,7 @@
     "abslog": "2.4.4",
     "bcp47-validate": "^1.0.0",
     "bowser": "^2.7.0",
-    "decamelize": "^6.0.0",
+    "decamelize": "^7.0.0",
     "lru-cache": "10.4.3"
   },
   "devDependencies": {
